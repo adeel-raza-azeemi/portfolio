@@ -79,7 +79,7 @@
             <div class="relative w-full max-w-sm">
               <div class="absolute inset-0 bg-gradient-to-br from-accent to-primary opacity-20 rounded-2xl blur-2xl" />
               <img
-                src="https://cdn.manus.computer/manus-storage/portfolio_bdfd80a4.jpeg"
+                :src="url"
                 alt="Adeel Raza"
                 class="relative w-full rounded-2xl shadow-2xl border-4 border-white"
               />
@@ -98,7 +98,7 @@
             <div class="relative w-full max-w-sm">
               <div class="absolute inset-0 bg-gradient-to-br from-primary/20 to-accent/20 rounded-xl blur-xl" />
               <img
-                src="https://cdn.manus.computer/manus-storage/portfolio_bdfd80a4.jpeg"
+                :src="url"
                 alt="Adeel Raza"
                 class="relative w-full rounded-xl shadow-lg border-2 border-accent/20"
               />
@@ -300,6 +300,8 @@ import { RouterLink } from 'vue-router'
 import { ArrowRight, Download, Github, Linkedin, Twitter } from 'lucide-vue-next'
 
 const currentYear = computed(() => new Date().getFullYear())
+
+const url = ref('/images/profile.jpeg')
 
 const backendSkills = ref([
   'Laravel',
