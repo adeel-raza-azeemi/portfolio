@@ -5,7 +5,9 @@
       <div class="container py-4 flex items-center justify-between">
         <div class="flex items-center gap-2">
           <div class="w-10 h-10 bg-gradient-to-br from-primary to-accent rounded-lg flex items-center justify-center">
-            <span class="text-white font-bold text-lg">A</span>
+            <span class="text-white font-bold text-lg">
+              <img src="/images/logo.svg" alt="Logo" class="w-6 h-6" />
+            </span>
           </div>
           <span class="font-bold text-lg text-primary">Adeel Raza</span>
         </div>
@@ -60,7 +62,7 @@
                   <ArrowRight class="w-4 h-4" />
                 </button>
               </RouterLink>
-              <a href="https://cdn.manus.computer/manus-storage/adeel_resume_0039b9ef.pdf" target="_blank" rel="noopener noreferrer" class="inline-flex">
+              <a href="/docs/adeel_resume.jpg" target="_blank" rel="noopener noreferrer" class="inline-flex">
                 <button class="h-12 px-6 text-base border-2 border-primary text-primary hover:bg-primary/5 rounded-lg font-medium flex items-center gap-2 transition-colors">
                   <Download class="w-4 h-4" />
                   Download Resume
