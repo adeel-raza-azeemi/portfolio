@@ -15,6 +15,6 @@ npx gh-pages -d dist/public
 echo "💾 Backing up source code to GitHub repository..."
 git add .
 git commit -m "Correction $(date +'%Y-%m-%d %I:%M')"
-git push origin main # Change to master if your default tracking branch is still master
+git push origin main
 
 echo "✅ Everything deployed and backed up successfully!"

@@ -181,7 +181,7 @@ const projects = ref([
     tagline: 'Intelligent staff data consolidation and search',
     description:
       'An advanced HR system designed to solve the critical challenge of managing fragmented employee data across multiple organizational systems. Using fuzzy matching algorithms, the system consolidates duplicate records, enables intelligent staff search, and provides a single source of truth for HR operations.',
-    impact: 'Consolidated 15,000+ staff records with 99.2% accuracy, eliminating duplicate payments and improving HR efficiency',
+    impact: 'Consolidated 5,000+ staff records with 99.2% accuracy, eliminating duplicate payments and improving HR efficiency',
     technologies: ['Laravel', 'Vue.js', 'MariaDB', 'Fuzzy Matching Algorithms'],
     features: [
       'Intelligent data consolidation with fuzzy matching',
@@ -196,19 +196,19 @@ const projects = ref([
         title: 'Staff Search Interface',
         description: 'Powerful search with fuzzy matching to find staff across consolidated database',
         placeholder: 'Search interface with filters, results showing matched staff profiles',
-        url: '/images/hr/search.jpeg',
+        url: '/images/hr/search.png',
       },
-      {
+      /* {
         title: 'Duplicate Detection Dashboard',
         description: 'Automated detection of duplicate records with merge recommendations',
         placeholder: 'Dashboard showing potential duplicates with similarity scores and merge options',
         url: '/images/hr/duplicates.jpeg',
-      },
+      }, */
       {
         title: 'Profile Consolidation',
         description: 'Unified staff profile combining data from multiple sources',
         placeholder: 'Consolidated staff profile showing all information from integrated sources',
-        url: '/images/hr/profile.jpeg',
+        url: '/images/hr/entry.png',
       },
     ],
   },
@@ -217,9 +217,9 @@ const projects = ref([
     title: 'Relief Distribution Tracking System',
     tagline: 'Real-time emergency relief operations management',
     description:
-      'A mobile-first system built during the Pakistan flood emergency to track distribution of relief materials (NFI - Non-Food Items) to beneficiaries across multiple districts. The system enables field teams to register beneficiaries, record distributions, and generate real-time reports for coordination and accountability.',
-    impact: 'Coordinated relief distribution to 50,000+ beneficiaries across 5 districts with real-time tracking and accountability',
-    technologies: ['Firebase', 'Vue.js', 'Mobile-First Design', 'Real-time Sync'],
+      'A system built during the Pakistan flood emergency to track distribution of relief materials (NFI - Non-Food Items) to beneficiaries across multiple districts. The system enables field teams to register beneficiaries, record distributions, and generate real-time reports for coordination and accountability.',
+    impact: 'Coordinated relief distribution to 58,204+ beneficiaries across 3 districts with real-time tracking and accountability',
+    technologies: ['PHP', 'JQuery', 'MySQL', 'Real-time Sync'],
     features: [
       'Beneficiary registration and verification',
       'NFI distribution tracking',
@@ -234,7 +234,7 @@ const projects = ref([
         description: 'Mobile-optimized form for rapid beneficiary registration in field conditions',
         placeholder: 'Registration form with family details, contact information, and verification',
         url: '/images/relief/registration.jpeg',
-      },
+      } /* ,
       {
         title: 'Distribution Tracking',
         description: 'Real-time tracking of NFI distribution with offline capability',
@@ -246,7 +246,7 @@ const projects = ref([
         description: 'Aggregated reporting showing distribution progress across districts',
         placeholder: 'Dashboard with district maps, distribution statistics, and beneficiary counts',
         url: '/images/relief/dashboard.jpeg',
-      },
+      }, */
     ],
   },
 ])
