@@ -93,7 +93,7 @@
               </ul>
             </div>
 
-            <template v-if="project.id === 1">
+            <template v-if="project.layout === 'screenshots'">
               <div>
                 <h3
                   v-if="project.workflow.before.length > 0 || project.workflow.after.length > 0 || project.workflow.sources.length > 0"
@@ -215,7 +215,7 @@
                 <p class="paragraph-P1">{{ source }}</p>
               </template>
             </div>
-            <template v-if="project.screenshots.length > 0">
+            <template v-if="project.layout === 'screenshots'">
               <h3 class="paragraph-Heading_20_3">Screenshots</h3>
               <div v-for="(screenshot, screenshotIndex) in project.screenshots" :key="screenshotIndex"
                 class="bg-white rounded-lg border border-border overflow-hidden hover:border-accent transition-colors group">
@@ -414,6 +414,7 @@ const projects = ref([
         title: 'Bulk ERP Synchronization',
         description: 'Automated JSON-based import module for missing employee records',
         content: 'Synchronization dashboard showing pending records to be imported, JSON preview of import packages, batch processing status, and reconciliation reports',
+        url: '/images/hr/bulk_load.png'
       },
     ],
   },
