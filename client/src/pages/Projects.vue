@@ -1,18 +1,5 @@
 <template>
   <div class="min-h-screen bg-background">
-    <!-- Navigation -->
-    <nav class="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-border">
-      <div class="container py-4 flex items-center justify-between">
-        <RouterLink to="/" class="flex items-center gap-2 hover:opacity-70 transition-opacity">
-          <ArrowLeft class="w-5 h-5 text-primary" />
-          <span class="font-bold text-lg text-primary">Adeel Raza</span>
-        </RouterLink>
-        <RouterLink to="/" class="text-sm font-medium text-foreground hover:text-accent transition-colors">
-          Back to Home
-        </RouterLink>
-      </div>
-    </nav>
-
     <!-- Header -->
     <section class="py-16 md:py-24 bg-white border-b border-border">
       <div class="container">
