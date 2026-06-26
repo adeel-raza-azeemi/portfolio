@@ -89,7 +89,7 @@
                 <DisclosurePanel class="mt-2 space-y-2">
                   <DisclosureButton v-for="item in [...technicalArticles]" :key="item.name" as="a" :href="item.href"
                     class="block rounded-lg py-2 pr-3 pl-6 text-sm/7 font-semibold text-gray-900 hover:bg-gray-50">{{
-                    item.name }}</DisclosureButton>
+                      item.name }}</DisclosureButton>
                 </DisclosurePanel>
               </Disclosure>
             </div>
@@ -125,8 +125,9 @@ import {
 import { ChevronDownIcon, PhoneIcon, PlayCircleIcon } from '@heroicons/vue/20/solid'
 
 const technicalArticles = [
-  { name: 'ProcurementDigitizationLessons', description: '', href: '/technicalArticle/procurement-digitization-lessons', icon: ChartPieIcon },
   { name: 'EmployeeRecordDeduplication', description: '', href: '/technicalArticle/employee-record-deduplication', icon: CursorArrowRaysIcon },
+  { name: 'EngineeringPracticalEmployeeSearch', description: '', href: '/technicalArticle/engineering-practical-employee-search', icon: CursorArrowRaysIcon },
+  { name: 'ProcurementDigitizationLessons', description: '', href: '/technicalArticle/procurement-digitization-lessons', icon: ChartPieIcon },
   { name: 'ImportingSQLServerToMySQL', description: '', href: '/technicalArticle/importing-sql-server-to-mysql', icon: FingerPrintIcon },
   { name: 'BuildingMedicalMISForNGO', description: '', href: '/technicalArticle/building-medical-mis-for-ngo', icon: SquaresPlusIcon }
 ]

@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0//EN" "http://www.w3.org/Math/DTD/mathml2/xhtml-math11-f.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
+<!--This file was converted to xhtml by LibreOffice - see https://cgit.freedesktop.org/libreoffice/core/tree/filter/source/xslt for the code.-->
+
+<head profile="http://dublincore.org/documents/dcmi-terms/">
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8"/>
+<title xml:lang="en-US">- no title specified</title>
+<meta name="DCTERMS.title" content="" xml:lang="en-US"/>
+
+<meta name="DCTERMS.language" content="en-US" scheme="DCTERMS.RFC4646"/>
+<meta name="DCTERMS.source" content="http://xml.openoffice.org/odf2xhtml"/>
+
+<meta name="DCTERMS.issued" content="2026-06-26T19:43:26.448044638" scheme="DCTERMS.W3CDTF"/>
+
+<meta name="DCTERMS.modified" content="2026-06-26T19:44:16.659080186" scheme="DCTERMS.W3CDTF"/>
+
+
+<meta name="xsl:vendor" content="libxslt"/>
+<link rel="schema.DC" href="http://purl.org/dc/elements/1.1/" hreflang="en"/>
+<link rel="schema.DCTERMS" href="http://purl.org/dc/terms/" hreflang="en"/>
+<link rel="schema.DCTYPE" href="http://purl.org/dc/dcmitype/" hreflang="en"/>
+<link rel="schema.DCAM" href="http://purl.org/dc/dcam/" hreflang="en"/>
+
+<style>
+    table { border-collapse:collapse; border-spacing:0; empty-cells:show }
+    td, th { vertical-align:top; font-size:12pt;}
+    h1, h2, h3, h4, h5, h6 { clear:both;}
+    ol, ul { margin:0; padding:0;}
+    li { list-style: none; margin:0; padding:0;}
+    span.footnodeNumber { padding-right:1em; }
+    span.annotation_style_by_filter { font-size:95%; font-family:Arial; background-color:#fff000;  margin:0; border:0; padding:0;  }
+    span.heading_numbering { margin-right: 0.8rem; }* { margin:0;}
+    .paragraph-Heading_20_1{ font-size:24pt; margin-bottom:0.0835in; margin-top:0.1665in; font-family:'Liberation Serif'; writing-mode:horizontal-tb; direction:ltr;font-weight:bold; }
+    .paragraph-Heading_20_2{ font-size:18pt; margin-bottom:0.0835in; margin-top:0.139in; font-family:'Liberation Serif'; writing-mode:horizontal-tb; direction:ltr;font-weight:bold; }
+    .paragraph-Heading_20_3{ font-size:14pt; margin-bottom:0.0835in; margin-top:0.0972in; font-family:'Liberation Serif'; writing-mode:horizontal-tb; direction:ltr;font-weight:bold; }
+    .paragraph-Horizontal_20_Line{ font-size:6pt; font-family:'Liberation Serif'; writing-mode:horizontal-tb; direction:ltr;margin-top:0in; margin-bottom:0.1965in; padding:0in; border-left-style:none; border-right-style:none; border-top-style:none; border-bottom-width:0.0399cm; border-bottom-style:double; border-bottom-color:#808080; }
+    .paragraph-P1{ font-size:12pt; line-height:115%; margin-bottom:0.0972in; margin-top:0in; font-family:'Liberation Serif'; writing-mode:horizontal-tb; direction:ltr;}
+    .paragraph-P2{ font-size:12pt; line-height:115%; margin-bottom:0.0972in; margin-top:0in; font-family:'Liberation Serif'; writing-mode:horizontal-tb; direction:ltr;}
+    .paragraph-Quotations{ font-size:12pt; font-family:'Liberation Serif'; writing-mode:horizontal-tb; direction:ltr;margin-left:0.3937in; margin-right:0.3937in; margin-top:0in; margin-bottom:0.1965in; text-indent:0in; }
+    .paragraph-Standard{ font-size:12pt; font-family:'Liberation Serif'; writing-mode:horizontal-tb; direction:ltr;}
+    .paragraph-Text_20_body{ font-size:12pt; font-family:'Liberation Serif'; writing-mode:horizontal-tb; direction:ltr;margin-top:0in; margin-bottom:0.0972in; line-height:115%; }
+    .text-Bullet_20_Symbols{ font-family:OpenSymbol; }
+    .text-Strong_20_Emphasis{ font-weight:bold; }
+    /* ODF styles with no properties representable as CSS:
+     { } */
+</style>
+</head>
+
+<body dir="ltr" style="max-width:8.2681in;margin-top:0.7874in; margin-bottom:0.7874in; margin-left:0.7874in; margin-right:0.7874in; ">
+<h1 class="paragraph-Heading_20_1"><a id="a__Engineering_Practical_Employee_Search_in_Resource_Constrained_Organizations"><span/></a>Engineering Practical Employee Search in Resource-Constrained Organizations</h1>
+<h3 class="paragraph-Heading_20_3"><a id="a__A_Case_Study_in_Reverse_Engineering__Data_Consolidation__and_Multi_Strategy_Record_Retrieval"><span/></a>A Case Study in Reverse Engineering, Data Consolidation, and Multi-Strategy Record Retrieval</h3>
+<p class="paragraph-Horizontal_20_Line"> </p><h1 class="paragraph-Heading_20_1"><a id="a__Part_1___Introduction"><span/></a>Part 1 — Introduction</h1>
+<h2 class="paragraph-Heading_20_2"><a id="a__Abstract"><span/></a>Abstract</h2>
+
+<p class="paragraph-Text_20_body">Employee information is one of the most valuable assets within any organization. As organizations evolve over time, however, employee records often become fragmented across multiple information systems. New software replaces old software, departments maintain their own databases, and data migration projects are frequently constrained by limited budgets, incomplete documentation, and operational deadlines. The result is an increasingly complex environment where locating a single employee record becomes more difficult than it should be.</p>
+
+<p class="paragraph-Text_20_body">This article presents the design and implementation of an Employee Search and Data Consolidation Management Information System (MIS) developed during the migration of a legacy Human Resources system to a new Enterprise Resource Planning (ERP) platform within a non-governmental organization (NGO) in Pakistan.</p>
+
+<p class="paragraph-Text_20_body">Rather than proposing a new search algorithm, this paper documents the engineering decisions required to build a practical solution under real-world constraints. The project involved reverse engineering an undocumented ERP database, consolidating employee information from three independent systems, constructing unified database views, and implementing multiple complementary search techniques—including SQL pattern matching, phonetic matching, regular expressions, and edit-distance algorithms—to improve employee retrieval during a large-scale migration effort.</p>
+
+<p class="paragraph-Text_20_body">The objective was not to identify a single "best" search algorithm. Instead, the system was designed around a simple engineering observation: different search techniques excel under different conditions, and combining their strengths provides a more practical solution than relying on any individual method.</p>
+<p class="paragraph-Horizontal_20_Line"> </p><h1 class="paragraph-Heading_20_1"><a id="a__1__Introduction"><span/></a>1. Introduction</h1>
+
+<p class="paragraph-Text_20_body">Software engineering rarely begins with a blank page.</p>
+
+<p class="paragraph-Text_20_body">Most enterprise software is developed within environments where systems already exist, historical decisions cannot easily be changed, and operational requirements often outweigh architectural perfection. Engineers working in these environments spend as much time understanding existing systems as they do writing new code.</p>
+
+<p class="paragraph-Text_20_body">This project emerged from one such situation.</p>
+
+<p class="paragraph-Text_20_body">Our organization operated two independent Human Resource systems. The first was a legacy HR Management Information System developed using Microsoft's technology stack. Later, the organization adopted a commercial Enterprise Resource Planning (ERP) solution to centralize HR and Finance operations. Although the ERP offered a broader range of administrative capabilities, one limitation quickly became apparent during data migration: locating employee records was unnecessarily difficult.</p>
+
+<p class="paragraph-Text_20_body">The ERP relied almost exclusively on exact matching. A minor spelling variation, an omitted space, or a typographical error was often enough to prevent an employee from being found. During migration, this introduced a significant operational risk. Staff members could unknowingly create duplicate employee records simply because an existing record could not be located.</p>
+
+<p class="paragraph-Text_20_body">The challenge was further complicated by the organization's existing data landscape. Employee information existed across three independent systems:</p>
+<ul><li><p class="P1" style="margin-left:0.7521cm;"><span class="Bullet_20_Symbols" style="display:block;float:left;min-width:0.4991cm;">•</span>The legacy HR database.<span class="odfLiEnd"/> </p></li><li><p class="P1" style="margin-left:0.7521cm;"><span class="Bullet_20_Symbols" style="display:block;float:left;min-width:0.4991cm;">•</span>The new ERP database.<span class="odfLiEnd"/> </p></li><li><p class="P1" style="margin-left:0.7521cm;"><span class="Bullet_20_Symbols" style="display:block;float:left;min-width:0.4991cm;">•</span>An internal Human Resource Development Centre (HRDC) database containing historical employee information.<span class="odfLiEnd"/> </p></li></ul>
+<p class="paragraph-Text_20_body">Collectively, these systems contained more than five thousand employee records, each maintained independently over several years.</p>
+
+<p class="paragraph-Text_20_body">The objective was therefore not simply to build another search interface. The goal was to create a practical engineering tool capable of searching across multiple heterogeneous data sources while tolerating the inconsistencies naturally introduced by human data entry.</p>
+<p class="paragraph-Horizontal_20_Line"> </p><h1 class="paragraph-Heading_20_1"><a id="a__2__Engineering_Under_Constraints"><span/></a>2. Engineering Under Constraints</h1>
+
+<p class="paragraph-Text_20_body">Engineering decisions are always shaped by constraints.</p>
+
+<p class="paragraph-Text_20_body">Unlike large commercial software companies, many NGOs operate with limited budgets and must carefully prioritize where resources are invested. Purchasing additional commercial software simply to support an internal migration project was neither practical nor necessary.</p>
+
+<p class="paragraph-Text_20_body">For this reason, the project was deliberately built using open-source technologies wherever possible.</p>
+
+<p class="paragraph-Text_20_body">Although the ERP itself relied on proprietary technologies—including Oracle Database, Microsoft SQL Server, and a Microsoft-based application stack—the supporting MIS was developed using PHP and MySQL (later MariaDB). This choice was driven less by database performance and more by portability, accessibility, and long-term maintainability.</p>
+
+<p class="paragraph-Text_20_body">Open-source software offered several practical advantages.</p>
+
+<p class="paragraph-Text_20_body">First, it eliminated licensing costs for internal support tools.</p>
+
+<p class="paragraph-Text_20_body">Second, it aligned naturally with Linux-based deployment environments already familiar within the organization.</p>
+
+<p class="paragraph-Text_20_body">Finally, the development ecosystem surrounding PHP and MySQL enabled rapid experimentation without requiring additional commercial infrastructure.</p>
+
+<p class="paragraph-Text_20_body">These constraints influenced nearly every technical decision made throughout the project. Rather than attempting to modify the ERP itself, the supporting MIS was designed as an independent layer capable of extracting, consolidating, and searching employee information without interfering with the production ERP environment.</p>
+
+<p class="paragraph-Text_20_body">This architectural separation ultimately proved to be one of the project's greatest strengths.</p>
+<p class="paragraph-Horizontal_20_Line"> </p><h1 class="paragraph-Heading_20_1"><a id="a__3__The_Engineering_Problem"><span/></a>3. The Engineering Problem</h1>
+
+<p class="paragraph-Text_20_body">At first glance, searching for an employee appears to be a trivial task.</p>
+
+<p class="paragraph-Text_20_body">In practice, enterprise employee data presents numerous challenges:</p>
+<ul><li><p class="P2" style="margin-left:0.7521cm;"><span class="Bullet_20_Symbols" style="display:block;float:left;min-width:0.4991cm;">•</span>Names may be misspelled.<span class="odfLiEnd"/> </p></li><li><p class="P2" style="margin-left:0.7521cm;"><span class="Bullet_20_Symbols" style="display:block;float:left;min-width:0.4991cm;">•</span>Employees may use abbreviated names.<span class="odfLiEnd"/> </p></li><li><p class="P2" style="margin-left:0.7521cm;"><span class="Bullet_20_Symbols" style="display:block;float:left;min-width:0.4991cm;">•</span>Records may contain inconsistent spacing or punctuation.<span class="odfLiEnd"/> </p></li><li><p class="P2" style="margin-left:0.7521cm;"><span class="Bullet_20_Symbols" style="display:block;float:left;min-width:0.4991cm;">•</span>Historical systems often follow different naming conventions.<span class="odfLiEnd"/> </p></li><li><p class="P2" style="margin-left:0.7521cm;"><span class="Bullet_20_Symbols" style="display:block;float:left;min-width:0.4991cm;">•</span>Multiple databases may contain slightly different versions of the same individual.<span class="odfLiEnd"/> </p></li></ul>
+<p class="paragraph-Text_20_body">An exact search succeeds only when the search term precisely matches the stored value.</p>
+
+<p class="paragraph-Text_20_body">Real-world data rarely behaves so conveniently.</p>
+
+<p class="paragraph-Text_20_body">Consequently, the central engineering question became:</p>
+
+<p class="paragraph-Quotations"><span class="text-Strong_20_Emphasis">How can multiple imperfect employee databases be searched in a way that maximizes the probability of finding the correct person without requiring users to understand the strengths and weaknesses of individual search algorithms?</span></p>
+
+<p class="paragraph-Text_20_body">This question guided every design decision discussed throughout the remainder of this paper.</p>
+<p class="paragraph-Standard"> </p></body>
+
+</html>

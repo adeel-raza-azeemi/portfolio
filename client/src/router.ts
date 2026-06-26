@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 import Home from './pages/Home.vue'
 import Projects from './pages/Projects.vue'
 import EmployeeRecordDeduplication from './pages/TechnicalArticle/EmployeeRecordDeduplication.vue'
+import EngineeringPracticalEmployeeSearch from './pages/TechnicalArticle/EngineeringPracticalEmployeeSearch.vue'
 import ImportingSQLServerToMySQL from './pages/TechnicalArticle/ImportingSQLServerToMySQL.vue'
 import BuildingMedicalMISForNGO from './pages/TechnicalArticle/BuildingMedicalMISForNGO.vue'
 import ProcurementDigitizationLessons from './pages/TechnicalArticle/ProcurementDigitizationLessons.vue'
@@ -26,6 +27,13 @@ const routes = [
     component: EmployeeRecordDeduplication,
     meta: { layout: 'DefaultLayout' } // Uses main app layout
   },
+  { 
+    path: '/technicalArticle/engineering-practical-employee-search', 
+    name: 'EngineeringPracticalEmployeeSearch', 
+    component: EngineeringPracticalEmployeeSearch,
+    meta: { layout: 'DefaultLayout' } // Uses main app layout
+  },
+
   { 
     path: '/technicalArticle/importing-sql-server-to-mysql', 
     name: 'ImportingSQLServerToMySQL', 
