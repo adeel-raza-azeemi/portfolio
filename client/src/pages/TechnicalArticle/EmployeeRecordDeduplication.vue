@@ -20,7 +20,7 @@
       different systems:</p>
     <ul class="max-w-full space-y-1 text-body list-disc list-inside">
       <li>
-        <span class="font-bold text-indigo-600">ERP Database</span> - The organization's
+        <span class="font-bold text-indigo-600">ERP Database </span> - The organization's
           primary
           Human Resource and Finance system.
       </li>
