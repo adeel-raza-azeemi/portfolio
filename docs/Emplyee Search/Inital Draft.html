@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+	<title></title>
+	<meta name="generator" content="LibreOffice 26.2.4.2 (Linux)"/>
+	<meta name="created" content="2026-06-26T15:32:44.275254547"/>
+	<meta name="changed" content="2026-06-26T15:34:07.863730685"/>
+	<style type="text/css">
+		@page { size: 8.27in 11.69in; margin: 0.79in }
+		p { margin-bottom: 0.1in; line-height: 115%; background: transparent }
+		h1 { margin-bottom: 0.08in; background: transparent; page-break-after: avoid }
+		h1.western { font-family: "Liberation Serif", serif; font-size: 24pt; font-weight: bold }
+		h1.cjk { font-family: "Noto Serif CJK SC"; font-size: 24pt; font-weight: bold }
+		h1.ctl { font-size: 24pt; font-family: "Noto Sans Devanagari"; font-weight: bold }
+		h2 { margin-top: 0.14in; margin-bottom: 0.08in; background: transparent; page-break-after: avoid }
+		h2.western { font-family: "Liberation Serif", serif; font-size: 18pt; font-weight: bold }
+		h2.cjk { font-family: "Noto Serif CJK SC"; font-size: 18pt; font-weight: bold }
+		h2.ctl { font-size: 18pt; font-family: "Noto Sans Devanagari"; font-weight: bold }
+		h3 { margin-top: 0.1in; margin-bottom: 0.08in; background: transparent; page-break-after: avoid }
+		h3.western { font-family: "Liberation Serif", serif; font-size: 14pt; font-weight: bold }
+		h3.cjk { font-family: "Noto Serif CJK SC"; font-size: 14pt; font-weight: bold }
+		h3.ctl { font-size: 14pt; font-family: "Noto Sans Devanagari"; font-weight: bold }
+		blockquote { margin-right: 0.39in; margin-left: 0.39in; background: transparent }
+		pre { background: transparent }
+		pre.western { font-family: "Liberation Mono", monospace; font-size: 10pt }
+		pre.cjk { font-family: "Noto Sans Mono CJK SC", monospace; font-size: 10pt }
+		pre.ctl { font-family: "Liberation Mono", monospace; font-size: 10pt }
+		strong { font-weight: bold }
+		code.western { font-family: "Liberation Mono", monospace }
+		code.cjk { font-family: "Noto Sans Mono CJK SC", monospace }
+		code.ctl { font-family: "Liberation Mono", monospace }
+		a:link { color: #000080; text-decoration: underline }
+		a:visited { color: #800000; text-decoration: underline }
+	</style>
+</head>
+<body lang="en-US" link="#000080" vlink="#800000" dir="ltr"><h1 class="western">
+Searching Employee Records Across Multiple Databases</h1>
+<h2 class="western">Why Exact Matching Is Not Enough</h2>
+<h3 class="western">Introduction</h3>
+<p>Every organization eventually faces a data consistency problem.</p>
+<p>Sometimes it begins with a new HR application. Later an ERP is
+introduced. Older systems continue to exist because they still
+contain historical information, while newer systems become the
+official source of truth. Over time, employee information becomes
+fragmented across multiple databases, each designed independently and
+optimized for its own purpose.</p>
+<p>This was exactly the challenge I encountered while developing an
+internal Employee Search &amp; Data Consolidation Management
+Information System (MIS).</p>
+<p>The organization maintained employee information in three
+different systems:</p>
+<ul>
+	<li><p><strong>ERP Database</strong> – The organization's primary
+	Human Resource and Finance system.</p></li>
+	<li><p><strong>Legacy HR Database</strong> – A standalone HR
+	application used before ERP implementation.</p></li>
+	<li><p><strong>HRDC Database</strong> – An internal staff database
+	maintained by the Human Resource Development Centre.</p></li>
+</ul>
+<p>Collectively these systems contained more than <strong>5,100
+employee records</strong>.</p>
+<p>Although the ERP became the official HR platform, daily operations
+revealed a practical problem. Staff members frequently searched for
+employees whose names were misspelled, entered differently, or
+existed in multiple systems. The ERP's search mechanism required
+exact matches. Even a minor spelling mistake, missing space,
+punctuation mark, or abbreviated name caused the search to fail.</p>
+<p>Management needed a practical solution rather than replacing the
+ERP. My task was to build a helper MIS that could retrieve employee
+records regardless of which system contained them while tolerating
+common human errors.</p>
+<p>This article describes the engineering decisions behind that
+solution and explains why combining multiple search techniques
+produced better results than relying on a single algorithm.</p>
+<hr/>
+
+<h1 class="western">Understanding the Problem</h1>
+<p>At first glance the problem appeared simple.</p>
+<p>&quot;Search an employee.&quot;</p>
+<p>In reality, searching for an employee required answering several
+questions.</p>
+<p>Which database contains the record?</p>
+<p>Was the employee migrated into ERP?</p>
+<p>Is the employee only available in the legacy HR system?</p>
+<p>Does the spelling exactly match?</p>
+<p>Has the employee's CNIC changed?</p>
+<p>Was the mobile number updated?</p>
+<p>Did HR enter &quot;Muhammad&quot; while another operator entered
+&quot;Mohammad&quot;?</p>
+<p>The search system therefore needed to operate across multiple
+independent databases while accommodating inconsistencies introduced
+over many years of manual data entry.</p>
+<hr/>
+
+<h1 class="western">Consolidating Multiple Data Sources</h1>
+<p>Before any search algorithm could be implemented, the data itself
+needed to be consolidated.</p>
+<p>The ERP database presented the greatest challenge.</p>
+<p>Like many enterprise applications, the ERP stored information
+across a large number of highly normalized tables. Hundreds of tables
+existed, many of which were either empty, configuration-related, or
+unrelated to employee information. Without access to the ERP source
+code, understanding the schema required extensive database analysis.</p>
+<p>After identifying the relevant tables, I exported them from SQL
+Server using ODBC into Microsoft Access before converting them into
+MySQL-compatible SQL dumps. Once imported into MySQL, I created
+database views that combined employee, financial, placement, and
+organizational information into a single logical entity.</p>
+<p>This approach significantly simplified the search layer.</p>
+<p>Instead of querying dozens of normalized tables every time a user
+searched for an employee, the application queried a unified database
+view containing all relevant information.</p>
+<p>The same process was repeated for the Legacy HR database and the
+HRDC database.</p>
+<p>Ultimately the search engine operated against three standardized
+datasets:</p>
+<ul>
+	<li><p>ERP View</p></li>
+	<li><p>HR Database</p></li>
+	<li><p>HRDC Database</p></li>
+</ul>
+<p>The application allowed users to search a specific source or query
+all sources simultaneously.</p>
+<hr/>
+
+<h1 class="western">Why Exact Search Fails</h1>
+<p>Exact matching is extremely fast.</p>
+<p>It is also extremely unforgiving.</p>
+<p>Consider the following examples.</p>
+<p>Employee record:</p>
+<blockquote>Muhammad Abdullah Khan</blockquote>
+<p>User searches for:</p>
+<blockquote>Mohammad Abdullah Khan</blockquote>
+<p>or</p>
+<blockquote>Muhammad A. Khan</blockquote>
+<p>or</p>
+<blockquote>M Abdullah Khan</blockquote>
+<p>Although a human immediately recognizes these as the same
+individual, an exact comparison considers them completely different
+strings.</p>
+<p>This limitation becomes more apparent in multilingual environments
+where names may be transliterated differently into English.</p>
+<p>An exact search should therefore remain available for cases where
+precise identifiers such as employee IDs or CNIC numbers are known,
+but it should never be the only search mechanism available.</p>
+<hr/>
+
+<h1 class="western">Expanding Search with SQL LIKE</h1>
+<p>The next logical improvement was SQL's LIKE operator.</p>
+<p>LIKE introduces wildcard matching, allowing partial text searches.</p>
+<p>Users can search for fragments of names instead of complete
+strings.</p>
+<p>For example:</p>
+<pre class="western" style="margin-bottom: 0.2in"><code class="western">Muhammad%</code></pre><p>
+matches:</p>
+<ul>
+	<li><p>Muhammad Ali</p></li>
+	<li><p>Muhammad Khan</p></li>
+	<li><p>Muhammad Abdullah</p></li>
+</ul>
+<p>This approach dramatically improves usability while remaining
+computationally inexpensive.</p>
+<p>However, LIKE has important limitations.</p>
+<p>Searching for very common prefixes quickly produces hundreds of
+results.</p>
+<p>Searching with extremely short fragments often becomes
+meaningless.</p>
+<p>LIKE is therefore an excellent filtering mechanism but not an
+intelligent matching algorithm.</p>
+<hr/>
+
+<h1 class="western">Phonetic Matching Using Soundex</h1>
+<p>Many spelling variations share similar pronunciation.</p>
+<p>Soundex converts words into phonetic codes, allowing names with
+similar pronunciation to produce identical search keys.</p>
+<p>For example:</p>
+<p>Muhammad</p>
+<p>Mohammad</p>
+<p>Mohamad</p>
+<p>may all produce similar phonetic values.</p>
+<p>This significantly improves search quality when users misspell
+names.</p>
+<p>Unfortunately, traditional Soundex works primarily on individual
+words.</p>
+<p>Employee names frequently contain two, three, or even four words.</p>
+<p>Applying Soundex independently to each word often failed to
+produce reliable matches.</p>
+<hr/>
+
+<h1 class="western">Designing a Multi-Word Soundex Function</h1>
+<p>To overcome this limitation, I implemented a custom database
+function named <strong>soundex_match_all()</strong>.</p>
+<p>Instead of generating a phonetic code for only one word, the
+function processed each word within a name and compared them
+collectively.</p>
+<p>This produced noticeably better search results for multi-word
+employee names.</p>
+<p>The improvement came at a cost.</p>
+<p>The function required nested iterations across both search terms
+and database values.</p>
+<p>As the number of employee records increased, computational
+complexity also increased.</p>
+<p>This reinforced an important engineering lesson:</p>
+<p><strong>Accuracy and performance almost always compete with one
+another.</strong></p>
+<hr/>
+
+<h1 class="western">Measuring Similarity with Levenshtein Distance</h1>
+<p>Phonetic matching solves pronunciation problems.</p>
+<p>It does not solve typographical errors.</p>
+<p>Levenshtein Distance measures how many edits are required to
+transform one string into another.</p>
+<p>Examples include:</p>
+<ul>
+	<li><p>insertion</p></li>
+	<li><p>deletion</p></li>
+	<li><p>substitution</p></li>
+</ul>
+<p>This allows searches such as:</p>
+<p>Abdulah</p>
+<p>to correctly match</p>
+<p>Abdullah</p>
+<p>provided the acceptable distance threshold remains small.</p>
+<p>Levenshtein proved particularly useful for correcting accidental
+typing mistakes.</p>
+<p>However, its computational cost grows rapidly when applied across
+thousands of records.</p>
+<p>Choosing an appropriate threshold therefore became critical.</p>
+<p>A higher threshold improved flexibility but significantly
+increased processing time.</p>
+<hr/>
+
+<h1 class="western">Regular Expressions</h1>
+<p>Regular expressions provided another powerful search mechanism.</p>
+<p>Instead of matching exact text, users could search patterns.</p>
+<p>Unlike phonetic matching, regular expressions excelled at
+structured searches where the expected format was known.</p>
+<p>They also avoided some of the computational costs associated with
+recursive similarity calculations.</p>
+<p>The challenge shifted from algorithm performance to pattern
+design.</p>
+<p>An overly broad pattern generated excessive results.</p>
+<p>An overly restrictive pattern returned nothing.</p>
+<p>Carefully designed expressions provided an excellent balance
+between flexibility and precision.</p>
+<hr/>
+
+<h1 class="western">Combining Multiple Search Strategies</h1>
+<p>One of the biggest lessons from this project was that no
+individual algorithm consistently produced the best results.</p>
+<p>Each solved a different class of problem.</p>
+<p>Exact matching was ideal for identifiers.</p>
+<p>LIKE handled partial searches.</p>
+<p>Soundex handled pronunciation differences.</p>
+<p>Levenshtein corrected typographical errors.</p>
+<p>Regular expressions supported structured searches.</p>
+<p>Rather than selecting one algorithm, the application allowed users
+to choose the most appropriate strategy or combine multiple search
+methods into a unified result set using SQL UNION operations.</p>
+<p>This hybrid approach produced substantially better search accuracy
+while preserving acceptable performance.</p>
+<hr/>
+
+<h1 class="western">Beyond Searching: ERP Data Integration</h1>
+<p>The project eventually expanded beyond employee retrieval.</p>
+<p>Once duplicate records could be identified reliably, another
+operational challenge emerged.</p>
+<p>Creating new employees inside the ERP required navigating multiple
+screens and manually entering related data.</p>
+<p>To streamline onboarding, I developed a companion utility that
+generated ERP-compatible JSON files.</p>
+<p>Users entered employee information once into the helper MIS.</p>
+<p>The system then produced structured JSON containing all required
+relationships and foreign keys expected by the ERP.</p>
+<p>Instead of repetitive manual entry, staff could perform bulk
+imports while maintaining consistent data quality.</p>
+<hr/>
+
+<h1 class="western">Lessons Learned</h1>
+<p>This project reinforced several principles that continue to
+influence how I design business systems today.</p>
+<p>First, technical problems are often data problems before they
+become software problems.</p>
+<p>Second, consolidating information into a unified logical model
+simplifies application development far more than writing increasingly
+complex search queries.</p>
+<p>Third, no search algorithm is universally superior. Practical
+systems benefit from combining multiple techniques rather than
+searching for a single &quot;perfect&quot; solution.</p>
+<p>Finally, successful enterprise software is not measured solely by
+elegant code. It is measured by how effectively it helps people
+complete their work with greater accuracy and less effort.</p>
+<hr/>
+
+<h1 class="western">Conclusion</h1>
+<p>The Employee Search &amp; Data Consolidation MIS transformed
+fragmented employee information into a unified, searchable platform.</p>
+<p>More importantly, it demonstrated that thoughtful data engineering
+can significantly improve the usability of existing enterprise
+systems without replacing them.</p>
+<p>The project ultimately consolidated more than <strong>5,100
+employee records</strong> from three independent systems, introduced
+advanced fuzzy-search capabilities, simplified ERP onboarding through
+JSON integration, and reduced the operational effort required to
+locate and manage employee information.</p>
+<p>Although developed as an internal tool, the engineering principles
+behind it—data consolidation, layered search strategies, and
+practical system integration—are applicable to many organizations
+facing similar challenges as they modernize legacy information
+systems.</p>
+<p style="line-height: 100%; margin-bottom: 0in"><br/>
+
+</p>
+</body>
+</html>

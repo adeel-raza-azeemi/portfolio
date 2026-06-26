@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+	<title></title>
+	<meta name="generator" content="LibreOffice 26.2.4.2 (Linux)"/>
+	<meta name="created" content="2026-06-26T19:43:26.448044638"/>
+	<meta name="changed" content="2026-06-26T19:44:16.659080186"/>
+	<style type="text/css">
+		@page { size: 8.27in 11.69in; margin: 0.79in }
+		p { margin-bottom: 0.1in; line-height: 115%; background: transparent }
+		h1 { margin-bottom: 0.08in; background: transparent; page-break-after: avoid }
+		h1.western { font-family: "Liberation Serif", serif; font-size: 24pt; font-weight: bold }
+		h1.cjk { font-family: "Noto Serif CJK SC"; font-size: 24pt; font-weight: bold }
+		h1.ctl { font-size: 24pt; font-family: "Noto Sans Devanagari"; font-weight: bold }
+		h3 { margin-top: 0.1in; margin-bottom: 0.08in; background: transparent; page-break-after: avoid }
+		h3.western { font-family: "Liberation Serif", serif; font-size: 14pt; font-weight: bold }
+		h3.cjk { font-family: "Noto Serif CJK SC"; font-size: 14pt; font-weight: bold }
+		h3.ctl { font-size: 14pt; font-family: "Noto Sans Devanagari"; font-weight: bold }
+		h2 { margin-top: 0.14in; margin-bottom: 0.08in; background: transparent; page-break-after: avoid }
+		h2.western { font-family: "Liberation Serif", serif; font-size: 18pt; font-weight: bold }
+		h2.cjk { font-family: "Noto Serif CJK SC"; font-size: 18pt; font-weight: bold }
+		h2.ctl { font-size: 18pt; font-family: "Noto Sans Devanagari"; font-weight: bold }
+		blockquote { margin-right: 0.39in; margin-left: 0.39in; background: transparent }
+		strong { font-weight: bold }
+	</style>
+</head>
+<body lang="en-US" link="#000080" vlink="#800000" dir="ltr"><h1 class="western">
+Engineering Practical Employee Search in Resource-Constrained
+Organizations</h1>
+<h3 class="western">A Case Study in Reverse Engineering, Data
+Consolidation, and Multi-Strategy Record Retrieval</h3>
+<hr/>
+
+<h1 class="western">Part 1 — Introduction</h1>
+<h2 class="western">Abstract</h2>
+<p>Employee information is one of the most valuable assets within any
+organization. As organizations evolve over time, however, employee
+records often become fragmented across multiple information systems.
+New software replaces old software, departments maintain their own
+databases, and data migration projects are frequently constrained by
+limited budgets, incomplete documentation, and operational deadlines.
+The result is an increasingly complex environment where locating a
+single employee record becomes more difficult than it should be.</p>
+<p>This article presents the design and implementation of an Employee
+Search and Data Consolidation Management Information System (MIS)
+developed during the migration of a legacy Human Resources system to
+a new Enterprise Resource Planning (ERP) platform within a
+non-governmental organization (NGO) in Pakistan.</p>
+<p>Rather than proposing a new search algorithm, this paper documents
+the engineering decisions required to build a practical solution
+under real-world constraints. The project involved reverse
+engineering an undocumented ERP database, consolidating employee
+information from three independent systems, constructing unified
+database views, and implementing multiple complementary search
+techniques—including SQL pattern matching, phonetic matching,
+regular expressions, and edit-distance algorithms—to improve
+employee retrieval during a large-scale migration effort.</p>
+<p>The objective was not to identify a single &quot;best&quot; search
+algorithm. Instead, the system was designed around a simple
+engineering observation: different search techniques excel under
+different conditions, and combining their strengths provides a more
+practical solution than relying on any individual method.</p>
+<hr/>
+
+<h1 class="western">1. Introduction</h1>
+<p>Software engineering rarely begins with a blank page.</p>
+<p>Most enterprise software is developed within environments where
+systems already exist, historical decisions cannot easily be changed,
+and operational requirements often outweigh architectural perfection.
+Engineers working in these environments spend as much time
+understanding existing systems as they do writing new code.</p>
+<p>This project emerged from one such situation.</p>
+<p>Our organization operated two independent Human Resource systems.
+The first was a legacy HR Management Information System developed
+using Microsoft's technology stack. Later, the organization adopted a
+commercial Enterprise Resource Planning (ERP) solution to centralize
+HR and Finance operations. Although the ERP offered a broader range
+of administrative capabilities, one limitation quickly became
+apparent during data migration: locating employee records was
+unnecessarily difficult.</p>
+<p>The ERP relied almost exclusively on exact matching. A minor
+spelling variation, an omitted space, or a typographical error was
+often enough to prevent an employee from being found. During
+migration, this introduced a significant operational risk. Staff
+members could unknowingly create duplicate employee records simply
+because an existing record could not be located.</p>
+<p>The challenge was further complicated by the organization's
+existing data landscape. Employee information existed across three
+independent systems:</p>
+<ul>
+	<li><p>The legacy HR database.</p></li>
+	<li><p>The new ERP database.</p></li>
+	<li><p>An internal Human Resource Development Centre (HRDC) database
+	containing historical employee information.</p></li>
+</ul>
+<p>Collectively, these systems contained more than five thousand
+employee records, each maintained independently over several years.</p>
+<p>The objective was therefore not simply to build another search
+interface. The goal was to create a practical engineering tool
+capable of searching across multiple heterogeneous data sources while
+tolerating the inconsistencies naturally introduced by human data
+entry.</p>
+<hr/>
+
+<h1 class="western">2. Engineering Under Constraints</h1>
+<p>Engineering decisions are always shaped by constraints.</p>
+<p>Unlike large commercial software companies, many NGOs operate with
+limited budgets and must carefully prioritize where resources are
+invested. Purchasing additional commercial software simply to support
+an internal migration project was neither practical nor necessary.</p>
+<p>For this reason, the project was deliberately built using
+open-source technologies wherever possible.</p>
+<p>Although the ERP itself relied on proprietary
+technologies—including Oracle Database, Microsoft SQL Server, and a
+Microsoft-based application stack—the supporting MIS was developed
+using PHP and MySQL (later MariaDB). This choice was driven less by
+database performance and more by portability, accessibility, and
+long-term maintainability.</p>
+<p>Open-source software offered several practical advantages.</p>
+<p>First, it eliminated licensing costs for internal support tools.</p>
+<p>Second, it aligned naturally with Linux-based deployment
+environments already familiar within the organization.</p>
+<p>Finally, the development ecosystem surrounding PHP and MySQL
+enabled rapid experimentation without requiring additional commercial
+infrastructure.</p>
+<p>These constraints influenced nearly every technical decision made
+throughout the project. Rather than attempting to modify the ERP
+itself, the supporting MIS was designed as an independent layer
+capable of extracting, consolidating, and searching employee
+information without interfering with the production ERP environment.</p>
+<p>This architectural separation ultimately proved to be one of the
+project's greatest strengths.</p>
+<hr/>
+
+<h1 class="western">3. The Engineering Problem</h1>
+<p>At first glance, searching for an employee appears to be a trivial
+task.</p>
+<p>In practice, enterprise employee data presents numerous
+challenges:</p>
+<ul>
+	<li><p>Names may be misspelled.</p></li>
+	<li><p>Employees may use abbreviated names.</p></li>
+	<li><p>Records may contain inconsistent spacing or punctuation.</p></li>
+	<li><p>Historical systems often follow different naming conventions.</p></li>
+	<li><p>Multiple databases may contain slightly different versions of
+	the same individual.</p></li>
+</ul>
+<p>An exact search succeeds only when the search term precisely
+matches the stored value.</p>
+<p>Real-world data rarely behaves so conveniently.</p>
+<p>Consequently, the central engineering question became:</p>
+<blockquote><strong>How can multiple imperfect employee databases be
+searched in a way that maximizes the probability of finding the
+correct person without requiring users to understand the strengths
+and weaknesses of individual search algorithms?</strong></blockquote>
+<p>This question guided every design decision discussed throughout
+the remainder of this paper.</p>
+<p style="line-height: 100%; margin-bottom: 0in"><br/>
+
+</p>
+</body>
+</html>
