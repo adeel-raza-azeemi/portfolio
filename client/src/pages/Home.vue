@@ -1,29 +1,5 @@
 <template>
   <div class="min-h-screen bg-background">
-    <!-- Navigation -->
-    <nav class="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-border">
-      <div class="container py-4 flex items-center justify-between">
-        <div class="flex items-center gap-2">
-          <div class="w-10 h-10 bg-gradient-to-br from-primary to-accent rounded-lg flex items-center justify-center">
-            <span class="text-white font-bold text-lg">
-              <img src="/images/logo.svg" alt="Logo" class="w-6 h-6" />
-            </span>
-          </div>
-          <span class="font-bold text-lg text-primary">Adeel Raza</span>
-        </div>
-        <div class="flex items-center gap-6">
-          <a href="#about" class="text-sm font-medium text-foreground hover:text-accent transition-colors">
-            About
-          </a>
-          <RouterLink to="/projects" class="text-sm font-medium text-foreground hover:text-accent transition-colors">
-            Projects
-          </RouterLink>
-          <a href="#contact" class="text-sm font-medium text-foreground hover:text-accent transition-colors">
-            Contact
-          </a>
-        </div>
-      </div>
-    </nav>
 
     <!-- Hero Section -->
     <section class="relative py-20 md:py-32 overflow-hidden">
@@ -35,7 +11,7 @@
         }"
       />
 
-      <div class="container relative z-10">
+      <div class="container relative">
         <div class="grid md:grid-cols-2 gap-12 items-center">
           <div>
             <div class="flex items-start gap-4 mb-8">
@@ -79,7 +55,7 @@
           <!-- Hero Image -->
           <div class="hidden md:flex justify-center">
             <div class="relative w-full max-w-sm">
-              <div class="absolute inset-0 bg-gradient-to-br from-accent to-primary opacity-20 rounded-2xl blur-2xl" />
+              <div class="relative inset-0 bg-gradient-to-br from-accent to-primary opacity-20 rounded-2xl blur-2xl" />
               <img
                 src="/images/profile.jpeg"
                 alt="Adeel Raza"
@@ -98,7 +74,7 @@
           <!-- About Image -->
           <div class="hidden md:flex justify-center order-2 md:order-1">
             <div class="relative w-full max-w-sm">
-              <div class="absolute inset-0 bg-gradient-to-br from-primary/20 to-accent/20 rounded-xl blur-xl" />
+              <div class="relative inset-0 bg-gradient-to-br from-primary/20 to-accent/20 rounded-xl blur-xl" />
               <img
                 src="/images/profile.jpeg"
                 alt="Adeel Raza"
@@ -286,22 +262,13 @@
       </div>
     </section>
 
-    <!-- Footer -->
-    <footer class="bg-primary text-white py-8">
-      <div class="container flex items-center justify-between">
-        <p class="text-white/70">© {{ currentYear }} Adeel Raza. All rights reserved.</p>
-        <p class="text-white/70">Designed & Built with precision</p>
-      </div>
-    </footer>
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref, computed } from 'vue'
+import { ref } from 'vue'
 import { RouterLink } from 'vue-router'
 import { ArrowRight, Download, Github, Linkedin, Twitter } from 'lucide-vue-next'
-
-const currentYear = computed(() => new Date().getFullYear())
 
 const backendSkills = ref([
   'Laravel',

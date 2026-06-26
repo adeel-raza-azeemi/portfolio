@@ -248,9 +248,7 @@
               </div>
             </template>
           </div>
-
         </div>
-
         <!-- end -->
 
       </div>
@@ -282,13 +280,6 @@
     </div>
   </section>
 
-  <!-- Footer -->
-  <footer class="bg-primary text-white py-8">
-    <div class="container flex items-center justify-between">
-      <p class="text-white/70">© {{ currentYear }} Adeel Raza. All rights reserved.</p>
-      <p class="text-white/70">Designed & Built with precision</p>
-    </div>
-  </footer>
   </div>
 </template>
 
