@@ -179,7 +179,160 @@
 				the remainder of this paper.</p>
 		</div>
 
-		<div id="reverse-engineering-the-ERP"></div>
+		<div id="reverse-engineering-the-ERP">
+			<h1 class="mb-4 text-4xl font-bold tracking-tight text-heading md:text-5xl lg:text-6xl">
+				Part 2 — Reverse Engineering an Undocumented Enterprise Database</h1>
+			<h2 class="text-4xl font-bold">4. Understanding the Existing System</h2>
+			<p class="mb-3 text-body">Before a search system could be designed, it was first necessary
+				to understand the structure of the Enterprise Resource Planning (ERP)
+				database itself. Although the ERP successfully supported the
+				organization's Human Resources and Finance operations, it offered
+				very little insight into its internal data model. Source code was
+				unavailable, database documentation did not exist, and the vendor
+				treated the underlying schema as proprietary.</p>
+			<p class="mb-3 text-body">Consequently, the first engineering challenge was not software
+				development—it was system discovery.</p>
+			<p class="mb-3 text-body">The objective was straightforward:</p>
+			<blockquote>Identify where employee information was actually stored
+				and determine how those records could be extracted without modifying
+				the production ERP.</blockquote>
+			<p class="mb-3 text-body">At first glance, this appeared to be a simple database exploration
+				exercise. In reality, it became an exercise in reverse engineering.</p>
+			<hr class="h-px my-8 bg-gray-200 border-0" />
+
+			<h2 class="text-4xl font-bold">4.1 Initial Exploration</h2>
+			<p class="mb-3 text-body">Administrative access to the Oracle database server made it
+				possible to inspect the database schema directly.</p>
+			<p class="mb-3 text-body">The first observation immediately revealed the scale of the
+				system.</p>
+			<p class="mb-3 text-body">The ERP database contained:</p>
+
+			<table class="w-full text-sm text-left rtl:text-right text-body">
+				<thead class="text-sm text-body bg-neutral-secondary-soft border-b rounded-base border-default">
+					<tr class="bg-neutral-primary border-b border-default">
+						<th scope="col" class="px-6 py-3 font-medium">Object</th>
+						<th scope="col" class="px-6 py-3 font-medium">Count</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr class="bg-neutral-primary border-b border-default">
+						<th scope="row" class="px-6 py-4 font-medium text-heading whitespace-nowrap">Database Tables</th>
+						<td class="px-6 py-4">685</td>
+					</tr>
+					<tr class="bg-neutral-primary border-b border-default">
+						<th scope="row" class="px-6 py-4 font-medium text-heading whitespace-nowrap">Database Views</th>
+						<td class="px-6 py-4">187</td>
+					</tr>
+					<tr class="bg-neutral-primary border-b border-default">
+						<th scope="row" class="px-6 py-4 font-medium text-heading whitespace-nowrap">Empty Tables</th>
+						<td class="px-6 py-4">478</td>
+					</tr>
+					<tr class="bg-neutral-primary border-b border-default">
+						<th scope="row" class="px-6 py-4 font-medium text-heading whitespace-nowrap">Non-empty Tables</th>
+						<td class="px-6 py-4">207</td>
+					</tr>
+				</tbody>
+			</table>
+			<p class="mb-3 text-body">From an engineering perspective, these numbers immediately raised
+				an important question.</p>
+			<p class="mb-3 text-body">How many of these tables actually participated in the Human
+				Resource module?</p>
+			<p class="mb-3 text-body">The answer turned out to be: surprisingly few.</p>
+			<p class="mb-3 text-body">Although the ERP exposed hundreds of tables, only a relatively
+				small subset contained employee-related information. The remaining
+				tables represented configuration data, module-specific entities,
+				historical structures, system metadata, or simply remained unused
+				within the organization's deployment.</p>
+			<p class="mb-3 text-body">Rather than attempting to understand every table, the
+				investigation focused only on identifying those that actively
+				supported employee management.</p>
+			<hr class="h-px my-8 bg-gray-200 border-0" />
+
+			<h2 class="text-4xl font-bold">4.2 There Was No Documentation</h2>
+			<p class="mb-3 text-body">Many commercial ERP systems provide detailed database
+				documentation for customers or implementation partners.</p>
+			<p class="mb-3 text-body">This system did not.</p>
+			<p class="mb-3 text-body">No entity relationship diagrams were available.</p>
+			<p class="mb-3 text-body">No data dictionary existed.</p>
+			<p class="mb-3 text-body">No documentation described table relationships.</p>
+			<p class="mb-3 text-body">No source code could be inspected to understand how the
+				application interacted with the database.</p>
+			<p class="mb-3 text-body">Every relationship had to be inferred.</p>
+			<p class="mb-3 text-body">This fundamentally changed the engineering approach.</p>
+			<p class="mb-3 text-body">Instead of reading documentation, the database itself became the
+				documentation.</p>
+			<hr class="h-px my-8 bg-gray-200 border-0" />
+
+			<h2 class="text-4xl font-bold">4.3 A Surprising Discovery</h2>
+			<p class="mb-3 text-body">One of the most unexpected findings during the investigation was
+				the apparent absence of database-enforced referential integrity.</p>
+			<p class="mb-3 text-body">Despite representing a highly normalized enterprise application,
+				the Oracle schema contained virtually no foreign key constraints
+				linking related tables together.</p>
+			<p class="mb-3 text-body">Primary identifiers were clearly reused across multiple tables,
+				suggesting that logical relationships certainly existed. However,
+				these relationships were enforced entirely by the application rather
+				than by the database management system.</p>
+			<p class="mb-3 text-body">For example, fields representing employee identifiers consistently
+				matched corresponding records in related tables, yet no explicit
+				foreign key definitions were present within the schema.</p>
+			<p class="mb-3 text-body">This observation had two important consequences.</p>
+			<p class="mb-3 text-body">First, understanding relationships required careful examination of
+				the stored data rather than relying on database metadata.</p>
+			<p class="mb-3 text-body">Second, any supporting application developed outside the ERP
+				needed to reconstruct these relationships independently.</p>
+			<p class="mb-3 text-body">In effect, the data model had to be rediscovered.</p>
+			<hr class="h-px my-8 bg-gray-200 border-0" />
+
+			<h2 class="text-4xl font-bold">4.4 Finding the Important Tables</h2>
+			<p class="mb-3 text-body">Without documentation or foreign key definitions, a systematic
+				method was required to identify which tables actually supported
+				employee management.</p>
+			<p class="mb-3 text-body">Rather than examining hundreds of tables manually, a data-driven
+				approach was adopted.</p>
+			<p class="mb-3 text-body">The ERP application's user interface became the primary source of
+				clues.</p>
+			<p class="mb-3 text-body">Whenever a list of employees appeared within the application, the
+				corresponding record count was noted.</p>
+			<p class="mb-3 text-body">These counts were then compared against every non-empty database
+				table.</p>
+			<p class="mb-3 text-body">Tables whose row counts closely matched the application's
+				displayed information became immediate candidates for further
+				investigation.</p>
+			<p class="mb-3 text-body">Several additional heuristics significantly accelerated the
+				process.</p>
+			<p class="mb-3 text-body">Database views were intentionally excluded during the initial
+				investigation because they merely represented derived data built upon
+				underlying base tables.</p>
+			<p class="mb-3 text-body">Fortunately, the ERP followed a reasonably consistent naming
+				convention in which view names began with the prefix &quot;V&quot;,
+				allowing them to be identified quickly.</p>
+			<p class="mb-3 text-body">Candidate tables were then inspected individually.</p>
+			<p class="mb-3 text-body">Column names, record counts, and data contents were compared
+				against information displayed within the ERP interface.</p>
+			<p class="mb-3 text-body">Through repeated verification, the subset of tables responsible
+				for employee information gradually emerged.</p>
+			<p class="mb-3 text-body">Although this process required patience, it proved significantly
+				more reliable than attempting to understand the entire schema
+				simultaneously.</p>
+			<hr class="h-px my-8 bg-gray-200 border-0" />
+			<h2 class="text-4xl font-bold">4.5 Mining Rather Than Exploring</h2>
+			<p class="mb-3 text-body">Looking back, the investigation resembled data mining more than
+				traditional software development.</p>
+			<p class="mb-3 text-body">The objective was never to understand every table.</p>
+			<p class="mb-3 text-body">Instead, the objective was to isolate only those entities
+				necessary to support employee search and migration.</p>
+			<p class="mb-3 text-body">Once these tables had been identified, the remaining schema became
+				largely irrelevant to the project.</p>
+			<p class="mb-3 text-body">This principle substantially reduced the complexity of the
+				engineering effort.</p>
+			<p class="mb-3 text-body">Instead of attempting to reverse engineer an entire ERP containing
+				hundreds of tables, the problem was reduced to understanding only the
+				relatively small collection of entities required to reconstruct
+				employee information.</p>
+			<p class="mb-3 text-body">Only after this discovery process was complete could the actual
+				design of the Employee Search MIS begin.</p>
+		</div>
 		<div id="data-consolidation-architecture"></div>
 		<div id="designing-the-search-engine"></div>
 		<div id="performance-engineering-decisions"></div>
