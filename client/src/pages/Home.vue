@@ -38,7 +38,7 @@
                   <ArrowRight class="w-4 h-4" />
                 </button>
               </RouterLink>
-              <a href="/docs/adeel_resume.jpg" target="_blank" rel="noopener noreferrer" class="inline-flex">
+              <a href="/docs/adeel_resume.png" target="_blank" rel="noopener noreferrer" class="inline-flex">
                 <button class="h-12 px-6 text-base border-2 border-primary text-primary hover:bg-primary/5 rounded-lg font-medium flex items-center gap-2 transition-colors">
                   <Download class="w-4 h-4" />
                   Download Resume

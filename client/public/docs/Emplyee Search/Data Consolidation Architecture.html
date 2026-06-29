@@ -1,0 +1,91 @@
+<h2 class="text-4xl font-bold">
+Part III — Data Consolidation Architecture</h2>
+<h3 class="text-xl font-bold text-gray-900 mb-3">3. Data Consolidation Architecture</h3>
+<p class="mb-3 text-body">Before an effective search system could be developed, the employee
+information first had to be consolidated into a form that allowed
+uniform querying. Although the search algorithms received most of the
+attention, the real engineering challenge was integrating three
+independent personnel repositories into a single logical information
+system.</p>
+<p class="mb-3 text-body">The organization maintained employee information across three
+different sources:</p>
+<ul class="max-w-full space-y-1 text-body list-disc list-inside">
+	<li><span class="font-bold text-indigo-600">ERP Database</span> (Oracle/SQL Server based),
+	containing official employee, placement, and organizational records.</li>
+	<li><span class="font-bold text-indigo-600">Legacy HR Database</span>, containing historical
+	human resource information maintained before ERP adoption.</li>
+	<li><span class="font-bold text-indigo-600">HRDC Database</span>, containing training and staff
+	development records accumulated over several years.</li>
+</ul>
+<p class="mb-3 text-body">Together, these repositories contained more than <span class="font-bold text-indigo-600">5,100
+employee records</span> distributed across different database
+engines, schemas, naming conventions, and application architectures.</p>
+<h3 class="text-xl font-bold text-gray-900 mb-3">3.1 Reverse Engineering the ERP</h3>
+<p class="mb-3 text-body">The ERP database presented the greatest challenge.</p>
+<p class="mb-3 text-body">Rather than providing a concise operational schema, the database
+contained hundreds of tables, many of which were either empty,
+automatically generated, or unrelated to the HR module. No foreign
+key relationships were implemented at the database level, making it
+impossible to rely on metadata to understand how entities were
+connected.</p>
+<p class="mb-3 text-body">Consequently, the database had to be reverse engineered manually.</p>
+<p class="mb-3 text-body">Instead of studying the application source code—which was
+unavailable—the investigation began by observing the ERP
+application's user interface. Information displayed on individual
+screens was compared with database tables having similar record
+counts and contents. This iterative process gradually revealed which
+tables actually stored operational HR data.</p>
+<p class="mb-3 text-body">Naming conventions also proved useful. Database views followed a
+consistent prefix, allowing them to be distinguished from physical
+tables and preventing duplicate investigation of equivalent datasets.</p>
+<p class="mb-3 text-body">Once the relevant entities had been identified, only the
+operational tables required for employee search and placement
+information were extracted.</p>
+<h3 class="text-xl font-bold text-gray-900 mb-3">3.2 Database Migration Strategy</h3>
+<p class="mb-3 text-body">Because the helper MIS was developed using Laravel and MySQL, the
+ERP data had to be migrated into an open-source environment suitable
+for rapid development.</p>
+<p class="mb-3 text-body">The migration process consisted of several stages:</p>
+<ol class="list-decimal list-inside pl-5">
+	<li>Export the required ERP tables.</li>
+	<li>Import the tables into Microsoft SQL Server.</li>
+	<li>Transfer the datasets through Microsoft Access using ODBC.</li>
+	<li>Export each table into MySQL-compatible format.</li>
+	<li>Import all converted tables into MariaDB/MySQL.</li>
+	<li>Repeat the process for the HR database.</li>
+	<li>Import the HRDC database directly into MySQL.</li>
+</ol>
+<p class="mb-3 text-body">Although this migration pipeline appears lengthy, it provided
+complete control over the imported schema while allowing unnecessary
+enterprise structures to be discarded.</p>
+<h3 class="text-xl font-bold text-gray-900 mb-3">3.3 Creating Logical Views</h3>
+<p class="mb-3 text-body">Even after migration, directly querying dozens of normalized ERP
+tables would have produced unnecessarily complex application code.</p>
+<p class="mb-3 text-body">Instead, logical database views were designed.</p>
+<p class="mb-3 text-body">The first view, <span class="font-bold text-indigo-600">emp</span>, exposed the core employee
+identity by presenting names, CNIC, contact information, dates of
+birth, and employment status using field names consistent with the
+other repositories.</p>
+<p class="mb-3 text-body">The second view, <span class="font-bold text-indigo-600">placement</span>, combined placement
+records with organizational lookup tables including designation,
+department, employee type, grade, and duty station. By resolving
+these relationships once inside the database, the application could
+retrieve complete placement information through a single query rather
+than repeatedly constructing complex joins.</p>
+<p class="mb-3 text-body">This approach significantly simplified the application layer while
+isolating schema complexity inside the database, where it naturally
+belonged.</p>
+<h3 class="text-xl font-bold text-gray-900 mb-3">3.4 Unified Search Layer</h3>
+<p class="mb-3 text-body">Once every repository had been transformed into a common
+relational structure, the search engine no longer needed to
+understand where a record originated.</p>
+<p class="mb-3 text-body">Instead, each search operator produced results with an identical
+column structure. SQL UNION operations merged these result sets into
+a single logical dataset presented to the user.</p>
+<p class="mb-3 text-body">From the application's perspective, three independent databases
+had effectively become one searchable information system.</p>
+<p class="mb-3 text-body">This architectural separation between data preparation and search
+algorithms proved fundamental. It allowed new search techniques to be
+introduced later without modifying the underlying data consolidation
+process, resulting in a system that remained modular, extensible, and
+considerably easier to maintain.</p>
