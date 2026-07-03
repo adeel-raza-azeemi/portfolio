@@ -465,10 +465,15 @@
 				<div class="py-5 border-b border-default text-body">
 					<h1 class="mb-4 text-4xl font-bold tracking-tight text-heading md:text-5xl lg:text-6xl">
 						03. Reverse Engineering the Legacy ERP</h1>
-					<blockquote class="text-xl italic font-semibold tracking-tight text-heading"><em
-							class="font-bold text-red-600 not-italic">&quot;Before data could be consolidated, it first
-							had
-							to be understood.&quot;</em></blockquote>
+					<div class="mt-12 pt-6 border-t border-gray-200">
+						<blockquote class="p-4 my-4 border-s-4 border-default bg-neutral-secondary-soft">
+							<p class="text-xl italic font-medium leading-relaxed text-heading">
+							<em class="font-bold text-black-600 not-italic">
+								&quot;Before data could be consolidated, it first had to be understood.&quot;
+							</em>
+							</p>
+						</blockquote>
+					</div>
 					<p class="mb-3 text-body">Unlike greenfield software projects, legacy enterprise systems
 						rarely provide developers with a complete understanding of their
 						internal data model. Documentation may be outdated, source code
@@ -487,7 +492,7 @@
 						therefore began with a process of systematic reverse engineering.</p>
 					<hr class="mt-6 border-gray-200" />
 
-					<h2 class="text-4xl font-bold">3.1 Initial Exploration</h2>
+					<h2 class="mt-3 mb-3 text-4xl font-bold">3.1 Initial Exploration</h2>
 					<p class="mb-3 text-body">Administrative access to the Oracle database made it possible to
 						inspect the database schema directly.</p>
 					<p class="mb-3 text-body">The first inspection immediately demonstrated the scale of the
@@ -514,13 +519,12 @@
 								<td scope="row" class="px-6 py-4 font-medium text-heading whitespace-nowrap">207</td>
 							</tr>
 							<tr class="bg-neutral-primary border-b border-default">
-								<td scope="row" class="px-6 py-4 font-medium text-heading whitespace-nowrap">Empty
-									Tables</td>
+								<td scope="row" class="px-6 py-4 font-medium text-heading whitespace-nowrap">Empty Tables</td>
 								<td scope="row" class="px-6 py-4 font-medium text-heading whitespace-nowrap">478</td>
 							</tr>
 						</tbody>
 					</table>
-					<p class="mb-3 text-body">Although these numbers initially appeared overwhelming, they also
+					<p class="mt-3 mb-3 text-body">Although these numbers initially appeared overwhelming, they also
 						suggested an important engineering observation.</p>
 					<p class="mb-3 text-body">The project did <span class="font-bold text-indigo-600">not</span> require
 						understanding the
@@ -544,7 +548,7 @@
 
 					<hr class="mt-6 border-gray-200" />
 
-					<h2 class="text-4xl font-bold">3.2 When the Database Becomes the Documentation</h2>
+					<h2 class="mt-3 mb-3 text-4xl font-bold">3.2 When the Database Becomes the Documentation</h2>
 					<p class="mb-3 text-body">Commercial ERP systems typically provide implementation
 						documentation describing database relationships, business entities,
 						and application architecture.</p>
@@ -558,7 +562,7 @@
 					<p class="mb-3 text-body">The database effectively became its own documentation.</p>
 					<hr class="mt-6 border-gray-200" />
 
-					<h2 class="text-4xl font-bold">3.3 Discovering the Operational Tables</h2>
+					<h2 class="mt-3 text-4xl font-bold">3.3 Discovering the Operational Tables</h2>
 					<p class="mb-3 text-body">With hundreds of tables available, manually inspecting every
 						object would have been impractical.</p>
 					<p class="mb-3 text-body">A different strategy was therefore adopted.</p>
@@ -654,10 +658,15 @@
 				<div class="py-5 text-body border-b border-default">
 					<h1 class="mb-4 text-4xl font-bold tracking-tight text-heading md:text-5xl lg:text-6xl">04. Data
 						Consolidation Architecture</h1>
-					<blockquote class="text-xl italic font-semibold tracking-tight text-heading"><em
-							class="font-bold text-red-600 not-italic">&quot;Finding the data solved one problem. Making
-							it
-							usable solved another.&quot;</em></blockquote>
+					<div class="mt-12 pt-6 border-t border-gray-200">
+						<blockquote class="p-4 my-4 border-s-4 border-default bg-neutral-secondary-soft">
+							<p class="text-xl italic font-medium leading-relaxed text-heading">
+								<em class="font-bold text-black-600 not-italic">
+							&quot;Finding the data solved one problem. Making
+							it usable solved another.&quot;</em>
+							</p>
+						</blockquote>
+					</div>
 					<p class="mb-3 text-body">Identifying the operational tables represented only the first
 						stage of the project.</p>
 					<p class="mb-3 text-body">Employee information still remained distributed across multiple
@@ -672,7 +681,7 @@
 						regardless of the original data source.</p>
 					<hr class="mt-6 border-gray-200" />
 
-					<h2 class="text-4xl font-bold">4.1 Migration Strategy</h2>
+					<h2 class="mt-3 mb-3 text-4xl font-bold">4.1 Migration Strategy</h2>
 					<p class="mb-3 text-body">The organization maintained employee information within three
 						independent repositories.</p>
 					<ul class="max-w-full space-y-1 text-body list-disc list-inside">
@@ -719,7 +728,7 @@
 						original structure of each source system.</p>
 					<hr class="mt-6 border-gray-200" />
 
-					<h2 class="text-4xl font-bold">4.2 Standardising the Data Model</h2>
+					<h2 class="mt-3 mb-3 text-4xl font-bold">4.2 Standardising the Data Model</h2>
 					<p class="mb-3 text-body">Although the databases now shared a common database engine, they
 						still differed substantially in schema design.</p>
 					<p class="mb-3 text-body">Field names varied.</p>
@@ -734,7 +743,7 @@
 						regardless of the original source.</p>
 					<hr class="mt-6 border-gray-200" />
 
-					<h2 class="text-4xl font-bold">4.3 Designing Logical Views</h2>
+					<h2 class="mt-3 mb-3 text-4xl font-bold">4.3 Designing Logical Views</h2>
 					<p class="mb-3 text-body">Rather than repeatedly constructing complex JOIN operations within
 						application code, two logical database views were created.</p>
 					<h3 class="western">Employee View (<code class="western">emp</code>)</h3>
@@ -747,10 +756,19 @@
 					<p class="mb-3 text-body">Because these names closely matched the remaining repositories,
 						application code no longer needed to understand ERP-specific
 						terminology.</p>
-					<p class="mb-3 text-body"><em class="font-bold text-red-600 not-italic">(Insert </em><em
-							class="font-bold text-red-600 not-italic"><code class="western">emp</code></em><em
-							class="font-bold text-red-600 not-italic"> SQL
-							snippet here.)</em></p>
+						<!--  -->
+						<div class="mt-12 pt-6 border-t border-gray-200">
+							<blockquote class="p-4 my-4 border-s-4 border-default bg-neutral-secondary-soft">
+								<p class="text-xl italic font-medium leading-relaxed text-heading">
+									<em class="font-bold text-blue-600 not-italic">
+									<code class="text-xl">Emp</code></em><br />
+									<em class="font-bold text-blue-600 not-italic">
+										CREATE VIEW emp AS SELECT EMPBASIC_EMPLOYEE.EM_SEMPLOYEE AS ecode, EMPBASIC_EMPLOYEE.EM_SNAME AS ename, EMPBASIC_EMPLOYEE.EM_SFIRSTNAME AS firstname, EMPBASIC_EMPLOYEE.EM_SLASTNAME AS lastname, EMPBASIC_EMPLOYEE.EM_SFATHER AS fathername, EMPBASIC_EMPLOYEE.EM_SIDCARD AS cnic, EMPBASIC_EMPLOYEE.EM_DATEJOIN AS joiningdate, EMPBASIC_EMPLOYEE.EM_DATEBIRTH AS dob, EMPBASIC_EMPLOYEE.EM_SEMERGENCY_CONTACT AS phone1, EMPBASIC_EMPLOYEE.EM_SSPOUSE_PHONE AS mobile, EMPBASIC_EMPLOYEE.EM_SCONTACTNOEMR AS emgr_contact, EMPBASIC_EMPLOYEE.EM_SEMAIL AS email, EMPBASIC_EMPLOYEE.EM_DATEACTUALRESIGN AS status FROM EMPBASIC_EMPLOYEE ;
+									</em>
+								</p>
+							</blockquote>
+						</div>`
+					<!--  -->
 					<hr class="mt-6 border-gray-200" />
 
 					<h3 class="western">Placement View (<code class="western">placement</code>)</h3>
@@ -763,13 +781,20 @@
 					<p class="mb-3 text-body">Instead of requiring the application to reconstruct these joins
 						repeatedly, organizational structure became available through one
 						simplified relational interface.</p>
-					<p class="mb-3 text-body"><em class="font-bold text-red-600 not-italic">(Insert </em><em
-							class="font-bold text-red-600 not-italic"><code class="western">placement</code></em><em
-							class="font-bold text-red-600 not-italic">
-							SQL snippet here.)</em></p>
+					<div class="mt-12 pt-6 border-t border-gray-200">
+						<blockquote class="p-4 my-4 border-s-4 border-default bg-neutral-secondary-soft">
+							<p class="text-xl italic font-medium leading-relaxed text-heading">
+								<em class="font-bold text-blue-600 not-italic">
+								<code class="text-xl">Placement</code></em><br />
+								<em class="font-bold text-blue-600 not-italic">
+								CREATE VIEW placement AS SELECT pl.PL_SEMPLOYEE AS ecode, e.ename AS ename, l.CD_SDESC AS loc, desig.CD_SDESC AS designation, g.CD_SDESC AS grade, et.CD_SDESC AS emp_type, dept.CD_SDESC AS dept, pl.PL_DATEDESIGNATION AS desigDate FROM ( ( ( ( ( (EMPBASIC_PLACEMENT pl left join emp e on pl.PL_SEMPLOYEE = e.ecode ) left join VU_DESIGNATION desig on pl.PL_SDESIGNATION = desig.CD_SCODE ) left join VU_GRADE g on pl.PL_SGRADE = g.CD_SCODE ) left join VU_EMPLOYEE_TYPE et on pl.PL_SEMPLOYEE_TYPE = et.CD_SCODE ) left join VU_LOCATION l on pl.PL_SLOCATION = l.CD_SCODE ) left join VU_DEPARTMENT dept on pl.PL_SDEPARTMENT = dept.CD_SCODE ); 
+								</em>
+							</p>
+						</blockquote>
+					</div>
 					<hr class="mt-6 border-gray-200" />
 
-					<h2 class="text-4xl font-bold">4.4 Unified Search Layer</h2>
+					<h2 class="mt-3 mb-3 text-4xl font-bold">4.4 Unified Search Layer</h2>
 					<p class="mb-3 text-body">With each repository transformed into a consistent relational
 						structure, the application no longer needed to distinguish between
 						different databases.</p>
@@ -790,7 +815,7 @@
 						the underlying consolidation layer.</p>
 					<hr class="mt-6 border-gray-200" />
 
-					<h2 class="text-4xl font-bold">4.5 Architectural Benefits</h2>
+					<h2 class="mt-3 mb-3 text-4xl font-bold">4.5 Architectural Benefits</h2>
 					<p class="mb-3 text-body">The resulting architecture provided several practical advantages.</p>
 					<ul class="max-w-full space-y-1 text-body list-disc list-inside">
 						<li>Reverse engineering occurred only
