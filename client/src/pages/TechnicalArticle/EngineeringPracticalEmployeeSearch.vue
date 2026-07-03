@@ -56,12 +56,15 @@
 			</span>
 		</div>
 
+		<h3 class="text-xl font-bold text-gray-900 mb-3">This article is organized into ten engineering sections. Expand
+			any section below to jump directly to that topic.</h3>
+
 		<!-- Article Content Divider -->
 		<hr class="mt-6 border-gray-200" />
 
 		<div id="accordion-flush" data-accordion="collapse" data-active-classes="bg-neutral-primary text-heading"
 			data-inactive-classes="text-body">
-			<!-- Part 1 -->
+			<!-- 01. Introduction -->
 			<h2 id="accordion-flush-heading-1">
 				<button type="button"
 					class="flex items-center justify-between w-full py-5 font-medium rtl:text-right text-body border-b border-default gap-3"
@@ -151,9 +154,19 @@
 					<hr class="h-px my-8 bg-gray-200 border-0" />
 
 					<h1 class="mb-4 text-4xl font-bold tracking-tight text-heading md:text-5xl lg:text-6xl">2.
-						Engineering Under
-						Constraints</h1>
-					<p class="mb-3 text-body">Engineering decisions are always shaped by constraints.</p>
+						Engineering Under Constraints
+					</h1>
+					<div class="mt-12 pt-6 border-t border-gray-200">
+						<h3 class="text-xl font-bold text-gray-900 mb-3">
+							Engineering Principle
+						</h3>
+						<blockquote class="p-4 my-4 border-s-4 border-default bg-neutral-secondary-soft">
+							<p class="text-xl italic font-medium leading-relaxed text-heading">
+								Engineering decisions are always shaped by constraints.
+							</p>
+						</blockquote>
+					</div>
+
 					<p class="mb-3 text-body">Unlike large commercial software companies, many NGOs operate with
 						limited budgets and must carefully prioritize where resources are
 						invested. Purchasing additional commercial software simply to support
@@ -210,12 +223,12 @@
 				</div>
 			</div>
 
-			<!-- Part 2 -->
+			<!-- 02. The Operational Problem -->
 			<h2 id="accordion-flush-heading-2">
 				<button type="button"
 					class="flex items-center justify-between w-full py-5 font-medium rtl:text-right text-body border-b border-default gap-3"
-					data-accordion-target="#accordion-flush-body-3" aria-expanded="false"
-					aria-controls="accordion-flush-body-3">
+					data-accordion-target="#accordion-flush-body-2" aria-expanded="false"
+					aria-controls="accordion-flush-body-2">
 					<span class="font-bold text-indigo-600">02. The Operational Problem</span>
 					<svg data-accordion-icon class="w-5 h-5 rotate-180 shrink-0" aria-hidden="true"
 						xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
@@ -226,17 +239,221 @@
 			</h2>
 			<div id="accordion-flush-body-2" class="hidden" aria-labelledby="accordion-flush-heading-3">
 				<div class="py-5 text-body border-b border-default">
+					<h1 class="mb-4 text-4xl font-bold tracking-tight text-heading md:text-5xl lg:text-6xl">
+						02. The Operational Problem</h1>
+					<h2 class="text-4xl font-bold">2.1 Organizational Context</h2>
+					<p class="mb-3 text-body">Before the Employee Search MIS was conceived, the organization
+						maintained personnel information across multiple independent
+						information systems that had evolved over several years. Each system
+						had been developed for a specific operational purpose, resulting in
+						fragmented employee records distributed across different
+						technologies, database engines, and application architectures.</p>
+					<p class="mb-3 text-body">The earliest Human Resource Management System (HR MIS) was a
+						standalone Microsoft .NET desktop application backed by Microsoft SQL
+						Server. This system had served as the organization's primary
+						personnel repository for several years and contained historical
+						employee records accumulated through routine HR operations.</p>
+					<p class="mb-3 text-body">As part of a broader organizational modernization initiative, the
+						organization later adopted an Enterprise Resource Planning (ERP)
+						solution that integrated Human Resource and Finance operations. The
+						ERP became the organization's official operational system for
+						employee management, payroll, placement, and financial processing.
+						However, migration from the legacy HR system to the ERP was performed
+						incrementally rather than as a single cutover, meaning employee
+						information temporarily existed in both environments.</p>
+					<p class="mb-3 text-body">A third repository existed within the Human Resource Development
+						Centre (HRDC), where employee training and staff development
+						activities had been maintained independently for many years. Although
+						this database was not intended to function as an HR system, it
+						nevertheless contained valuable employee information that frequently
+						assisted in identifying staff members during migration activities.</p>
+					<p class="mb-3 text-body">Consequently, no single repository represented a complete and
+						authoritative view of all employees.</p>
+					<p class="mb-3 text-body">Instead, personnel information became distributed across three
+						independent databases, each describing different aspects of the same
+						workforce.</p>
+					<hr class="h-px my-8 bg-gray-200 border-0" />
+
+					<h2 class="text-4xl font-bold">2.2 The Search Problem</h2>
+					<p class="mb-3 text-body">During ERP migration, Human Resource staff were responsible for
+						locating existing employee records before creating or updating
+						information within the new ERP.</p>
+					<p class="mb-3 text-body">At first glance, this appeared to be a straightforward search
+						problem.</p>
+					<p class="mb-3 text-body">In practice, it quickly became apparent that locating employees
+						was considerably more difficult than anticipated.</p>
+					<p class="mb-3 text-body">The ERP's built-in search functionality relied almost entirely on
+						exact string matching. Employee names had to be entered exactly as
+						stored within the database. Even minor variations—including
+						spelling mistakes, omitted middle names, additional spaces,
+						punctuation differences, or inconsistent abbreviations—often
+						prevented otherwise valid records from being located.</p>
+					<p class="mb-3 text-body">This limitation became increasingly problematic because employee
+						information had accumulated over many years through different
+						operators, departments, and software systems.</p>
+					<p class="mb-3 text-body">For example, an employee might appear as:</p>
+					<table class="w-full text-sm text-left rtl:text-right text-body">
+						<thead class="text-sm text-body bg-neutral-secondary-soft border-b rounded-base border-default">
+							<tr>
+								<th scope="col" class="px-6 py-3 font-bold">
+									Stored Record
+								</th>
+								<th scope="col" class="px-6 py-3 font-bold">
+									User Search
+								</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr class="bg-neutral-primary border-b border-default">
+								<th scope="row" class="px-6 py-4 font-medium text-heading whitespace-nowrap">
+									Muhammad Ali
+								</th>
+								<td class="px-6 py-4">
+									Muhammad Ali
+								</td>
+							</tr>
+							<tr class="bg-neutral-primary border-b border-default">
+								<th scope="row" class="px-6 py-4 font-medium text-heading whitespace-nowrap">
+									M. Ali
+								</th>
+								<td class="px-6 py-4">
+									Muhammad A. Ali
+								</td>
+							</tr>
+							<tr class="bg-neutral-primary border-b border-default">
+								<th scope="row" class="px-6 py-4 font-medium text-heading whitespace-nowrap">
+									Abdul Rehman
+								</th>
+								<td class="px-6 py-4">
+									Abdul Rahman
+								</td>
+							</tr>
+						</tbody>
+					</table>
+					<p class="mb-3 text-body">Although these records referred to the same individual,
+						traditional exact matching treated each variation as a completely
+						different employee.</p>
+					<p class="mb-3 text-body">The problem extended beyond names.</p>
+					<p class="mb-3 text-body">National Identity Card (CNIC) numbers occasionally appeared with
+						or without separators. Telephone numbers followed inconsistent
+						formats. Email addresses changed over time. Historical HR records
+						often contained information that differed slightly from the ERP
+						despite representing the same employee.</p>
+					<p class="mb-3 text-body">As the number of records increased, manually checking multiple
+						systems for every employee became increasingly time-consuming.</p>
+					<p class="mb-3 text-body">The challenge was therefore not merely searching for
+						information—it was determining whether apparently different records
+						actually represented the same individual.</p>
+					<hr class="h-px my-8 bg-gray-200 border-0" />
+
+					<h2 class="text-4xl font-bold">2.3 Engineering Constraints</h2>
+					<p class="mb-3 text-body">Although numerous commercial data integration and identity
+						resolution platforms already existed, they were not practical within
+						the project's operational environment.</p>
+					<p class="mb-3 text-body">The solution had to satisfy several real-world engineering
+						constraints.</p>
+					<p class="mb-3 text-body"><span class="font-bold text-indigo-600">The production ERP could not be
+							modified.</span></p>
+					<p class="mb-3 text-body">Because the ERP was a commercial third-party application, altering
+						its database schema or internal search mechanisms was not an option.
+						Any supporting solution therefore had to operate independently
+						without affecting production operations.</p>
+					<p class="mb-3 text-body"><span class="font-bold text-indigo-600">Application source code was
+							unavailable.</span></p>
+					<p class="mb-3 text-body">The ERP vendor did not provide access to the application's source
+						code or internal documentation. Consequently, the system had to be
+						understood entirely through database inspection and observation of
+						application behaviour.</p>
+					<p class="mb-3 text-body"><span class="font-bold text-indigo-600">Database documentation was
+							absent.</span></p>
+					<p class="mb-3 text-body">No entity relationship diagrams, data dictionaries, or schema
+						documentation were available. Understanding the data model required
+						reverse engineering the database itself.</p>
+					<p class="mb-3 text-body"><span class="font-bold text-indigo-600">Multiple database technologies
+							were involved.</span></p>
+					<p class="mb-3 text-body">Employee information existed across Oracle, Microsoft SQL Server,
+						Microsoft Access during migration, Microsoft Excel, and
+						MariaDB/MySQL. Each system used different schemas, naming
+						conventions, and storage formats.</p>
+					<p class="mb-3 text-body"><span class="font-bold text-indigo-600">Resources were limited.</span></p>
+					<p class="mb-3 text-body">The project was developed internally without dedicated software
+						engineering resources, additional licensing costs, or specialized
+						data migration tools. Any proposed solution therefore had to rely
+						primarily on open-source technologies that could be maintained
+						locally.</p>
+					<p class="mb-3 text-body"><span class="font-bold text-indigo-600">Operational continuity was
+							essential.</span></p>
+					<p class="mb-3 text-body">Human Resource staff continued their daily work throughout the
+						migration process. The supporting MIS therefore had to complement
+						existing workflows rather than replace them, allowing migration
+						activities to proceed without disrupting normal organizational
+						operations.</p>
+					<p class="mb-3 text-body">These constraints fundamentally influenced every engineering
+						decision that followed.</p>
+					<p class="mb-3 text-body">Rather than pursuing the theoretically optimal solution, the
+						objective became designing the most practical solution within the
+						realities of the operational environment.</p>
+					<div class="mt-12 pt-6 border-t border-gray-200">
+						<h3 class="text-xl font-bold text-gray-900 mb-3">
+							Engineering Principle
+						</h3>
+						<blockquote class="p-4 my-4 border-s-4 border-default bg-neutral-secondary-soft">
+							<p class="text-xl italic font-medium leading-relaxed text-heading">
+								Engineering excellence is rarely demonstrated by
+								designing ideal systems under perfect conditions. More often, it is
+								demonstrated by producing reliable, maintainable solutions within
+								real organizational constraints.
+							</p>
+						</blockquote>
+					</div>
+					<hr class="h-px my-8 bg-gray-200 border-0" />
+
+					<h2 class="text-4xl font-bold">2.4 Design Objectives</h2>
+					<p class="mb-3 text-body">The Employee Search MIS was therefore designed with four primary
+						objectives.</p>
+					<h3 class="western">Objective 1 — Unified Employee Retrieval</h3>
+					<p class="mb-3 text-body">Provide a single search interface capable of locating employee
+						records across the ERP, legacy HR system, and HRDC databases without
+						requiring users to search each repository independently.</p>
+					<h3 class="western">Objective 2 — Duplicate Identification</h3>
+					<p class="mb-3 text-body">Improve employee identification despite inconsistencies in names,
+						spelling, abbreviations, and historical data by combining multiple
+						complementary search strategies rather than relying solely on exact
+						matching.</p>
+					<h3 class="western">Objective 3 — Data Consolidation</h3>
+					<p class="mb-3 text-body">Transform heterogeneous personnel information into a unified
+						logical representation that could be queried consistently regardless
+						of the original data source.</p>
+					<h3 class="western">Objective 4 — Migration Support</h3>
+					<p class="mb-3 text-body">Assist ERP migration by generating structured datasets that
+						simplified bulk insertion of employee information into the ERP,
+						reducing repetitive manual data entry while preserving organizational
+						consistency.</p>
+					<p class="mb-3 text-body">Collectively, these objectives transformed what initially appeared
+						to be a simple search utility into a supporting information system
+						that addressed search, consolidation, and migration as a single
+						engineering problem.</p>
+
+					<h2 id="accordion-flush-heading-3">
+						Transition to Part III</h2>
+					<p class="mb-3 text-body">With the project objectives clearly established, the next
+						challenge was understanding the ERP itself. Because neither
+						documentation nor source code was available, identifying where
+						employee information actually resided became an engineering problem
+						in its own right. The development process therefore began not with
+						application programming, but with systematically reverse engineering
+						the ERP database to reconstruct its underlying data model.</p>
 
 				</div>
 			</div>
 
-			<!-- Part 3 -->
+			<!-- 03. Reverse Engineering an Undocumented Enterprise Database -->
 			<h2 id="accordion-flush-heading-3">
 				<button type="button"
 					class="flex items-center justify-between w-full py-5 font-medium rtl:text-right text-body border-b border-default gap-3"
-					data-accordion-target="#accordion-flush-body-2" aria-expanded="false"
-					aria-controls="accordion-flush-body-2">
-					<span class="font-bold text-indigo-600">03. Reverse Engineering the ERP</span>
+					data-accordion-target="#accordion-flush-body-3" aria-expanded="false"
+					aria-controls="accordion-flush-body-3">
+					<span class="font-bold text-indigo-600">03. Reverse Engineering a Legacy ERP</span>
 					<svg data-accordion-icon class="w-5 h-5 rotate-180 shrink-0" aria-hidden="true"
 						xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
 						<path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -247,172 +464,184 @@
 			<div id="accordion-flush-body-3" class="hidden" aria-labelledby="accordion-flush-heading-2">
 				<div class="py-5 border-b border-default text-body">
 					<h1 class="mb-4 text-4xl font-bold tracking-tight text-heading md:text-5xl lg:text-6xl">
-						Part 2 — Reverse Engineering an Undocumented Enterprise Database</h1>
-					<h2 class="text-4xl font-bold">4. Understanding the Existing System</h2>
-					<p class="mb-3 text-body">Before a search system could be designed, it was first necessary
-						to understand the structure of the Enterprise Resource Planning (ERP)
-						database itself. Although the ERP successfully supported the
-						organization's Human Resources and Finance operations, it offered
-						very little insight into its internal data model. Source code was
-						unavailable, database documentation did not exist, and the vendor
-						treated the underlying schema as proprietary.</p>
-					<p class="mb-3 text-body">Consequently, the first engineering challenge was not software
-						development—it was system discovery.</p>
-					<p class="mb-3 text-body">The objective was straightforward:</p>
-					<blockquote>Identify where employee information was actually stored
-						and determine how those records could be extracted without modifying
-						the production ERP.</blockquote>
-					<p class="mb-3 text-body">At first glance, this appeared to be a simple database exploration
-						exercise. In reality, it became an exercise in reverse engineering.</p>
-					<hr class="h-px my-8 bg-gray-200 border-0" />
+						03. Reverse Engineering the Legacy ERP</h1>
+					<blockquote class="text-xl italic font-semibold tracking-tight text-heading"><em
+							class="font-bold text-red-600 not-italic">&quot;Before data could be consolidated, it first
+							had
+							to be understood.&quot;</em></blockquote>
+					<p class="mb-3 text-body">Unlike greenfield software projects, legacy enterprise systems
+						rarely provide developers with a complete understanding of their
+						internal data model. Documentation may be outdated, source code
+						unavailable, and years of incremental modifications often obscure the
+						original system architecture. Consequently, understanding an existing
+						system frequently becomes the first engineering challenge rather than
+						software implementation itself.</p>
+					<p class="mb-3 text-body">The Employee Search MIS was developed under exactly these
+						conditions.</p>
+					<p class="mb-3 text-body">Although the organization had administrative access to the ERP
+						database, no documentation described how employee information was
+						organized internally. The application source code was unavailable, no
+						entity relationship diagrams existed, and no data dictionary
+						explained how the Human Resource module interacted with the database.</p>
+					<p class="mb-3 text-body">Rather than beginning with software development, the project
+						therefore began with a process of systematic reverse engineering.</p>
+					<hr class="mt-6 border-gray-200" />
 
-					<h2 class="text-4xl font-bold">4.1 Initial Exploration</h2>
-					<p class="mb-3 text-body">Administrative access to the Oracle database server made it
-						possible to inspect the database schema directly.</p>
-					<p class="mb-3 text-body">The first observation immediately revealed the scale of the
-						system.</p>
-					<p class="mb-3 text-body">The ERP database contained:</p>
-
+					<h2 class="text-4xl font-bold">3.1 Initial Exploration</h2>
+					<p class="mb-3 text-body">Administrative access to the Oracle database made it possible to
+						inspect the database schema directly.</p>
+					<p class="mb-3 text-body">The first inspection immediately demonstrated the scale of the
+						enterprise application.</p>
 					<table class="w-full text-sm text-left rtl:text-right text-body">
 						<thead class="text-sm text-body bg-neutral-secondary-soft border-b rounded-base border-default">
 							<tr class="bg-neutral-primary border-b border-default">
-								<th scope="col" class="px-6 py-3 font-medium">Object</th>
+								<th scope="col" class="px-6 py-3 font-medium">Database Object</th>
 								<th scope="col" class="px-6 py-3 font-medium">Count</th>
 							</tr>
 						</thead>
 						<tbody>
 							<tr class="bg-neutral-primary border-b border-default">
-								<th scope="row" class="px-6 py-4 font-medium text-heading whitespace-nowrap">Database
-									Tables
-								</th>
-								<td class="px-6 py-4">685</td>
+								<td scope="row" class="px-6 py-4 font-medium text-heading whitespace-nowrap">Tables</td>
+								<td scope="row" class="px-6 py-4 font-medium text-heading whitespace-nowrap">685</td>
 							</tr>
 							<tr class="bg-neutral-primary border-b border-default">
-								<th scope="row" class="px-6 py-4 font-medium text-heading whitespace-nowrap">Database
-									Views</th>
-								<td class="px-6 py-4">187</td>
+								<td scope="row" class="px-6 py-4 font-medium text-heading whitespace-nowrap">Views</td>
+								<td scope="row" class="px-6 py-4 font-medium text-heading whitespace-nowrap">187</td>
 							</tr>
 							<tr class="bg-neutral-primary border-b border-default">
-								<th scope="row" class="px-6 py-4 font-medium text-heading whitespace-nowrap">Empty
-									Tables</th>
-								<td class="px-6 py-4">478</td>
+								<td scope="row" class="px-6 py-4 font-medium text-heading whitespace-nowrap">Non-empty
+									Tables</td>
+								<td scope="row" class="px-6 py-4 font-medium text-heading whitespace-nowrap">207</td>
 							</tr>
 							<tr class="bg-neutral-primary border-b border-default">
-								<th scope="row" class="px-6 py-4 font-medium text-heading whitespace-nowrap">Non-empty
-									Tables
-								</th>
-								<td class="px-6 py-4">207</td>
+								<td scope="row" class="px-6 py-4 font-medium text-heading whitespace-nowrap">Empty
+									Tables</td>
+								<td scope="row" class="px-6 py-4 font-medium text-heading whitespace-nowrap">478</td>
 							</tr>
 						</tbody>
 					</table>
-					<p class="mb-3 text-body">From an engineering perspective, these numbers immediately raised
-						an important question.</p>
-					<p class="mb-3 text-body">How many of these tables actually participated in the Human
-						Resource module?</p>
-					<p class="mb-3 text-body">The answer turned out to be: surprisingly few.</p>
-					<p class="mb-3 text-body">Although the ERP exposed hundreds of tables, only a relatively
-						small subset contained employee-related information. The remaining
-						tables represented configuration data, module-specific entities,
-						historical structures, system metadata, or simply remained unused
-						within the organization's deployment.</p>
-					<p class="mb-3 text-body">Rather than attempting to understand every table, the
-						investigation focused only on identifying those that actively
-						supported employee management.</p>
-					<hr class="h-px my-8 bg-gray-200 border-0" />
-
-					<h2 class="text-4xl font-bold">4.2 There Was No Documentation</h2>
-					<p class="mb-3 text-body">Many commercial ERP systems provide detailed database
-						documentation for customers or implementation partners.</p>
-					<p class="mb-3 text-body">This system did not.</p>
-					<p class="mb-3 text-body">No entity relationship diagrams were available.</p>
-					<p class="mb-3 text-body">No data dictionary existed.</p>
-					<p class="mb-3 text-body">No documentation described table relationships.</p>
-					<p class="mb-3 text-body">No source code could be inspected to understand how the
-						application interacted with the database.</p>
-					<p class="mb-3 text-body">Every relationship had to be inferred.</p>
-					<p class="mb-3 text-body">This fundamentally changed the engineering approach.</p>
-					<p class="mb-3 text-body">Instead of reading documentation, the database itself became the
-						documentation.</p>
-					<hr class="h-px my-8 bg-gray-200 border-0" />
-
-					<h2 class="text-4xl font-bold">4.3 A Surprising Discovery</h2>
-					<p class="mb-3 text-body">One of the most unexpected findings during the investigation was
-						the apparent absence of database-enforced referential integrity.</p>
-					<p class="mb-3 text-body">Despite representing a highly normalized enterprise application,
-						the Oracle schema contained virtually no foreign key constraints
-						linking related tables together.</p>
-					<p class="mb-3 text-body">Primary identifiers were clearly reused across multiple tables,
-						suggesting that logical relationships certainly existed. However,
-						these relationships were enforced entirely by the application rather
-						than by the database management system.</p>
-					<p class="mb-3 text-body">For example, fields representing employee identifiers consistently
-						matched corresponding records in related tables, yet no explicit
-						foreign key definitions were present within the schema.</p>
-					<p class="mb-3 text-body">This observation had two important consequences.</p>
-					<p class="mb-3 text-body">First, understanding relationships required careful examination of
-						the stored data rather than relying on database metadata.</p>
-					<p class="mb-3 text-body">Second, any supporting application developed outside the ERP
-						needed to reconstruct these relationships independently.</p>
-					<p class="mb-3 text-body">In effect, the data model had to be rediscovered.</p>
-					<hr class="h-px my-8 bg-gray-200 border-0" />
-
-					<h2 class="text-4xl font-bold">4.4 Finding the Important Tables</h2>
-					<p class="mb-3 text-body">Without documentation or foreign key definitions, a systematic
-						method was required to identify which tables actually supported
-						employee management.</p>
-					<p class="mb-3 text-body">Rather than examining hundreds of tables manually, a data-driven
-						approach was adopted.</p>
-					<p class="mb-3 text-body">The ERP application's user interface became the primary source of
-						clues.</p>
-					<p class="mb-3 text-body">Whenever a list of employees appeared within the application, the
-						corresponding record count was noted.</p>
-					<p class="mb-3 text-body">These counts were then compared against every non-empty database
-						table.</p>
-					<p class="mb-3 text-body">Tables whose row counts closely matched the application's
-						displayed information became immediate candidates for further
+					<p class="mb-3 text-body">Although these numbers initially appeared overwhelming, they also
+						suggested an important engineering observation.</p>
+					<p class="mb-3 text-body">The project did <span class="font-bold text-indigo-600">not</span> require
+						understanding the
+						entire ERP.</p>
+					<p class="mb-3 text-body">It required understanding only the relatively small subset of
+						entities responsible for employee management.</p>
+					<p class="mb-3 text-body">This realization significantly reduced the scope of the
 						investigation.</p>
-					<p class="mb-3 text-body">Several additional heuristics significantly accelerated the
-						process.</p>
-					<p class="mb-3 text-body">Database views were intentionally excluded during the initial
-						investigation because they merely represented derived data built upon
-						underlying base tables.</p>
-					<p class="mb-3 text-body">Fortunately, the ERP followed a reasonably consistent naming
-						convention in which view names began with the prefix &quot;V&quot;,
-						allowing them to be identified quickly.</p>
-					<p class="mb-3 text-body">Candidate tables were then inspected individually.</p>
-					<p class="mb-3 text-body">Column names, record counts, and data contents were compared
-						against information displayed within the ERP interface.</p>
-					<p class="mb-3 text-body">Through repeated verification, the subset of tables responsible
-						for employee information gradually emerged.</p>
-					<p class="mb-3 text-body">Although this process required patience, it proved significantly
-						more reliable than attempting to understand the entire schema
-						simultaneously.</p>
-					<hr class="h-px my-8 bg-gray-200 border-0" />
-					<h2 class="text-4xl font-bold">4.5 Mining Rather Than Exploring</h2>
-					<p class="mb-3 text-body">Looking back, the investigation resembled data mining more than
-						traditional software development.</p>
-					<p class="mb-3 text-body">The objective was never to understand every table.</p>
-					<p class="mb-3 text-body">Instead, the objective was to isolate only those entities
-						necessary to support employee search and migration.</p>
-					<p class="mb-3 text-body">Once these tables had been identified, the remaining schema became
-						largely irrelevant to the project.</p>
-					<p class="mb-3 text-body">This principle substantially reduced the complexity of the
-						engineering effort.</p>
-					<p class="mb-3 text-body">Instead of attempting to reverse engineer an entire ERP containing
-						hundreds of tables, the problem was reduced to understanding only the
-						relatively small collection of entities required to reconstruct
-						employee information.</p>
-					<p class="mb-3 text-body">Only after this discovery process was complete could the actual
-						design of the Employee Search MIS begin.</p>
+
+					<div class="mt-12 pt-6 border-t border-gray-200">
+						<h3 class="text-xl font-bold text-gray-900 mb-3">
+							Engineering Principle
+						</h3>
+						<blockquote class="p-4 my-4 border-s-4 border-default bg-neutral-secondary-soft">
+							<p class="text-xl italic font-medium leading-relaxed text-heading">
+								Reverse engineering should begin by reducing the problem
+								space rather than attempting to understand an entire enterprise system simultaneously.
+							</p>
+						</blockquote>
+					</div>
+
+					<hr class="mt-6 border-gray-200" />
+
+					<h2 class="text-4xl font-bold">3.2 When the Database Becomes the Documentation</h2>
+					<p class="mb-3 text-body">Commercial ERP systems typically provide implementation
+						documentation describing database relationships, business entities,
+						and application architecture.</p>
+					<p class="mb-3 text-body">No such documentation was available for this project.</p>
+					<p class="mb-3 text-body">Consequently, the database itself became the primary source of
+						information.</p>
+					<p class="mb-3 text-body">Every table, every column, and every record represented evidence
+						from which the application's logical design had to be inferred.</p>
+					<p class="mb-3 text-body">Instead of reading technical documentation, the engineering
+						process relied upon observation, experimentation, and verification.</p>
+					<p class="mb-3 text-body">The database effectively became its own documentation.</p>
+					<hr class="mt-6 border-gray-200" />
+
+					<h2 class="text-4xl font-bold">3.3 Discovering the Operational Tables</h2>
+					<p class="mb-3 text-body">With hundreds of tables available, manually inspecting every
+						object would have been impractical.</p>
+					<p class="mb-3 text-body">A different strategy was therefore adopted.</p>
+					<p class="mb-3 text-body">Rather than beginning with the database, the investigation began
+						with the ERP application's user interface.</p>
+					<p class="mb-3 text-body">Whenever an employee list or operational screen was displayed, the
+						number of records shown by the application was recorded.</p>
+					<p class="mb-3 text-body">These values were then compared against the row counts of every
+						non-empty database table.</p>
+					<p class="mb-3 text-body">Tables containing approximately the same number of records became
+						immediate candidates for further investigation.</p>
+					<p class="mb-3 text-body">Additional heuristics accelerated the process.</p>
+					<p class="mb-3 text-body">Database views were excluded during the initial investigation
+						because they represented derived datasets rather than physical
+						storage.</p>
+					<p class="mb-3 text-body">Fortunately, the ERP followed a relatively consistent naming
+						convention in which database views began with the prefix <span
+							class="font-bold text-indigo-600">V</span>,
+						allowing them to be distinguished quickly from operational tables.</p>
+					<p class="mb-3 text-body">Candidate tables were subsequently verified by examining column
+						names, sample records, and their correspondence with information
+						presented through the ERP interface.</p>
+					<p class="mb-3 text-body">Through repeated verification, the operational HR tables gradually
+						emerged from the much larger enterprise schema.</p>
+					<hr class="mt-6 border-gray-200" />
+
+					<h2 class="text-4xl font-bold">3.4 Reconstructing Relationships</h2>
+					<p class="mb-3 text-body">One of the most unexpected discoveries was the apparent absence of
+						database-enforced referential integrity.</p>
+					<p class="mb-3 text-body">Although employee identifiers clearly linked information across
+						multiple tables, the Oracle schema contained virtually no foreign key
+						constraints describing these relationships.</p>
+					<p class="mb-3 text-body">Instead, the ERP appeared to rely entirely upon the application
+						layer to maintain data consistency.</p>
+					<p class="mb-3 text-body">As a result, relationships that would normally be discovered
+						through database metadata instead had to be reconstructed manually by
+						analysing matching identifier values across related tables.</p>
+					<p class="mb-3 text-body">This transformed what initially appeared to be a database
+						exploration exercise into an exercise in reconstructing the
+						underlying data model itself.</p>
+					<p class="mb-3 text-body">Understanding the ERP therefore required reasoning about the
+						stored data rather than relying upon the database engine to describe
+						its own structure.</p>
+					<hr class="mt-6 border-gray-200" />
+
+					<h2 class="text-4xl font-bold">3.5 Mining Rather Than Exploring</h2>
+					<p class="mb-3 text-body">Looking back, the investigation more closely resembled data mining
+						than traditional software development.</p>
+					<p class="mb-3 text-body">The objective was never to understand every table contained within
+						the ERP.</p>
+					<p class="mb-3 text-body">Instead, the objective was to isolate only those entities required
+						to support employee identification, placement, and migration.</p>
+					<p class="mb-3 text-body">Once those entities had been identified, the remaining hundreds of
+						tables became largely irrelevant to the project.</p>
+					<p class="mb-3 text-body">Reducing the problem from an enterprise containing hundreds of
+						database objects to a comparatively small operational subset
+						fundamentally changed the complexity of the engineering effort.</p>
+					<p class="mb-3 text-body">Only after this discovery process was complete could data
+						consolidation begin.</p>
+
+					<div class="mt-12 pt-6 border-t border-gray-200">
+						<h3 class="text-xl font-bold text-gray-900 mb-3">
+							Engineering Principle
+						</h3>
+						<blockquote class="p-4 my-4 border-s-4 border-default bg-neutral-secondary-soft">
+							<p class="text-xl italic font-medium leading-relaxed text-heading">
+								Reverse engineering is not the process of understanding
+								everything. It is the disciplined process of discovering only what is
+								necessary to solve the engineering problem at hand.
+							</p>
+						</blockquote>
+					</div>
+
+					<hr class="mt-6 border-gray-200" />
 				</div>
 			</div>
 
-			<!-- Part 4 -->
+			<!-- 04. Data Consolidation Architecture -->
 			<h2 id="accordion-flush-heading-4">
 				<button type="button"
 					class="flex items-center justify-between w-full py-5 font-medium rtl:text-right text-body border-b border-default gap-3"
-					data-accordion-target="#accordion-flush-body-3" aria-expanded="false"
-					aria-controls="accordion-flush-body-3">
+					data-accordion-target="#accordion-flush-body-4" aria-expanded="false"
+					aria-controls="accordion-flush-body-4">
 					<span class="font-bold text-indigo-600">04. Data Consolidation Architecture</span>
 					<svg data-accordion-icon class="w-5 h-5 rotate-180 shrink-0" aria-hidden="true"
 						xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
@@ -423,111 +652,187 @@
 			</h2>
 			<div id="accordion-flush-body-4" class="hidden" aria-labelledby="accordion-flush-heading-3">
 				<div class="py-5 text-body border-b border-default">
-					<h2 class="text-4xl font-bold">
-						Part III — Data Consolidation Architecture</h2>
-					<h3 class="text-xl font-bold text-gray-900 mb-3">3. Data Consolidation Architecture</h3>
-					<p class="mb-3 text-body">Before an effective search system could be developed, the employee
-						information first had to be consolidated into a form that allowed
-						uniform querying. Although the search algorithms received most of the
-						attention, the real engineering challenge was integrating three
-						independent personnel repositories into a single logical information
-						system.</p>
-					<p class="mb-3 text-body">The organization maintained employee information across three
-						different sources:</p>
-					<ul class="max-w-full space-y-1 text-body list-disc list-inside">
-						<li><span class="font-bold text-indigo-600">ERP Database</span> (Oracle/SQL Server based),
-							containing official employee, placement, and organizational records.</li>
-						<li><span class="font-bold text-indigo-600">Legacy HR Database</span>, containing historical
-							human resource information maintained before ERP adoption.</li>
-						<li><span class="font-bold text-indigo-600">HRDC Database</span>, containing training and staff
-							development records accumulated over several years.</li>
-					</ul>
-					<p class="mb-3 text-body">Together, these repositories contained more than <span
-							class="font-bold text-indigo-600">5,100
-							employee records</span> distributed across different database
-						engines, schemas, naming conventions, and application architectures.</p>
-					<h3 class="text-xl font-bold text-gray-900 mb-3">3.1 Reverse Engineering the ERP</h3>
-					<p class="mb-3 text-body">The ERP database presented the greatest challenge.</p>
-					<p class="mb-3 text-body">Rather than providing a concise operational schema, the database
-						contained hundreds of tables, many of which were either empty,
-						automatically generated, or unrelated to the HR module. No foreign
-						key relationships were implemented at the database level, making it
-						impossible to rely on metadata to understand how entities were
-						connected.</p>
-					<p class="mb-3 text-body">Consequently, the database had to be reverse engineered manually.</p>
-					<p class="mb-3 text-body">Instead of studying the application source code—which was
-						unavailable—the investigation began by observing the ERP
-						application's user interface. Information displayed on individual
-						screens was compared with database tables having similar record
-						counts and contents. This iterative process gradually revealed which
-						tables actually stored operational HR data.</p>
-					<p class="mb-3 text-body">Naming conventions also proved useful. Database views followed a
-						consistent prefix, allowing them to be distinguished from physical
-						tables and preventing duplicate investigation of equivalent datasets.</p>
-					<p class="mb-3 text-body">Once the relevant entities had been identified, only the
-						operational tables required for employee search and placement
-						information were extracted.</p>
-					<h3 class="text-xl font-bold text-gray-900 mb-3">3.2 Database Migration Strategy</h3>
-					<p class="mb-3 text-body">Because the helper MIS was developed using Laravel and MySQL, the
-						ERP data had to be migrated into an open-source environment suitable
-						for rapid development.</p>
-					<p class="mb-3 text-body">The migration process consisted of several stages:</p>
-					<ol class="list-decimal list-inside pl-5">
-						<li>Export the required ERP tables.</li>
-						<li>Import the tables into Microsoft SQL Server.</li>
-						<li>Transfer the datasets through Microsoft Access using ODBC.</li>
-						<li>Export each table into MySQL-compatible format.</li>
-						<li>Import all converted tables into MariaDB/MySQL.</li>
-						<li>Repeat the process for the HR database.</li>
-						<li>Import the HRDC database directly into MySQL.</li>
-					</ol>
-					<p class="mb-3 text-body">Although this migration pipeline appears lengthy, it provided
-						complete control over the imported schema while allowing unnecessary
-						enterprise structures to be discarded.</p>
-					<h3 class="text-xl font-bold text-gray-900 mb-3">3.3 Creating Logical Views</h3>
-					<p class="mb-3 text-body">Even after migration, directly querying dozens of normalized ERP
-						tables would have produced unnecessarily complex application code.</p>
-					<p class="mb-3 text-body">Instead, logical database views were designed.</p>
-					<p class="mb-3 text-body">The first view, <span class="font-bold text-indigo-600">emp</span>,
-						exposed the
-						core employee
-						identity by presenting names, CNIC, contact information, dates of
-						birth, and employment status using field names consistent with the
-						other repositories.</p>
-					<p class="mb-3 text-body">The second view, <span class="font-bold text-indigo-600">placement</span>,
-						combined placement
-						records with organizational lookup tables including designation,
-						department, employee type, grade, and duty station. By resolving
-						these relationships once inside the database, the application could
-						retrieve complete placement information through a single query rather
-						than repeatedly constructing complex joins.</p>
-					<p class="mb-3 text-body">This approach significantly simplified the application layer while
-						isolating schema complexity inside the database, where it naturally
-						belonged.</p>
-					<h3 class="text-xl font-bold text-gray-900 mb-3">3.4 Unified Search Layer</h3>
-					<p class="mb-3 text-body">Once every repository had been transformed into a common
-						relational structure, the search engine no longer needed to
-						understand where a record originated.</p>
-					<p class="mb-3 text-body">Instead, each search operator produced results with an identical
-						column structure. SQL UNION operations merged these result sets into
-						a single logical dataset presented to the user.</p>
-					<p class="mb-3 text-body">From the application's perspective, three independent databases
-						had effectively become one searchable information system.</p>
-					<p class="mb-3 text-body">This architectural separation between data preparation and search
-						algorithms proved fundamental. It allowed new search techniques to be
-						introduced later without modifying the underlying data consolidation
-						process, resulting in a system that remained modular, extensible, and
-						considerably easier to maintain.</p>
+					<h1 class="mb-4 text-4xl font-bold tracking-tight text-heading md:text-5xl lg:text-6xl">04. Data
+						Consolidation Architecture</h1>
+					<blockquote class="text-xl italic font-semibold tracking-tight text-heading"><em
+							class="font-bold text-red-600 not-italic">&quot;Finding the data solved one problem. Making
+							it
+							usable solved another.&quot;</em></blockquote>
+					<p class="mb-3 text-body">Identifying the operational tables represented only the first
+						stage of the project.</p>
+					<p class="mb-3 text-body">Employee information still remained distributed across multiple
+						databases developed using different technologies, naming conventions,
+						and application architectures.</p>
+					<p class="mb-3 text-body">Before effective searching could be implemented, these
+						heterogeneous datasets first had to be transformed into a common
+						logical representation.</p>
+					<p class="mb-3 text-body">The objective was not merely to migrate data.</p>
+					<p class="mb-3 text-body">The objective was to create an architecture in which every search
+						algorithm could operate against a consistent information model
+						regardless of the original data source.</p>
+					<hr class="mt-6 border-gray-200" />
 
+					<h2 class="text-4xl font-bold">4.1 Migration Strategy</h2>
+					<p class="mb-3 text-body">The organization maintained employee information within three
+						independent repositories.</p>
+					<ul class="max-w-full space-y-1 text-body list-disc list-inside">
+						<li><span class="font-bold text-indigo-600">ERP Database</span>
+							containing official employee and placement information.
+						</li>
+						<li><span class="font-bold text-indigo-600">Legacy HR Database</span>
+							containing historical personnel records.
+						</li>
+						<li><span class="font-bold text-indigo-600">HRDC Database</span>
+							containing staff development
+							and training information.
+						</li>
+					</ul>
+					<p class="mb-3 text-body">Because the helper MIS was developed using Laravel and MariaDB,
+						each repository first had to be migrated into a common relational
+						environment.</p>
+					<p class="mb-3 text-body">The migration process consisted of several controlled stages:</p>
+					<ol class="list-decimal list-inside pl-5">
+						<li>Export operational ERP tables from
+							Oracle.
+						</li>
+						<li>Import them into Microsoft SQL
+							Server.
+						</li>
+						<li>Transfer the datasets through
+							Microsoft Access using ODBC.
+						</li>
+						<li>Export each table into
+							MySQL-compatible format.
+						</li>
+						<li>Import the converted tables into
+							MariaDB.
+						</li>
+						<li>Import the HR database (originally
+							supplied in Excel format) into MariaDB.
+						</li>
+						<li>Import the HRDC MySQL database without modification.
+						</li>
+					</ol>
+					<p class="mb-3 text-body">Following migration, all three repositories existed within MariaDB
+						while remaining logically independent.</p>
+					<p class="mb-3 text-body">This arrangement simplified development while preserving the
+						original structure of each source system.</p>
+					<hr class="mt-6 border-gray-200" />
+
+					<h2 class="text-4xl font-bold">4.2 Standardising the Data Model</h2>
+					<p class="mb-3 text-body">Although the databases now shared a common database engine, they
+						still differed substantially in schema design.</p>
+					<p class="mb-3 text-body">Field names varied.</p>
+					<p class="mb-3 text-body">Column structures differed.</p>
+					<p class="mb-3 text-body">Employee attributes were distributed across different tables.</p>
+					<p class="mb-3 text-body">Directly querying these heterogeneous structures from the
+						application would have introduced unnecessary complexity into every
+						search operation.</p>
+					<p class="mb-3 text-body">Instead, schema normalization was performed inside the database.</p>
+					<p class="mb-3 text-body">The objective was to ensure that every search algorithm received
+						information presented through a consistent relational interface
+						regardless of the original source.</p>
+					<hr class="mt-6 border-gray-200" />
+
+					<h2 class="text-4xl font-bold">4.3 Designing Logical Views</h2>
+					<p class="mb-3 text-body">Rather than repeatedly constructing complex JOIN operations within
+						application code, two logical database views were created.</p>
+					<h3 class="western">Employee View (<code class="western">emp</code>)</h3>
+					<p class="mb-3 text-body">The <code class="western">emp</code> view exposed the core
+						employee identity.</p>
+					<p class="mb-3 text-body">It presented employee code, names, father's name, CNIC, contact
+						information, dates of birth, joining dates, and employment status
+						using standardized field names independent of the original ERP
+						schema.</p>
+					<p class="mb-3 text-body">Because these names closely matched the remaining repositories,
+						application code no longer needed to understand ERP-specific
+						terminology.</p>
+					<p class="mb-3 text-body"><em class="font-bold text-red-600 not-italic">(Insert </em><em
+							class="font-bold text-red-600 not-italic"><code class="western">emp</code></em><em
+							class="font-bold text-red-600 not-italic"> SQL
+							snippet here.)</em></p>
+					<hr class="mt-6 border-gray-200" />
+
+					<h3 class="western">Placement View (<code class="western">placement</code>)</h3>
+					<p class="mb-3 text-body">Operational placement information existed across several
+						normalized lookup tables describing department, designation, employee
+						type, grade, and duty station.</p>
+					<p class="mb-3 text-body">The <code class="western">placement</code> view consolidated these
+						relationships into a single logical entity through a series of LEFT
+						JOIN operations.</p>
+					<p class="mb-3 text-body">Instead of requiring the application to reconstruct these joins
+						repeatedly, organizational structure became available through one
+						simplified relational interface.</p>
+					<p class="mb-3 text-body"><em class="font-bold text-red-600 not-italic">(Insert </em><em
+							class="font-bold text-red-600 not-italic"><code class="western">placement</code></em><em
+							class="font-bold text-red-600 not-italic">
+							SQL snippet here.)</em></p>
+					<hr class="mt-6 border-gray-200" />
+
+					<h2 class="text-4xl font-bold">4.4 Unified Search Layer</h2>
+					<p class="mb-3 text-body">With each repository transformed into a consistent relational
+						structure, the application no longer needed to distinguish between
+						different databases.</p>
+					<p class="mb-3 text-body">Every search operator returned the same logical column structure
+						regardless of whether the data originated from ERP, HR, or HRDC.</p>
+					<p class="mb-3 text-body">Because the output format remained identical, SQL <code
+							class="western">UNION</code>
+						operations could merge these independent result sets into a single
+						searchable dataset.</p>
+					<p class="mb-3 text-body">From the perspective of the search engine, three heterogeneous
+						databases had effectively become one logical information system.</p>
+					<p class="mb-3 text-body">This separation between <span class="font-bold text-indigo-600">data
+							preparation</span> and
+						<span class="font-bold text-indigo-600">information retrieval</span> proved fundamental to the
+						architecture.
+					</p>
+					<p class="mb-3 text-body">Future search algorithms could be introduced without redesigning
+						the underlying consolidation layer.</p>
+					<hr class="mt-6 border-gray-200" />
+
+					<h2 class="text-4xl font-bold">4.5 Architectural Benefits</h2>
+					<p class="mb-3 text-body">The resulting architecture provided several practical advantages.</p>
+					<ul class="max-w-full space-y-1 text-body list-disc list-inside">
+						<li>Reverse engineering occurred only
+							once.
+						</li>
+						<li>Schema complexity remained
+							isolated inside the database.
+						</li>
+						<li>Application code interacted with a
+							stable relational model.
+						</li>
+						<li>Additional data sources could be
+							incorporated with minimal changes.
+						</li>
+						<li>Search algorithms remained
+							independent of database-specific implementation details.
+						</li>
+						<li>Maintenance effort was significantly reduced because changes
+							to underlying tables rarely affected application logic.
+						</li>
+					</ul>
+					<div class="mt-12 pt-6 border-t border-gray-200">
+						<h3 class="text-xl font-bold text-gray-900 mb-3">
+							Engineering Insight
+						</h3>
+						<blockquote class="p-4 my-4 border-s-4 border-default bg-neutral-secondary-soft">
+							<p class="text-xl italic font-medium leading-relaxed text-heading">
+						Data consolidation is not merely a migration exercise. It is the process of transforming 
+						heterogeneous information into a stable representation that allows higher-level algorithms to remain
+						simple, modular, and maintainable.
+							</p>
+						</blockquote>
+					</div>
 				</div>
 			</div>
 
-			<!-- Part 5 -->
+			<!-- 05. Unified Data Model -->
 			<h2 id="accordion-flush-heading-5">
 				<button type="button"
 					class="flex items-center justify-between w-full py-5 font-medium rtl:text-right text-body border-b border-default gap-3"
-					data-accordion-target="#accordion-flush-body-3" aria-expanded="false"
-					aria-controls="accordion-flush-body-3">
+					data-accordion-target="#accordion-flush-body-5" aria-expanded="false"
+					aria-controls="accordion-flush-body-5">
 					<span class="font-bold text-indigo-600">05. Unified Data Model</span>
 					<svg data-accordion-icon class="w-5 h-5 rotate-180 shrink-0" aria-hidden="true"
 						xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
@@ -542,12 +847,12 @@
 				</div>
 			</div>
 
-			<!-- part 6 -->
+			<!-- 06. Search Strategy Design -->
 			<h2 id="accordion-flush-heading-6">
 				<button type="button"
 					class="flex items-center justify-between w-full py-5 font-medium rtl:text-right text-body border-b border-default gap-3"
-					data-accordion-target="#accordion-flush-body-3" aria-expanded="false"
-					aria-controls="accordion-flush-body-3">
+					data-accordion-target="#accordion-flush-body-6" aria-expanded="false"
+					aria-controls="accordion-flush-body-6">
 					<span class="font-bold text-indigo-600">06. Search Strategy Design</span>
 					<svg data-accordion-icon class="w-5 h-5 rotate-180 shrink-0" aria-hidden="true"
 						xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
@@ -562,12 +867,12 @@
 				</div>
 			</div>
 
-			<!-- Part 7 -->
+			<!-- 07. Evaluation of Search Algorithms -->
 			<h2 id="accordion-flush-heading-7">
 				<button type="button"
 					class="flex items-center justify-between w-full py-5 font-medium rtl:text-right text-body border-b border-default gap-3"
-					data-accordion-target="#accordion-flush-body-3" aria-expanded="false"
-					aria-controls="accordion-flush-body-3">
+					data-accordion-target="#accordion-flush-body-7" aria-expanded="false"
+					aria-controls="accordion-flush-body-7">
 					<span class="font-bold text-indigo-600">07. Evaluation of Search Algorithms</span>
 					<svg data-accordion-icon class="w-5 h-5 rotate-180 shrink-0" aria-hidden="true"
 						xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
@@ -582,12 +887,12 @@
 				</div>
 			</div>
 
-			<!-- Part 8 -->
+			<!-- 08. Lessons Learned -->
 			<h2 id="accordion-flush-heading-8">
 				<button type="button"
 					class="flex items-center justify-between w-full py-5 font-medium rtl:text-right text-body border-b border-default gap-3"
-					data-accordion-target="#accordion-flush-body-3" aria-expanded="false"
-					aria-controls="accordion-flush-body-3">
+					data-accordion-target="#accordion-flush-body-8" aria-expanded="false"
+					aria-controls="accordion-flush-body-8">
 					<span class="font-bold text-indigo-600">08. Lessons Learned</span>
 					<svg data-accordion-icon class="w-5 h-5 rotate-180 shrink-0" aria-hidden="true"
 						xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
@@ -602,12 +907,12 @@
 				</div>
 			</div>
 
-			<!-- Part 9 -->
-			<h2 id="accordion-flush-heading-8">
+			<!-- 09. Future Work -->
+			<h2 id="accordion-flush-heading-9">
 				<button type="button"
 					class="flex items-center justify-between w-full py-5 font-medium rtl:text-right text-body border-b border-default gap-3"
-					data-accordion-target="#accordion-flush-body-3" aria-expanded="false"
-					aria-controls="accordion-flush-body-3">
+					data-accordion-target="#accordion-flush-body-9" aria-expanded="false"
+					aria-controls="accordion-flush-body-9">
 					<span class="font-bold text-indigo-600">09. Future Work</span>
 					<svg data-accordion-icon class="w-5 h-5 rotate-180 shrink-0" aria-hidden="true"
 						xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
@@ -616,18 +921,18 @@
 					</svg>
 				</button>
 			</h2>
-			<div id="accordion-flush-body-8" class="hidden" aria-labelledby="accordion-flush-heading-3">
+			<div id="accordion-flush-body-9" class="hidden" aria-labelledby="accordion-flush-heading-3">
 				<div class="py-5 text-body border-b border-default">
 
 				</div>
 			</div>
 
-			<!-- Part 10 -->
-			<h2 id="accordion-flush-heading-8">
+			<!-- 10. Conclusion -->
+			<h2 id="accordion-flush-heading-10">
 				<button type="button"
 					class="flex items-center justify-between w-full py-5 font-medium rtl:text-right text-body border-b border-default gap-3"
-					data-accordion-target="#accordion-flush-body-3" aria-expanded="false"
-					aria-controls="accordion-flush-body-3">
+					data-accordion-target="#accordion-flush-body-10" aria-expanded="false"
+					aria-controls="accordion-flush-body-10">
 					<span class="font-bold text-indigo-600">10. Conclusion</span>
 					<svg data-accordion-icon class="w-5 h-5 rotate-180 shrink-0" aria-hidden="true"
 						xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
@@ -636,7 +941,7 @@
 					</svg>
 				</button>
 			</h2>
-			<div id="accordion-flush-body-8" class="hidden" aria-labelledby="accordion-flush-heading-3">
+			<div id="accordion-flush-body-10" class="hidden" aria-labelledby="accordion-flush-heading-3">
 				<div class="py-5 text-body border-b border-default">
 
 				</div>
