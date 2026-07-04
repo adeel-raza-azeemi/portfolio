@@ -125,8 +125,8 @@ import {
 import { ChevronDownIcon, PhoneIcon, PlayCircleIcon } from '@heroicons/vue/20/solid'
 
 const technicalArticles = [
-  { name: 'EmployeeRecordDeduplication', description: '', href: '/technicalArticle/employee-record-deduplication', icon: CursorArrowRaysIcon },
   { name: 'EngineeringPracticalEmployeeSearch', description: '', href: '/technicalArticle/engineering-practical-employee-search', icon: CursorArrowRaysIcon },
+  { name: 'EmployeeRecordDeduplication', description: '', href: '/technicalArticle/employee-record-deduplication', icon: CursorArrowRaysIcon },
   { name: 'ProcurementDigitizationLessons', description: '', href: '/technicalArticle/procurement-digitization-lessons', icon: ChartPieIcon },
   { name: 'ImportingSQLServerToMySQL', description: '', href: '/technicalArticle/importing-sql-server-to-mysql', icon: FingerPrintIcon },
   { name: 'BuildingMedicalMISForNGO', description: '', href: '/technicalArticle/building-medical-mis-for-ngo', icon: SquaresPlusIcon }
