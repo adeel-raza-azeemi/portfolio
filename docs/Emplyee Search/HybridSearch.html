@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+	<title></title>
+	<meta name="generator" content="LibreOffice 26.2.4.2 (Linux)"/>
+	<meta name="created" content="2026-07-19T20:37:54.153527181"/>
+	<meta name="changed" content="2026-07-19T21:00:09.365701947"/>
+	<style type="text/css">
+		@page { size: 8.27in 11.69in; margin: 0.79in }
+		p { margin-bottom: 0.1in; line-height: 115%; background: transparent }
+		h1 { margin-bottom: 0.08in; background: transparent; page-break-after: avoid }
+		h1.western { font-family: "Liberation Serif", serif; font-size: 24pt; font-weight: bold }
+		h1.cjk { font-family: "Noto Serif CJK SC"; font-size: 24pt; font-weight: bold }
+		h1.ctl { font-size: 24pt; font-family: "Noto Sans Devanagari"; font-weight: bold }
+		h3 { margin-top: 0.1in; margin-bottom: 0.08in; background: transparent; page-break-after: avoid }
+		h3.western { font-family: "Liberation Serif", serif; font-size: 14pt; font-weight: bold }
+		h3.cjk { font-family: "Noto Serif CJK SC"; font-size: 14pt; font-weight: bold }
+		h3.ctl { font-size: 14pt; font-family: "Noto Sans Devanagari"; font-weight: bold }
+		blockquote { margin-right: 0.39in; margin-left: 0.39in; background: transparent }
+		strong { font-weight: bold }
+		a:link { color: #000080; text-decoration: underline }
+		a:visited { color: #800000; text-decoration: underline }
+	</style>
+</head>
+<body lang="en-US" link="#000080" vlink="#800000" dir="ltr"><h1 class="western">
+06. Combining Multiple Search Strategies</h1>
+<p>While phonetic matching was effective for handling pronunciation
+differences, it was unable to detect typographical errors where the
+spelling differed but the pronunciation remained unrelated. Employee
+names entered manually frequently contained omitted characters,
+additional characters, transposed letters, or simple typing mistakes.
+To address this class of errors, the search engine incorporated
+Levenshtein Distance as an additional matching strategy.</p>
+<p>One search algorithm rarely solves the problem of identifying
+employees across heterogeneous datasets. Each technique performs well
+under certain conditions and poorly under others. Rather than relying
+on a single matching strategy, the Employee Search &amp; Data
+Consolidation MIS applies multiple complementary search methods to
+the same query, allowing each algorithm to compensate for the
+limitations of the others.</p>
+<p>The objective was not to determine which algorithm was
+mathematically superior. The objective was to maximize the
+probability of locating the correct employee record while minimizing
+the time spent performing repeated searches using different criteria.</p>
+<p>For example, a user searching for an employee named <strong>Ahmed
+Ali</strong> may encounter several real-world situations:</p>
+<ul>
+	<li><p style="margin-bottom: 0in">the first name may be misspelled; 
+	</p></li>
+	<li><p style="margin-bottom: 0in">the surname may be omitted; 
+	</p></li>
+	<li><p style="margin-bottom: 0in">the employee may have entered only
+	initials; 
+	</p></li>
+	<li><p style="margin-bottom: 0in">the CNIC may be incomplete; 
+	</p></li>
+	<li><p style="margin-bottom: 0in">only part of the mobile number may
+	be known; 
+	</p></li>
+	<li><p>the official record may contain abbreviations or inconsistent
+	spacing. 
+	</p></li>
+</ul>
+<p>No single operator performs well across all these situations. LIKE
+efficiently handles partial text matching but cannot identify
+spelling mistakes. Soundex tolerates phonetic variations but ignores
+exact character placement. Levenshtein Distance identifies
+typographical errors but becomes computationally expensive when
+applied indiscriminately to large datasets.</p>
+<p>Rather than forcing users to understand these differences, the
+system executes multiple search strategies transparensively and
+presents a unified result set. From the user's perspective, there is
+only one search operation. Internally, however, several independent
+matching techniques work together to increase the likelihood of
+finding the desired employee.</p>
+<p>This design reflects an important engineering principle: <strong>users
+should not need to understand the implementation details of a search
+engine in order to use it effectively.</strong> The complexity
+belongs inside the software, not in the user's workflow.</p>
+<hr/>
+
+<h3 class="western">Hybrid Filtering for Expensive Algorithms</h3>
+<p>During practical usage it became evident that computationally
+intensive algorithms such as Levenshtein Distance and custom
+multi-word Soundex could become prohibitively expensive when
+evaluated against an entire employee database.</p>
+<p>Instead of executing these algorithms across every record, a
+hybrid filtering strategy was introduced. Lightweight
+predicates—typically SQL LIKE expressions—were applied first to
+eliminate obviously unrelated records. The computationally expensive
+similarity algorithms were then evaluated only against this
+significantly smaller candidate set.</p>
+<p>Unlike the earlier UNION-based strategy, this optimisation
+combined multiple predicates within the same SQL statement using
+logical AND conditions. This allowed the database optimizer to reduce
+the search space before invoking the more expensive comparison
+functions.</p>
+<p>Although this approach did not fundamentally change the underlying
+algorithms, it substantially reduced execution time while preserving
+search quality. It represents a practical example of balancing
+computational cost against search accuracy, a recurring theme
+throughout the development of the system.</p>
+<hr/>
+
+<h3 class="western">Engineering Insight</h3>
+<blockquote><strong>Engineering Principle — Use expensive
+computation only after inexpensive filters have reduced the search
+space.</strong></blockquote>
+<p>This principle appears in database systems, search engines,
+compiler optimization, machine learning pipelines, and modern
+information retrieval systems. Although developed independently for
+this project, the same philosophy underlies many high-performance
+search architectures used today.</p>
+<hr/>
+
+<p style="line-height: 100%; margin-bottom: 0in"><br/>
+
+</p>
+</body>
+</html>

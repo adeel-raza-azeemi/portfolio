@@ -1,0 +1,227 @@
+<h1 class="mb-4 text-4xl font-bold tracking-tight text-heading md:text-5xl lg:text-6xl">
+6.4 Multi-word Soundex: Extending Phonetic Matching</h1>
+<h2 class="text-4xl font-bold">When Standard Soundex Was No Longer Enough</h2>
+<p class="mb-3 text-body">While the built-in Soundex algorithm successfully handled many
+spelling variations, it became increasingly ineffective when applied
+to the naming conventions present within the organization's employee
+databases.</p>
+<p class="mb-3 text-body">Unlike datasets consisting primarily of single-word names, the
+employee records frequently contained multiple meaningful components.
+A typical record might include a first name, middle name, family
+name, or honorific, all stored as part of the employee's full name.</p>
+<p class="mb-3 text-body">Examples included names such as:</p>
+<div id="code-block-viewer" dir="ltr"><pre class="western"><code class="western">Muhammad Ali Khan</code>
+<code class="western">Syed Muhammad Shah</code>
+<code class="western">Abdul Rahman</code>
+<code class="western">Muhammad Asif</code></pre>
+</div>
+<p class="mb-3 text-body">From a human perspective, each word contributes important
+identifying information.</p>
+<p class="mb-3 text-body">Standard Soundex, however, was originally designed to generate a
+phonetic representation for a single word. Applying it directly to an
+entire multi-word string significantly reduced its effectiveness.</p>
+<p class="mb-3 text-body">As the number of words increased, the phonetic representation
+became less capable of distinguishing between employees who shared
+common first names but differed elsewhere.</p>
+<p class="mb-3 text-body">This was particularly problematic within South Asian naming
+conventions, where names such as <span class="font-bold text-indigo-600">Muhammad</span>, <span class="font-bold text-indigo-600">Ali</span>,
+<span class="font-bold text-indigo-600">Ahmed</span>, <span class="font-bold text-indigo-600">Khan</span>, and <span class="font-bold text-indigo-600">Hussain</span>
+appear frequently across the population.</p>
+<p class="mb-3 text-body">The result was a noticeable increase in false positives while
+simultaneously missing legitimate matches.</p>
+<hr class="h-px my-8 bg-gray-200 border-0" />
+
+<h2 class="text-4xl font-bold">Extending the Algorithm</h2>
+<p class="mb-3 text-body">Rather than replacing Soundex entirely, the objective became
+extending its capabilities while preserving its strengths.</p>
+<p class="mb-3 text-body">Instead of treating the employee's full name as one continuous
+string, the custom algorithm processed each individual word
+separately.</p>
+<p class="mb-3 text-body">Conceptually, the process followed four stages.</p>
+<ol>
+	<li>Split the employee name into
+	individual words. 
+	</li>
+	<li>Generate the Soundex code for each
+	word independently. 
+	</li>
+	<li>Combine the resulting phonetic
+	codes into a composite representation. 
+	</li>
+	<li><p class="mb-3 text-body">Compare the composite phonetic representation against
+	similarly processed employee records. 
+	</li>
+</ol>
+<p class="mb-3 text-body">For example:</p>
+<table cellpadding="2" cellspacing="2">
+	<thead>
+		<tr>
+			<th style="border: none; padding: 0in"><p class="mb-3 text-body">Employee Name</p>
+			</th>
+			<th style="border: none; padding: 0in"><p class="mb-3 text-body">Individual Soundex Codes</p>
+			</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td style="border: none; padding: 0in"><p class="mb-3 text-body">Muhammad Ali Khan</p>
+			</td>
+			<td style="border: none; padding: 0in"><p class="mb-3 text-body">M530 – A400 – K500</p>
+			</td>
+		</tr>
+		<tr>
+			<td style="border: none; padding: 0in"><p class="mb-3 text-body">Mohammad Ali Khan</p>
+			</td>
+			<td style="border: none; padding: 0in"><p class="mb-3 text-body">M530 – A400 – K500</p>
+			</td>
+		</tr>
+		<tr>
+			<td style="border: none; padding: 0in"><p class="mb-3 text-body">Muhamad Ali Khan</p>
+			</td>
+			<td style="border: none; padding: 0in"><p class="mb-3 text-body">M530 – A400 – K500</p>
+			</td>
+		</tr>
+	</tbody>
+</table>
+<p class="mb-3 text-body">Although the spellings differ slightly, each individual word still
+generates nearly identical phonetic representations, allowing the
+composite search to remain highly tolerant of spelling variations
+while preserving the structure of the original name.</p>
+<p class="mb-3 text-body">From an engineering standpoint, this represented an important
+conceptual improvement.</p>
+<p class="mb-3 text-body">Instead of asking:</p>
+<blockquote>&quot;Do these two names sound similar?&quot;</blockquote>
+<p class="mb-3 text-body">the algorithm now asked:</p>
+<blockquote>&quot;Do the individual components of these names sound
+similar?&quot;</blockquote>
+<hr class="h-px my-8 bg-gray-200 border-0" />
+
+<h2 class="text-4xl font-bold">Why This Improved Search Accuracy</h2>
+<p class="mb-3 text-body">Breaking a name into multiple phonetic components preserved
+considerably more information than treating the name as a single
+string.</p>
+<p class="mb-3 text-body">Common first names no longer dominated the comparison.</p>
+<p class="mb-3 text-body">Employees sharing the same first name but different surnames
+became much easier to distinguish.</p>
+<p class="mb-3 text-body">Similarly, spelling mistakes occurring within only one portion of
+the name no longer prevented the remaining words from contributing
+useful matching information.</p>
+<p class="mb-3 text-body">This significantly improved duplicate detection across multiple
+databases where inconsistent manual data entry had accumulated over
+many years.</p>
+<hr class="h-px my-8 bg-gray-200 border-0" />
+
+<h2 class="text-4xl font-bold">The Hidden Engineering Cost</h2>
+<p class="mb-3 text-body">Every engineering improvement introduces a corresponding cost.</p>
+<p class="mb-3 text-body">In this case, the increased search accuracy came at the expense of
+computational complexity.</p>
+<p class="mb-3 text-body">The custom implementation processed every word individually.</p>
+<p class="mb-3 text-body">Internally, the implementation repeatedly invoked the standard
+Soundex function while iterating through each word within the
+employee name.</p>
+<p class="mb-3 text-body">Conceptually, the algorithm resembled the following process:</p>
+<div id="Section1" dir="ltr"><pre class="western"><a name="code-block-viewer"></a><code class="western">Employee Name</code>
+<code class="western">        │</code>
+<code class="western">Split into Words</code>
+<code class="western">        │</code>
+<code class="western"> ┌──────┼────────┐</code>
+<code class="western"> │      │        │</code>
+<code class="western">Word1  Word2   Word3</code>
+<code class="western"> │      │        │</code>
+<code class="western">Soundex Soundex Soundex</code>
+<code class="western"> │      │        │</code>
+<code class="western"> └──────┼────────┘</code>
+<code class="western">        │</code>
+<code class="western">Combine Phonetic Codes</code>
+<code class="western">        │</code>
+<code class="western">Perform Comparison</code></pre>
+</div>
+<p class="mb-3 text-body">Although elegant conceptually, this meant that every additional
+word increased the amount of work performed.</p>
+<p class="mb-3 text-body">Names containing four or five components required proportionally
+more phonetic processing than single-word names.</p>
+<p class="mb-3 text-body">When executed against thousands of employee records, this
+additional processing accumulated rapidly.</p>
+<hr class="h-px my-8 bg-gray-200 border-0" />
+
+<h2 class="text-4xl font-bold">Practical Performance Observations</h2>
+<p class="mb-3 text-body">The implementation proved highly effective for improving search
+quality.</p>
+<p class="mb-3 text-body">However, practical testing revealed that combining recursive word
+processing with phonetic comparison significantly increased execution
+time on larger datasets.</p>
+<p class="mb-3 text-body">Although no formal benchmarking was conducted, operational
+experience consistently showed that the algorithm consumed noticeably
+more processing resources than Exact Matching, LIKE, or standard
+Soundex searches.</p>
+<p class="mb-3 text-body">This represented an important engineering lesson.</p>
+<p class="mb-3 text-body">Improving search intelligence almost always requires additional
+computational effort.</p>
+<p class="mb-3 text-body">Rather than searching for a universally superior algorithm,
+engineers must balance search quality against execution cost.</p>
+<hr class="h-px my-8 bg-gray-200 border-0" />
+
+<div class="mt-12 pt-6 border-t border-gray-200">
+	<h3 class="text-xl font-bold text-gray-900 mb-3">
+		Engineering Principle
+	</h3>
+	<blockquote class="p-4 my-4 border-s-4 border-default bg-neutral-secondary-soft">
+		<p class="text-xl italic font-medium leading-relaxed text-heading">
+			Increasing algorithmic intelligence often
+			increases computational cost. The engineering objective is therefore
+			not to maximize sophistication, but to apply the appropriate level of
+			sophistication only where it delivers meaningful operational value.
+		</p>
+	</blockquote>
+</div>
+
+<hr class="h-px my-8 bg-gray-200 border-0" />
+
+<h2 class="text-4xl font-bold">Why It Was Still Worth Implementing</h2>
+<p class="mb-3 text-body">Despite its higher computational requirements, Multi-word Soundex
+solved a real operational problem that simpler search techniques
+could not address.</p>
+<p class="mb-3 text-body">Employee records spanning multiple systems had accumulated years
+of inconsistent spelling, transliteration differences, and variations
+in how names were entered. By preserving the phonetic structure of
+each individual word, the algorithm substantially increased the
+likelihood of identifying duplicate records that would otherwise have
+remained undiscovered.</p>
+<p class="mb-3 text-body">Although computationally more expensive, the improvement in search
+quality justified its use during migration activities, where
+correctness was more valuable than raw execution speed.</p>
+<hr class="h-px my-8 bg-gray-200 border-0" />
+
+<h2 class="text-4xl font-bold">Transition to the Next Method</h2>
+<p class="mb-3 text-body">Even with these improvements, Multi-word Soundex remained a
+phonetic algorithm.</p>
+<p class="mb-3 text-body">Its effectiveness depended on words sounding alike.</p>
+<p class="mb-3 text-body">It could not measure how different two strings actually were.</p>
+<p class="mb-3 text-body">For example:</p>
+<div id="Section2" dir="ltr"><pre class="western"><a name="code-block-viewer Copy 1"></a><code class="western">Muhammad</code>
+<code class="western">Muhamad</code>
+
+<code class="western">Adeel</code>
+<code class="western">Adel</code>
+
+<code class="western">Sajid</code>
+<code class="western">Saeed</code></pre>
+</div>
+<p class="mb-3 text-body">Some names differ by only a single missing character.</p>
+<p class="mb-3 text-body">Others differ by substitutions, insertions, or deletions that
+phonetic encoding cannot adequately capture.</p>
+<p class="mb-3 text-body">Addressing these cases required a fundamentally different
+approach—one that measured the <span class="font-bold text-indigo-600">distance between strings
+rather than their pronunciation</span>.</p>
+
+<p class="mb-3 text-body">This leads naturally to the next search technique:</p>
+<div class="mt-12 pt-6 border-t border-gray-200">
+<blockquote><span class="font-bold text-indigo-600">
+	Levenshtein Distance
+</span>
+, an algorithm capable of quantifying how many editing operations are required to
+transform one string into another.
+</blockquote>
+</div>
+
+<hr class="h-px my-8 bg-gray-200 border-0" />

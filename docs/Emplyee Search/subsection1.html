@@ -1,0 +1,141 @@
+<h1 class="mb-4 text-4xl font-bold tracking-tight text-heading md:text-5xl lg:text-6xl">
+06 Search Strategy Design</h1>
+
+<div class="mt-12 pt-6 border-t border-gray-200">
+	<blockquote class="p-4 my-4 border-s-4 border-default bg-neutral-secondary-soft">
+		<p class="text-xl italic font-medium leading-relaxed text-heading">
+			<em class="font-bold text-black-600 not-italic">
+					&quot;Every search algorithm is an approximation of human
+				reasoning. Each succeeds under certain conditions and fails under
+				others.&quot;
+			</em>
+		</p>
+	</blockquote>
+</div>
+
+<p class="mb-3 text-body">Once the employee records had been consolidated into a unified
+search model, the remaining challenge was identifying duplicate
+records despite inconsistencies in the underlying data.</p>
+<p class="mb-3 text-body">Names were occasionally misspelled.</p>
+<p class="mb-3 text-body">Some databases stored abbreviated forms.</p>
+<p class="mb-3 text-body">Others contained typographical errors, inconsistent spacing, or
+variations in spelling accumulated over many years of manual data
+entry.</p>
+<p class="mb-3 text-body">No single retrieval technique proved sufficiently robust to
+address every scenario.</p>
+<p class="mb-3 text-body">Instead of searching for a single &quot;best&quot; algorithm, the
+project adopted a different philosophy.</p>
+<p class="mb-3 text-body">Each algorithm was viewed as a specialised tool designed to solve
+a particular class of matching problems.</p>
+<p class="mb-3 text-body">The overall search system therefore became a composition of
+complementary strategies rather than a dependence upon any individual
+technique.</p>
+<p class="mb-3 text-body">This engineering decision significantly increased the probability
+of locating existing employee records while reducing the likelihood
+of overlooking duplicates.</p>
+<hr class="mt-6 border-gray-200" />
+
+<h2 class="mt-3 mb-3 text-4xl font-bold">6.1 Why One Search Algorithm Was Not Enough</h2>
+<p class="mb-3 text-body">Human names rarely conform to strict rules.</p>
+<p class="mb-3 text-body">An employee may appear under slightly different spellings across
+independent databases.</p>
+<p class="mb-3 text-body">Middle names may be omitted.</p>
+<p class="mb-3 text-body">Spaces and punctuation may vary.</p>
+<p class="mb-3 text-body">Typing mistakes are unavoidable.</p>
+<p class="mb-3 text-body">Consequently, a search strategy relying solely upon exact matching
+inevitably fails whenever the stored representation differs from the
+user's input.</p>
+<p class="mb-3 text-body">Conversely, search methods designed to tolerate variation often
+return excessive numbers of candidate records.</p>
+<p class="mb-3 text-body">The engineering challenge therefore becomes balancing precision
+against recall.</p>
+<p class="mb-3 text-body">Rather than attempting to maximise one at the expense of the
+other, the system deliberately employed several complementary search
+strategies.</p>
+<p class="mb-3 text-body">Each compensated for weaknesses present in the others.</p>
+
+<h1 class="mb-4 text-4xl font-bold tracking-tight text-heading md:text-5xl lg:text-6xl">6.1 Exact Matching</h1>
+<h3 class="text-xl font-bold text-gray-900 mb-3">Engineering Principle</h3>
+<blockquote>The fastest search algorithm is often the least tolerant
+of imperfect data. Real-world engineering requires balancing
+computational efficiency against the variability of human-generated
+information.</blockquote>
+<hr class="mt-6 border-gray-200" />
+
+<h3 class="text-xl font-bold text-gray-900 mb-3">Exact Matching</h3>
+<p class="mb-3 text-body">The simplest method of locating an employee record is an exact
+comparison against one or more database fields. This approach relies
+on SQL equality operators (<code class="western">=</code>), allowing
+indexed columns such as employee codes or national identity numbers
+to be searched extremely efficiently.</p>
+<p class="mb-3 text-body">For structured identifiers that are expected to be unique and
+correctly entered, exact matching remains the preferred technique.
+Queries execute rapidly, require minimal computational resources, and
+fully utilize database indexes.</p>
+<p class="mb-3 text-body">However, employee information collected over many years rarely
+remains perfectly consistent. During the migration project, data
+originated from several independent systems developed by different
+vendors and maintained by different departments. As a result, even
+records representing the same employee frequently contained
+variations such as:</p>
+<ul class="max-w-full space-y-1 text-body list-disc list-inside">
+	<li>Differences in spelling 
+	</li>
+	<li>Additional spaces 
+	</li>
+	<li>Missing middle names 
+	</li>
+	<li>Abbreviations 
+	</li>
+	<li>Typographical mistakes 
+	</li>
+	<li>Different capitalization 
+	</li>
+	<li><p class="mb-3 text-body">Alternate punctuation 
+	</li>
+</ul>
+<p class="mb-3 text-body">For example:</p>
+<div id="code-block-viewer" dir="ltr"><pre class="western"><code class="western">Muhammad Ali</code>
+
+<code class="western">Muhamad Ali</code>
+
+<code class="western">Muhammad  Ali</code>
+
+<code class="western">Muhammad A. Ali</code></pre>
+</div>
+<p class="mb-3 text-body">Although these names clearly refer to the same individual, an
+exact comparison treats each value as completely different.</p>
+<p class="mb-3 text-body">Consequently, exact matching was primarily used for fields whose
+values were expected to remain stable, including employee
+identifiers, CNIC numbers, or other unique codes. It served as the
+foundation of the search engine but was intentionally supplemented
+with progressively more tolerant search strategies capable of
+handling imperfect real-world data.</p>
+<hr class="mt-6 border-gray-200" />
+
+<h3 class="text-xl font-bold text-gray-900 mb-3">Strengths</h3>
+<ul class="max-w-full space-y-1 text-body list-disc list-inside">
+	<li>Extremely fast execution 
+	</li>
+	<li>Fully indexable 
+	</li>
+	<li>Minimal CPU consumption 
+	</li>
+	<li>Ideal for unique identifiers 
+	</li>
+	<li><p class="mb-3 text-body">Predictable query plans 
+	</li>
+</ul>
+<h3 class="text-xl font-bold text-gray-900 mb-3">Limitations</h3>
+<ul class="max-w-full space-y-1 text-body list-disc list-inside">
+	<li>No tolerance for spelling errors 
+	</li>
+	<li>Sensitive to whitespace and
+	punctuation 
+	</li>
+	<li>Unable to detect duplicate records
+	containing inconsistent text 
+	</li>
+	<li><p class="mb-3 text-body">Ineffective when users only remember part of a value 
+	</li>
+</ul>

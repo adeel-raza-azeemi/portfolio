@@ -1,0 +1,56 @@
+<hr class="h-px my-8 bg-gray-200 border-0" />
+
+<h2 class="text-4xl font-bold">06.5 Levenshtein Distance</h2>
+<h3 class="western">Correcting Typographical Errors</h3>
+<p class="mb-3 text-body">Unlike phonetic algorithms, which compare the pronunciation of
+words, Levenshtein Distance measures the number of editing operations
+required to transform one string into another. These operations
+include inserting, deleting, or replacing individual characters. As a
+result, the algorithm is particularly effective for detecting
+typographical errors that commonly occur during manual data entry.</p>
+<p class="mb-3 text-body">Within the employee search system, Levenshtein matching was not
+intended to replace simpler search operators. Instead, it served as a
+higher-precision search mechanism for situations where conventional
+matching techniques failed to locate the desired employee. Typical
+examples included omitted characters, duplicated letters, accidental
+substitutions, and transposed characters introduced during manual
+typing.</p>
+<p class="mb-3 text-body">For example, an employee named <span class="font-bold text-indigo-600">Muhammad</span> could be
+entered as <span class="font-bold text-indigo-600">Muhamad</span>, <span class="font-bold text-indigo-600">Mohammad</span>, or
+<span class="font-bold text-indigo-600">Muhmmad</span>. While these variations often fail exact
+string comparisons, their edit distance remains relatively small,
+allowing the intended employee record to be identified successfully.</p>
+<hr class="h-px my-8 bg-gray-200 border-0" />
+
+<h3 class="western">Practical Computational Constraints</h3>
+<p class="mb-3 text-body">Although Levenshtein Distance significantly improves search
+accuracy, it is computationally expensive when applied across large
+datasets. Every comparison requires calculating the edit distance
+between the search string and each candidate record, causing
+execution time to increase rapidly as both the dataset size and
+permitted edit distance grow.</p>
+<p class="mb-3 text-body">During implementation, informal testing demonstrated that
+increasing the permitted edit distance produced disproportionately
+longer execution times. A search allowing one editing operation
+typically completed quickly, whereas permitting two edits required
+substantially more processing. Increasing the threshold further
+caused execution times to grow from seconds to minutes and eventually
+to impractical durations for interactive searching.</p>
+<p class="mb-3 text-body">While no formal benchmarking was conducted, these observations
+were sufficient to establish practical operational limits within the
+production system.</p>
+<hr class="h-px my-8 bg-gray-200 border-0" />
+
+<h3 class="western">Engineering Decision</h3>
+<p class="mb-3 text-body">To maintain acceptable responsiveness, the implementation
+restricted the maximum permitted edit distance to <span class="font-bold text-indigo-600">two</span>
+for routine searches. This value provided an effective compromise
+between search accuracy and computational cost. Larger edit distances
+were reserved only for exceptional situations where locating a
+missing employee record justified significantly longer execution
+times.</p>
+<p class="mb-3 text-body">This decision illustrates an important engineering principle:
+selecting an algorithm is only part of the solution. Equally
+important is determining the practical operating boundaries that
+balance computational cost against the needs of the end user.</p>
+<hr class="h-px my-8 bg-gray-200 border-0" />

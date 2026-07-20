@@ -1,0 +1,110 @@
+<h1 class="mb-4 text-4xl font-bold tracking-tight text-heading md:text-5xl lg:text-6xl">6.2 Partial Matching (LIKE Operator)</h1>
+<h2 class="text-4xl font-bold">When Exact Matching Fails</h2>
+<p class="mb-3 text-body">Exact matching is computationally inexpensive and highly reliable
+when the search term is known precisely. However, real-world employee
+data rarely satisfies this ideal condition. Users frequently remember
+only fragments of a name, an incomplete CNIC, part of a mobile
+number, or an email address. In many cases, spelling inconsistencies,
+omitted spaces, abbreviations, or simple typing mistakes prevent an
+exact match from returning the desired employee record.</p>
+<p class="mb-3 text-body">During the migration process, these situations occurred regularly.
+Staff members searching for an employee often possessed only partial
+information rather than the complete identifier stored within the
+database. Consequently, relying solely on exact matching would have
+resulted in a significant number of unsuccessful searches.</p>
+<p class="mb-3 text-body">To address this limitation, the Employee Search &amp; Data
+Consolidation MIS incorporated SQL's <span class="font-bold text-indigo-600">LIKE</span> operator
+as the second stage of the search pipeline.</p>
+<hr class="h-px my-8 bg-gray-200 border-0" />
+
+<h2 class="text-4xl font-bold">Flexible Pattern-Based Searching</h2>
+<p class="mb-3 text-body">Unlike exact comparison, the LIKE operator allows pattern matching
+through the use of wildcard characters. Rather than requiring the
+entire field value to be known, the search can match any record
+containing the specified sequence of characters.</p>
+<p class="mb-3 text-body">For example, searching for:</p>
+<div id="code-block-viewer" dir="ltr"><pre class="western" style="margin-bottom: 0.2in"><code class="western">Ali</code></pre>
+</div>
+<p class="mb-3 text-body">may successfully retrieve records such as:</p>
+<ul class="max-w-full space-y-1 text-body list-disc list-inside">
+	<li>Ali Ahmad 
+	</li>
+	<li>Muhammad Ali 
+	</li>
+	<li>Ali Khan 
+	</li>
+	<li><p class="mb-3 text-body">Syed Ali Shah 
+	</li>
+</ul>
+<p class="mb-3 text-body">Similarly, the same mechanism can be applied to other attributes
+including:</p>
+<ul class="max-w-full space-y-1 text-body list-disc list-inside">
+	<li>CNIC 
+	</li>
+	<li>Mobile number 
+	</li>
+	<li>Telephone number 
+	</li>
+	<li>Email address 
+	</li>
+	<li><p class="mb-3 text-body">Employee code 
+	</li>
+</ul>
+<p class="mb-3 text-body">This flexibility makes the LIKE operator useful far beyond
+employee names. Any field that may be only partially known by the
+user can benefit from pattern-based searching.</p>
+<hr class="h-px my-8 bg-gray-200 border-0" />
+
+<h2 class="text-4xl font-bold">Engineering Trade-Offs</h2>
+<p class="mb-3 text-body">The LIKE operator significantly increases the probability of
+locating the desired employee, but this increased flexibility
+introduces its own challenges.</p>
+<p class="mb-3 text-body">If the search pattern is overly restrictive, legitimate matches
+may still be missed. Conversely, patterns that are too broad can
+return hundreds of candidate records, forcing the user to manually
+inspect the results.</p>
+<p class="mb-3 text-body">For example, searching for a common surname such as <span class="font-bold text-indigo-600">Ali</span>
+may produce a large result set because the sequence appears both as
+an independent name and as part of many compound names. The objective
+therefore is not merely to increase the number of returned records,
+but to balance search flexibility against result usefulness.</p>
+<p class="mb-3 text-body">From an engineering perspective, the LIKE operator represents the
+first step away from deterministic searching toward heuristic
+searching. Rather than guaranteeing a single answer, it provides a
+manageable candidate set from which the correct employee can often be
+identified.</p>
+<hr class="h-px my-8 bg-gray-200 border-0" />
+
+<h2 class="text-4xl font-bold">Practical Use Within the MIS</h2>
+<p class="mb-3 text-body">In practice, the LIKE operator served as one component of a larger
+search strategy rather than a standalone solution. The system
+executed multiple complementary search mechanisms—including exact
+matching, phonetic matching, approximate string matching, and regular
+expressions—to compensate for the weaknesses of any individual
+technique.</p>
+<p class="mb-3 text-body">Additionally, during experimentation it became apparent that the
+LIKE operator could also serve as an effective pre-filter for more
+computationally expensive algorithms. By first reducing the candidate
+set using inexpensive pattern matching, subsequent techniques such as
+Levenshtein distance or custom multi-word Soundex could operate on a
+substantially smaller dataset. This hybrid strategy significantly
+reduced execution time while preserving search accuracy, illustrating
+an important engineering principle: simple algorithms often become
+considerably more powerful when used strategically in combination
+with more sophisticated methods.</p>
+<hr class="h-px my-8 bg-gray-200 border-0" />
+
+<div class="mt-12 pt-6 border-t border-gray-200">
+	<h3 class="text-xl font-bold text-gray-900 mb-3">
+		Engineering Insight
+	</h3>
+	<blockquote class="p-4 my-4 border-s-4 border-default bg-neutral-secondary-soft">
+		<p class="text-xl italic font-medium leading-relaxed text-heading">
+			The LIKE operator demonstrates that effective
+			search is not always about finding the answer directly. Sometimes its
+			greatest value lies in efficiently eliminating unlikely candidates,
+			allowing more sophisticated algorithms to focus their computational
+			effort where it matters most.
+		</p>
+	</blockquote>
+</div>
