@@ -46,3 +46,5 @@
 
 </strong>
 </span>
+
+<p class="mb-3 text-body">
