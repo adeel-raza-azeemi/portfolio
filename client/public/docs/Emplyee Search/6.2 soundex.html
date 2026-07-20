@@ -1,0 +1,161 @@
+<h1 class="mb-4 text-4xl font-bold tracking-tight text-heading md:text-5xl lg:text-6xl">
+6.3 Phonetic Matching (Soundex)</h1>
+<h2 class="text-4xl font-bold">Beyond Exact Characters</h2>
+<p class="mb-3 text-body">Neither Exact Matching nor the <code class="western">LIKE</code>
+operator attempts to understand how a name sounds. Both techniques
+operate purely on characters stored within the database.
+Consequently, they remain sensitive to spelling differences even when
+two names are pronounced almost identically.</p>
+<p class="mb-3 text-body">This limitation became increasingly apparent during the migration
+process. Employee information had been entered over many years by
+different departments, often without standardized spelling
+conventions. Minor typographical differences were common, and
+transliteration between local languages and English introduced
+additional inconsistency.</p>
+<p class="mb-3 text-body">For example, the following names would generally be considered
+equivalent by a human reader:</p>
+<div id="code-block-viewer" dir="ltr"><pre class="western"><code class="western">Muhammad</code>
+<code class="western">Mohammad</code>
+<code class="western">Muhamad</code>
+<code class="western">Mohamad</code></pre>
+</div>
+<p class="mb-3 text-body">Although each spelling represents the same pronunciation,
+traditional string comparison treats every variation as a completely
+different value.</p>
+<p class="mb-3 text-body">To bridge this gap, the Employee Search &amp; Data Consolidation
+MIS incorporated <strong>phonetic matching</strong> using MySQL's
+built-in <code class="western">SOUNDEX()</code> function.</p>
+<hr class="h-px my-8 bg-gray-200 border-0" />
+
+<h2 class="text-4xl font-bold">How Soundex Works</h2>
+<p class="mb-3 text-body">Unlike traditional comparison algorithms, Soundex transforms a
+word into a compact phonetic code representing its approximate
+pronunciation rather than its exact spelling.</p>
+<p class="mb-3 text-body">Instead of comparing characters directly, two words are first
+converted into their phonetic representations.</p>
+<p class="mb-3 text-body">For example:</p>
+<table width="218" cellpadding="2" cellspacing="0">
+	<col width="106"/>
+	<col width="104"/>
+	<thead>
+		<tr>
+			<th width="106" style="border: none; padding: 0in"><p class="mb-3 text-body">Original
+				Name</p>
+			</th>
+			<th width="104" style="border: none; padding: 0in"><p class="mb-3 text-body">Soundex Code</p>
+			</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td width="106" style="border: none; padding: 0in"><p class="mb-3 text-body">Muhammad</p>
+			</td>
+			<td width="104" style="border: none; padding: 0in"><p class="mb-3 text-body">M530</p>
+			</td>
+		</tr>
+		<tr>
+			<td width="106" style="border: none; padding: 0in"><p class="mb-3 text-body">Mohamad</p>
+			</td>
+			<td width="104" style="border: none; padding: 0in"><p class="mb-3 text-body">M530</p>
+			</td>
+		</tr>
+		<tr>
+			<td width="106" style="border: none; padding: 0in"><p class="mb-3 text-body">Muhamad</p>
+			</td>
+			<td width="104" style="border: none; padding: 0in"><p class="mb-3 text-body">M530</p>
+			</td>
+		</tr>
+	</tbody>
+</table>
+<p class="mb-3 text-body">Although the spellings differ, their phonetic codes remain
+identical, allowing the search engine to identify likely matches that
+exact comparison would miss.</p>
+<p class="mb-3 text-body">From an engineering perspective, this represents a fundamental
+shift.</p>
+<p class="mb-3 text-body">The objective is no longer to determine whether two strings are
+identical, but whether they are likely to represent the same spoken
+name.</p>
+<hr class="h-px my-8 bg-gray-200 border-0" />
+
+<h2 class="text-4xl font-bold">Practical Benefits</h2>
+<p class="mb-3 text-body">During migration activities, phonetic searching proved
+particularly useful for employee names entered manually by different
+operators over several years.</p>
+<p class="mb-3 text-body">Unlike Exact Matching, which rejected even a single spelling
+variation, Soundex tolerated many common inconsistencies while
+remaining computationally inexpensive compared to more advanced
+similarity algorithms.</p>
+<p class="mb-3 text-body">This significantly increased the probability of locating an
+employee whose name had been entered differently across multiple
+systems.</p>
+<p class="mb-3 text-body">Since MySQL already provided an implementation of the algorithm,
+integrating phonetic matching into the search pipeline required
+minimal development effort while providing a noticeable improvement
+in search coverage.</p>
+<hr class="h-px my-8 bg-gray-200 border-0" />
+
+<h2 class="text-4xl font-bold">Engineering Limitations</h2>
+<p class="mb-3 text-body">Although Soundex represented a considerable improvement over exact
+comparison, it quickly revealed an important limitation.</p>
+<p class="mb-3 text-body">The algorithm was originally designed to encode <strong>individual
+words</strong>.</p>
+<p class="mb-3 text-body">Real employee names rarely consist of only one word.</p>
+<p class="mb-3 text-body">Examples such as:</p>
+<div id="Section1" dir="ltr"><pre class="western"><a name="code-block-viewer"></a><code class="western">Muhammad Ali Khan</code>
+
+<code class="western">Syed Muhammad Shah</code>
+
+<code class="western">Abdul Rahman</code></pre>
+</div>
+<p class="mb-3 text-body">contain multiple independent words, each contributing meaningful
+information about the person's identity.</p>
+<p class="mb-3 text-body">Standard Soundex processes only a single string and produces a
+single phonetic code. As the number of words increases, much of the
+distinguishing information is effectively compressed into one
+representation.</p>
+<p class="mb-3 text-body">Consequently, names containing several words often produced
+phonetic codes that were either insufficiently descriptive or failed
+to distinguish between different employees sharing common first
+names.</p>
+<p class="mb-3 text-body">In practice, this limitation became increasingly apparent as the
+dataset grew.</p>
+<p class="mb-3 text-body">The algorithm was capable of handling simple spelling variations,
+yet struggled to preserve the richer structure found in multi-word
+names.</p>
+<p class="mb-3 text-body">Rather than abandoning phonetic searching altogether, this
+observation motivated the development of a custom solution capable of
+extending Soundex beyond its original design.</p>
+<hr class="h-px my-8 bg-gray-200 border-0" />
+
+<div class="mt-12 pt-6 border-t border-gray-200">
+	<h3 class="text-xl font-bold text-gray-900 mb-3">
+		Engineering Insight
+	</h3>
+	<blockquote class="p-4 my-4 border-s-4 border-default bg-neutral-secondary-soft">
+		<p class="text-xl italic font-medium leading-relaxed text-heading">
+						Every algorithm is built upon assumptions about
+		the problem it is trying to solve. Soundex assumes that a single word
+		adequately represents a person's identity. Real-world employee
+		databases demonstrated that this assumption often does not hold.
+		Rather than discarding the algorithm, the engineering challenge
+		became identifying where its assumptions failed and extending it to
+		better match operational reality.
+		</p>
+	</blockquote>
+</div>
+
+<hr class="h-px my-8 bg-gray-200 border-0" />
+
+<h2 class="text-4xl font-bold">Looking Ahead</h2>
+<p class="mb-3 text-body">The limitations of standard Soundex ultimately led to the
+development of a custom <strong>Multi-word Soundex</strong>
+implementation. Instead of treating an employee name as one
+continuous string, the enhanced algorithm processed each individual
+word separately before combining the phonetic information into a more
+expressive representation.</p>
+<p class="mb-3 text-body">While this significantly improved search accuracy for complex
+names, it also introduced a new engineering challenge: computational
+complexity.</p>
+<p class="mb-3 text-body">The following section examines how this custom approach was
+designed, the benefits it provided, and the performance trade-offs
+that accompanied its increased flexibility.</p>
