@@ -47,4 +47,5 @@
 </strong>
 </span>
 
-<p class="mb-3 text-body">
+<li>
+	<p class="mb-3 text-body">
