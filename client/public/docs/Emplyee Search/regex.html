@@ -1,0 +1,83 @@
+<h2 class="text-4xl font-bold">
+6.6 Regular Expressions</h2>
+<h3 class="western">Pattern-Based Searching</h3>
+<p class="mb-3 text-body">While operators such as <code class="western">LIKE</code>,
+<code class="western">Soundex</code>, and <code class="western">Levenshtein
+Distance</code> attempt to compensate for uncertainty in the stored
+data, Regular Expressions address uncertainty from a different
+perspective. Rather than searching for an exact value or a phonetic
+equivalent, they allow the engineer to describe the <em>expected
+structure</em> of the desired information.</p>
+<p class="mb-3 text-body">This makes Regular Expressions particularly useful when only
+fragments or structural characteristics of a record are known. A
+search pattern may specify the expected arrangement of characters
+without requiring the complete value to be known beforehand.</p>
+<hr class="h-px my-8 bg-gray-200 border-0" />
+
+<h3 class="western">An Iterative Process Rather Than a Single Search</h3>
+<p class="mb-3 text-body">One of the practical lessons learned during development was that
+constructing an effective Regular Expression is rarely a one-step
+activity.</p>
+<p class="mb-3 text-body">The initial instinct is often to encode every known assumption
+about the target record into a single, highly restrictive pattern. In
+theory, this should return only the desired records.</p>
+<p class="mb-3 text-body">In practice, however, the opposite frequently occurred.</p>
+<p class="mb-3 text-body">The query often returned no records at all.</p>
+<p class="mb-3 text-body">This did not necessarily indicate an error in the Regular
+Expression itself. More commonly, it revealed that one or more
+assumptions about the underlying data were incorrect or overly
+restrictive. The employee record might contain unexpected
+abbreviations, omitted fields, inconsistent formatting, or values
+that differed from what the operator believed.</p>
+<hr class="h-px my-8 bg-gray-200 border-0" />
+
+<h3 class="western">Progressive Pattern Refinement</h3>
+<p class="mb-3 text-body">Instead of continually modifying a complex expression in an
+attempt to locate the error, a more reliable strategy gradually
+emerged.</p>
+<p class="mb-3 text-body">Rather than beginning with a highly restrictive pattern, the
+search process started with an intentionally broad expression capable
+of matching a large number of records.</p>
+<p class="mb-3 text-body">Once matching records were successfully returned, additional
+constraints were introduced incrementally. After each refinement, the
+results were evaluated again.</p>
+<p class="mb-3 text-body">If a newly added constraint caused the result set to disappear
+entirely, it served as an immediate indication that the corresponding
+assumption was invalid or excessively restrictive.</p>
+<p class="mb-3 text-body">The Regular Expression therefore evolved through successive
+refinements until it isolated a manageable set of candidate records.</p>
+<hr class="h-px my-8 bg-gray-200 border-0" />
+
+<h3 class="western">Engineering Insight</h3>
+<p class="mb-3 text-body">This experience demonstrated that effective Regular Expression
+design is less about writing a clever pattern and more about
+validating assumptions against real operational data.</p>
+<p class="mb-3 text-body">Every additional constraint represents an assumption about how the
+data is stored.</p>
+<p class="mb-3 text-body">When those assumptions are incorrect, the search silently excludes
+the desired record.</p>
+<p class="mb-3 text-body">Consequently, constructing a Regular Expression became an
+iterative dialogue between the engineer and the dataset, where each
+refinement either strengthened or challenged the current
+understanding of the underlying data.</p>
+<hr class="h-px my-8 bg-gray-200 border-0" />
+
+<h1 class="mb-4 text-4xl font-bold tracking-tight text-heading md:text-5xl lg:text-6xl">2.
+	Engineering Under Constraints
+</h1>
+<div class="mt-12 pt-6 border-t border-gray-200">
+	<h3 class="text-xl font-bold text-gray-900 mb-3">
+		Engineering Principle
+	</h3>
+	<blockquote class="p-4 my-4 border-s-4 border-default bg-neutral-secondary-soft">
+		<p class="text-xl italic font-medium leading-relaxed text-heading">
+					Regular Expressions are not merely search
+patterns—they are encoded assumptions about the data. Effective
+pattern design therefore evolves incrementally, allowing those
+assumptions to be continuously tested and refined against real-world
+records.
+		</p>
+	</blockquote>
+</div>
+
+<hr class="h-px my-8 bg-gray-200 border-0" />
