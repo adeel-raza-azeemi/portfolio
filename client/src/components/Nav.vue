@@ -125,11 +125,11 @@ import {
 import { ChevronDownIcon, PhoneIcon, PlayCircleIcon } from '@heroicons/vue/20/solid'
 
 const technicalArticles = [
-  { name: 'EngineeringPracticalEmployeeSearch', description: '', href: '/technicalArticle/engineering-practical-employee-search', icon: CursorArrowRaysIcon },
-  { name: 'EmployeeRecordDeduplication', description: '', href: '/technicalArticle/employee-record-deduplication', icon: CursorArrowRaysIcon },
-  { name: 'ProcurementDigitizationLessons', description: '', href: '/technicalArticle/procurement-digitization-lessons', icon: ChartPieIcon },
-  { name: 'ImportingSQLServerToMySQL', description: '', href: '/technicalArticle/importing-sql-server-to-mysql', icon: FingerPrintIcon },
-  { name: 'BuildingMedicalMISForNGO', description: '', href: '/technicalArticle/building-medical-mis-for-ngo', icon: SquaresPlusIcon }
+  { name: 'Engineering Practical Employee Search', description: 'Engineering practical employee search', href: '/technicalArticle/engineering-practical-employee-search', icon: CursorArrowRaysIcon },
+  { name: 'Employee Record Deduplication', description: 'Employee record deduplication', href: '/technicalArticle/employee-record-deduplication', icon: CursorArrowRaysIcon },
+  { name: 'Procurement Digitization Lessons', description: 'Procurement digitization lessons', href: '/technicalArticle/procurement-digitization-lessons', icon: ChartPieIcon },
+  { name: 'Importing SQL Server to MySQL', description: 'Importing SQL Server to MySQL', href: '/technicalArticle/importing-sql-server-to-mysql', icon: FingerPrintIcon },
+  { name: 'Building Medical MIS for NGO', description: 'Building medical MIS for NGO', href: '/technicalArticle/building-medical-mis-for-ngo', icon: SquaresPlusIcon }
 ]
 
 const mobileMenuOpen = ref(false)

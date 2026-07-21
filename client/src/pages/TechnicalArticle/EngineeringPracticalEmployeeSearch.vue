@@ -109,9 +109,9 @@ import ThreeReverseEngineering from '../../components/EmpSearch/ThreeReverseEngi
 import FourDataConsolidation from '../../components/EmpSearch/FourDataConsolidation.vue'
 import FiveUnifiedSearchModel from '../../components/EmpSearch/fiveUnifiedSearchModel.vue'
 import SixSearchStrategyDesign from '../../components/EmpSearch/SixSearchStrategyDesign.vue'
-import SevenEvaluationOfSearchAlgorithms from '../../components/EmpSearch/SevenEvaluation.vue'
-import EightLessonsLearned from '../../components/EmpSearch/EightLessonsLearned.vue'
-import NineFutureWork from '../../components/EmpSearch/NineFutureWork.vue'
+import SevenEngineeringDecisions from '../../components/EmpSearch/SevenEngineeringDecisions.vue'
+import EightSystemEvaluation from '../../components/EmpSearch/EightSystemEvaluation.vue'
+import NineLessonsLearned from '../../components/EmpSearch/NineLessonsLearned.vue'
 import TenConclusion from '../../components/EmpSearch/TenConclusion.vue'
 
 </script>
