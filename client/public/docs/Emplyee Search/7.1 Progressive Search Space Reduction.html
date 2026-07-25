@@ -1,0 +1,52 @@
+<hr class="h-px my-8 bg-gray-200 border-0" />
+
+<h2 class="text-4xl font-bold">7.1 Progressive Search Space Reduction</h2>
+<p class="mb-3 text-body">One of the most significant engineering decisions made during
+	development was recognizing that not every search algorithm should
+	examine every record.</p>
+<p class="mb-3 text-body">Although each algorithm was capable of identifying particular
+	classes of matches, their computational costs varied considerably.
+	Applying the most computationally expensive methods indiscriminately
+	across the complete dataset produced little practical benefit while
+	significantly increasing execution time.</p>
+<p class="mb-3 text-body">Instead, the search process gradually evolved into a sequence of
+	progressively refined filters.</p>
+<p class="mb-3 text-body">Computationally inexpensive operations were executed first to
+	eliminate obviously unrelated records. More sophisticated similarity
+	algorithms were then applied only to the smaller candidate set that
+	remained.</p>
+<p class="mb-3 text-body">This approach substantially reduced the amount of work performed
+	by the expensive algorithms without sacrificing search quality.</p>
+<p class="mb-3 text-body">The principle resembles multi-stage filtering systems commonly
+	found throughout engineering disciplines. Rather than immediately
+	applying the most precise analytical method, successive filtering
+	stages progressively reduce the search space until only the most
+	relevant candidates remain.</p>
+<p class="mb-3 text-body">Although the implementation evolved through practical
+	experimentation rather than formal optimization, this progressive
+	filtering strategy ultimately became one of the most influential
+	design decisions within the system.</p>
+<hr class="h-px my-8 bg-gray-200 border-0" />
+
+<h3 class="western">Engineering Observation</h3>
+<p class="mb-3 text-body">Search performance depends not only upon the efficiency of
+	individual algorithms but also upon the number of records they are
+	required to evaluate.</p>
+<p class="mb-3 text-body">Reducing the candidate set before invoking computationally
+	expensive algorithms frequently produces greater performance
+	improvements than attempting to optimize the expensive algorithm
+	itself.</p>
+<hr class="h-px my-8 bg-gray-200 border-0" />
+
+<div class="mt-12 pt-6 border-t border-gray-200">
+	<h3 class="text-xl font-bold text-gray-900 mb-3">
+		Engineering Principle
+	</h3>
+	<blockquote class="p-4 my-4 border-s-4 border-default bg-neutral-secondary-soft">
+		<p class="text-xl italic font-medium leading-relaxed text-heading">
+			Reducing the search space is often more effective than accelerating the search algorithm.
+		</p>
+	</blockquote>
+</div>
+
+<hr class="h-px my-8 bg-gray-200 border-0" />

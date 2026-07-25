@@ -8,11 +8,11 @@
 <p>
 <p class="mb-3 text-body">
 
-<ul>
-<ul class="max-w-full space-y-1 text-body list-disc list-inside">
-
 <hr/>
 <hr class="h-px my-8 bg-gray-200 border-0" />
+
+<ul>
+<ul class="max-w-full space-y-1 text-body list-disc list-inside">
 
 <li><p style="margin-bottom: 0in">
 <li>
@@ -39,7 +39,6 @@
 		</p>
 	</blockquote>
 </div>
-
 
 <strong>
 <span class="font-bold text-indigo-600">

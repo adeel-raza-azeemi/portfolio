@@ -83,13 +83,13 @@
 			<SixSearchStrategyDesign />
 
 			<!-- 07. Evaluation of Search Algorithms -->
-			<SevenEvaluationOfSearchAlgorithms />
+			<SevenEngineeringDecisions/>
 
 			<!-- 08. Lessons Learned -->
-			<EightLessonsLearned />
+			<EightSystemEvaluation />
 
 			<!-- 09. Future Work -->
-			<NineFutureWork />
+			<NineLessonsLearned />
 
 			<!-- 10. Conclusion -->
 			<TenConclusion />
