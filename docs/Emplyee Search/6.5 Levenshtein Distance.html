@@ -1,0 +1,122 @@
+<h2 class="text-4xl font-bold">
+	6.5 Levenshtein Distance</h2>
+<h3 class="western">Edit-Distance Based Searching</h3>
+<p class="mb-3 text-body">While previous search techniques focused on exact values, partial
+	matches, phonetic similarity, or structural patterns, Levenshtein
+	Distance approaches the problem from an entirely different
+	perspective. Rather than asking whether two strings match, it
+	measures <span class="font-bold text-indigo-600">how many editing operations are required to
+		transform one string into another</span>.</p>
+<p class="mb-3 text-body">These editing operations typically consist of three fundamental
+	actions:</p>
+<ul class="max-w-full space-y-1 text-body list-disc list-inside">
+	<li>insertion of a character,
+	</li>
+	<li>deletion of a character,
+	</li>
+	<li>
+		<p class="mb-3 text-body">substitution of one character for another.
+	</li>
+</ul>
+<p class="mb-3 text-body">The resulting edit distance provides a numerical measure of
+	similarity. Smaller distances indicate that two strings are more
+	alike, whereas larger distances represent increasingly different
+	values.</p>
+<p class="mb-3 text-body">For employee records, this proved particularly valuable when data
+	entry mistakes produced names that were neither exact matches nor
+	phonetically equivalent.</p>
+<hr class="h-px my-8 bg-gray-200 border-0" />
+
+<h3 class="western">Handling Human Typographical Errors</h3>
+<p class="mb-3 text-body">Unlike phonetic algorithms, which assume that different spellings
+	may represent the same pronunciation, Levenshtein Distance addresses
+	a different class of problems: ordinary typing mistakes.</p>
+<p class="mb-3 text-body">Examples include:</p>
+<ul class="max-w-full space-y-1 text-body list-disc list-inside">
+	<li>omitted characters,
+	</li>
+	<li>duplicated characters,
+	</li>
+	<li>adjacent typing errors,
+	</li>
+	<li>accidental substitutions,
+	</li>
+	<li>
+		<p class="mb-3 text-body">minor misspellings introduced during manual data entry.
+	</li>
+</ul>
+<p class="mb-3 text-body">In operational environments where records have been accumulated
+	over many years by different operators, such inconsistencies become
+	inevitable. Measuring edit distance provides an effective mechanism
+	for recovering these records without requiring perfect input from the
+	user.</p>
+<hr class="h-px my-8 bg-gray-200 border-0" />
+
+<h3 class="western">Practical Performance Constraints</h3>
+<p class="mb-3 text-body">Although Levenshtein Distance produced highly useful results, it
+	also introduced the greatest computational cost among all search
+	methods implemented within the system.</p>
+<p class="mb-3 text-body">During development, informal experimentation revealed that
+	increasing the permitted edit distance caused query execution time to
+	grow dramatically. A search allowing one character difference
+	completed relatively quickly, whereas increasing the tolerance to two
+	characters required substantially more processing. Larger distances
+	rapidly became impractical for interactive use.</p>
+<p class="mb-3 text-body">Rather than performing formal benchmark testing, these
+	observations emerged through repeated operational use while balancing
+	responsiveness against search completeness.</p>
+<p class="mb-3 text-body">As a result, the implementation deliberately restricted the
+	maximum edit distance to <span class="font-bold text-indigo-600">two character modifications</span>
+	during normal searches. This threshold provided an effective
+	compromise between search quality and execution time while
+	maintaining an acceptable user experience.</p>
+<hr class="h-px my-8 bg-gray-200 border-0" />
+
+<h3 class="western">Hybrid Filtering Strategy</h3>
+<p class="mb-3 text-body">An important optimization emerged during later stages of
+	development.</p>
+<p class="mb-3 text-body">Instead of executing the computationally expensive Levenshtein
+	comparison across the entire dataset, inexpensive filtering
+	operations were first used to reduce the candidate records.</p>
+<p class="mb-3 text-body">For example, a broad <code class="western">LIKE</code> condition
+	could first eliminate the majority of obviously unrelated records.
+	Only the remaining subset was then evaluated using Levenshtein
+	Distance.</p>
+<p class="mb-3 text-body">Unlike the earlier strategy of combining independent searches
+	through <code class="western">UNION</code>, this optimization placed
+	multiple conditions within the same query using logical <code class="western">AND</code>
+	operators. The inexpensive filter naturally reduced the search space
+	before the edit-distance calculation was evaluated.</p>
+<p class="mb-3 text-body">Conceptually, this mirrors many engineering systems in which
+	coarse filtering precedes more precise analysis. By eliminating
+	unlikely candidates early, computational resources can be
+	concentrated where they provide the greatest benefit.</p>
+<hr class="h-px my-8 bg-gray-200 border-0" />
+
+<h3 class="western">Engineering Observation</h3>
+<p class="mb-3 text-body">Levenshtein Distance demonstrated that search accuracy cannot be
+	considered independently from computational cost.</p>
+<p class="mb-3 text-body">Increasing the allowable edit distance undoubtedly discovers more
+	potential matches, but it also expands the search space
+	significantly. Beyond a certain point, the additional computational
+	effort produces diminishing practical benefit.</p>
+<p class="mb-3 text-body">The implementation therefore favored a conservative threshold that
+	balanced accuracy with responsiveness rather than attempting to
+	recover every theoretically possible match.</p>
+<hr class="h-px my-8 bg-gray-200 border-0" />
+
+<div class="mt-12 pt-6 border-t border-gray-200">
+	<h3 class="text-xl font-bold text-gray-900 mb-3">
+		Engineering Principle
+	</h3>
+	<blockquote class="p-4 my-4 border-s-4 border-default bg-neutral-secondary-soft">
+		<p class="text-xl italic font-medium leading-relaxed text-heading">
+			Similarity-based algorithms should be applied
+			selectively. Restricting expensive comparisons to a carefully
+			filtered subset provides substantially better scalability than
+			applying them indiscriminately across the entire dataset.
+		</p>
+	</blockquote>
+</div>
+
+<hr class="h-px my-8 bg-gray-200 border-0" />
