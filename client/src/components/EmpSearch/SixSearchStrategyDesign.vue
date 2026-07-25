@@ -693,290 +693,107 @@
 
 				<hr class="h-px my-8 bg-gray-200 border-0" />
 
-				<hr class="h-px my-8 bg-gray-200 border-0" />
-
-				<h2 class="text-4xl font-bold">06.5 Levenshtein Distance</h2>
-				<h3 class="western">Correcting Typographical Errors</h3>
-				<p class="mb-3 text-body">Unlike phonetic algorithms, which compare the pronunciation of
-					words, Levenshtein Distance measures the number of editing operations
-					required to transform one string into another. These operations
-					include inserting, deleting, or replacing individual characters. As a
-					result, the algorithm is particularly effective for detecting
-					typographical errors that commonly occur during manual data entry.</p>
-				<p class="mb-3 text-body">Within the employee search system, Levenshtein matching was not
-					intended to replace simpler search operators. Instead, it served as a
-					higher-precision search mechanism for situations where conventional
-					matching techniques failed to locate the desired employee. Typical
-					examples included omitted characters, duplicated letters, accidental
-					substitutions, and transposed characters introduced during manual
-					typing.</p>
-				<p class="mb-3 text-body">For example, an employee named <span
-						class="font-bold text-indigo-600">Muhammad</span> could be
-					entered as <span class="font-bold text-indigo-600">Muhamad</span>, <span
-						class="font-bold text-indigo-600">Mohammad</span>, or
-					<span class="font-bold text-indigo-600">Muhmmad</span>. While these variations often fail exact
-					string comparisons, their edit distance remains relatively small,
-					allowing the intended employee record to be identified successfully.
-				</p>
-				<hr class="h-px my-8 bg-gray-200 border-0" />
-
-				<h3 class="western">Practical Computational Constraints</h3>
-				<p class="mb-3 text-body">Although Levenshtein Distance significantly improves search
-					accuracy, it is computationally expensive when applied across large
-					datasets. Every comparison requires calculating the edit distance
-					between the search string and each candidate record, causing
-					execution time to increase rapidly as both the dataset size and
-					permitted edit distance grow.</p>
-				<p class="mb-3 text-body">During implementation, informal testing demonstrated that
-					increasing the permitted edit distance produced disproportionately
-					longer execution times. A search allowing one editing operation
-					typically completed quickly, whereas permitting two edits required
-					substantially more processing. Increasing the threshold further
-					caused execution times to grow from seconds to minutes and eventually
-					to impractical durations for interactive searching.</p>
-				<p class="mb-3 text-body">While no formal benchmarking was conducted, these observations
-					were sufficient to establish practical operational limits within the
-					production system.</p>
-				<hr class="h-px my-8 bg-gray-200 border-0" />
-
-				<h3 class="western">Engineering Decision</h3>
-				<p class="mb-3 text-body">To maintain acceptable responsiveness, the implementation
-					restricted the maximum permitted edit distance to <span class="font-bold text-indigo-600">two</span>
-					for routine searches. This value provided an effective compromise
-					between search accuracy and computational cost. Larger edit distances
-					were reserved only for exceptional situations where locating a
-					missing employee record justified significantly longer execution
-					times.</p>
-				<p class="mb-3 text-body">This decision illustrates an important engineering principle:
-					selecting an algorithm is only part of the solution. Equally
-					important is determining the practical operating boundaries that
-					balance computational cost against the needs of the end user.</p>
-				<hr class="h-px my-8 bg-gray-200 border-0" />
-
-				<hr class="h-px my-8 bg-gray-200 border-0" />
-
 				<h1 class="mb-4 text-4xl font-bold tracking-tight text-heading md:text-5xl lg:text-6xl">
-					Levenshtein
-					Distance – When Typographical
-					Errors Become the Problem</h1>
-				<p class="mb-3 text-body">One of the most powerful techniques available for approximate
-					string matching is the <span class="font-bold text-indigo-600">Levenshtein Distance</span>
-					algorithm. Unlike phonetic algorithms such as Soundex, which attempt
-					to match words based on pronunciation, Levenshtein measures the
-					<span class="font-bold text-indigo-600">minimum number of character edits</span> required to
-					transform one string into another.
-				</p>
-				<p class="mb-3 text-body">These edit operations typically include:</p>
-				<ul class="max-w-full space-y-1 text-body list-disc list-inside">
-					<li>Character insertion
-					</li>
-					<li>Character deletion
-					</li>
-					<li>
-						Character substitution
-					</li>
-				</ul>
-				<p class="mb-3 text-body">For example:</p>
-				<table cellpadding="2" cellspacing="2">
-					<thead>
-						<tr>
-							<th style="border: none; padding: 0in">
-								<p class="mb-3 text-body">User Input</p>
-							</th>
-							<th style="border: none; padding: 0in">
-								<p class="mb-3 text-body">Database Value</p>
-							</th>
-							<th style="border: none; padding: 0in">
-								<p class="mb-3 text-body">Distance</p>
-							</th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr>
-							<td style="border: none; padding: 0in">
-								<p class="mb-3 text-body">Ahmad</p>
-							</td>
-							<td style="border: none; padding: 0in">
-								<p class="mb-3 text-body">Ahmed</p>
-							</td>
-							<td style="border: none; padding: 0in">
-								<p class="mb-3 text-body">1</p>
-							</td>
-						</tr>
-						<tr>
-							<td style="border: none; padding: 0in">
-								<p class="mb-3 text-body">Khalid</p>
-							</td>
-							<td style="border: none; padding: 0in">
-								<p class="mb-3 text-body">Khaled</p>
-							</td>
-							<td style="border: none; padding: 0in">
-								<p class="mb-3 text-body">1</p>
-							</td>
-						</tr>
-						<tr>
-							<td style="border: none; padding: 0in">
-								<p class="mb-3 text-body">Muhammad</p>
-							</td>
-							<td style="border: none; padding: 0in">
-								<p class="mb-3 text-body">Mohammad</p>
-							</td>
-							<td style="border: none; padding: 0in">
-								<p class="mb-3 text-body">2</p>
-							</td>
-						</tr>
-					</tbody>
-				</table>
-				<p class="mb-3 text-body">Instead of asking <em>&quot;Do these two names sound alike?&quot;</em>,
-					Levenshtein asks a different question:</p>
-
-				<div class="mt-12 pt-6 border-t border-gray-200">
-					<blockquote class="p-4 my-4 border-s-4 border-default bg-neutral-secondary-soft">
-						<p class="text-xl italic font-medium leading-relaxed text-heading">
-							&quot;How many typing mistakes separate these two strings?&quot;
-						</p>
-					</blockquote>
-				</div>
-
-				<p class="mb-3 text-body">This distinction makes it particularly effective when the original
-					data already exists but has been entered with minor spelling
-					variations, accidental omissions, or typographical mistakes.</p>
+					6.5 Levenshtein Distance</h1>
+				<h2 class="text-4xl font-bold">Edit Distance for Approximate Matching</h2>
+				<p class="mb-3 text-body">Unlike the previous search methods, which relied on exact values,
+					partial matches, phonetic similarity, or structural patterns,
+					Levenshtein Distance measures the similarity between two strings by
+					calculating the minimum number of editing operations required to
+					transform one string into another. These operations consist of
+					character insertions, deletions, and substitutions.</p>
+				<p class="mb-3 text-body">This approach is particularly effective for recovering records
+					affected by human typing errors, where the intended value is visually
+					similar to the stored value but no longer satisfies exact or phonetic
+					matching criteria.</p>
+				<p class="mb-3 text-body">Unlike Soundex, which attempts to identify words that sound alike,
+					Levenshtein Distance measures how closely two strings resemble one
+					another regardless of pronunciation. Consequently, it proved
+					particularly useful for correcting typographical mistakes introduced
+					during manual data entry.</p>
 				<hr class="h-px my-8 bg-gray-200 border-0" />
 
-				<h3 class="western">Why Levenshtein Was Valuable</h3>
-				<p class="mb-3 text-body">During the ERP migration, employee information originated from
-					multiple independent systems that had evolved over many years.</p>
-				<p class="mb-3 text-body">Even when referring to the same individual, records frequently
-					differed because of:</p>
-				<ul class="max-w-full space-y-1 text-body list-disc list-inside">
-					<li>Manual typing errors
-					</li>
-					<li>Missing characters
-					</li>
-					<li>Additional spaces
-					</li>
-					<li>Different spellings
-					</li>
-					<li>OCR or transcription mistakes
-					</li>
-					<li>
-						Legacy data inconsistencies
-					</li>
-				</ul>
-				<p class="mb-3 text-body">Traditional SQL operators cannot recognize these records as
-					similar.</p>
-				<p class="mb-3 text-body">For example,</p>
-				<div id="code-block-viewer" dir="ltr">
-					<pre class="western"><code class="western">Muhammad Ali</code>
-<code class="western">Mohammad Ali</code>
-<code class="western">Muhamad Ali</code>
-<code class="western">Muhammed Ali</code></pre>
-				</div>
-				<p class="mb-3 text-body">are clearly recognizable to a human reader, yet an exact SQL
-					comparison treats each value as entirely different.</p>
-				<p class="mb-3 text-body">Levenshtein allows these variations to be compared mathematically.</p>
+				<h2 class="text-4xl font-bold">Handling Typographical Errors</h2>
+				<p class="mb-3 text-body">Employee records accumulated over many years inevitably contained
+					minor inconsistencies caused by manual data entry. Typical examples
+					included omitted characters, duplicated letters, accidental
+					substitutions, and small spelling mistakes.</p>
+				<p class="mb-3 text-body">These errors often prevented exact searches from locating the
+					intended employee, even though the correct record differed by only
+					one or two characters.</p>
+				<p class="mb-3 text-body">Levenshtein Distance addressed this problem by measuring the
+					number of edits required to transform the search term into the stored
+					value, allowing records with minor differences to be recovered
+					successfully.</p>
 				<hr class="h-px my-8 bg-gray-200 border-0" />
 
-				<h3 class="western">Engineering Trade-off</h3>
-				<p class="mb-3 text-body">Although Levenshtein is an excellent approximate matching
-					algorithm, it comes with a significant computational cost.</p>
-				<p class="mb-3 text-body">Unlike a simple indexed lookup, the algorithm must compare
-					individual characters between two strings while calculating the
-					minimum edit sequence.</p>
-				<p class="mb-3 text-body">As both the number of records and the allowed edit distance
-					increase, the amount of computation rises dramatically.</p>
-				<p class="mb-3 text-body">During development, I performed several practical experiments
-					rather than formal benchmarks. Although the testing environment was
-					not intended for research, one pattern became immediately apparent:</p>
-
-				<div class="mt-12 pt-6 border-t border-gray-200">
-					<blockquote class="p-4 my-4 border-s-4 border-default bg-neutral-secondary-soft">
-						Increasing the permitted edit distance produced a disproportionately large increase in execution
-						time.
-					</blockquote>
-				</div>
-
-				<p class="mb-3 text-body">A search allowing only <span class="font-bold text-indigo-600">one character
-						difference</span>
-					completed relatively quickly.</p>
-				<p class="mb-3 text-body">Allowing <span class="font-bold text-indigo-600">two character
-						differences</span> increased
-					execution time substantially.</p>
-				<p class="mb-3 text-body">Beyond that point, search performance deteriorated rapidly and
-					became impractical for interactive use across thousands of employee
-					records.</p>
-				<p class="mb-3 text-body">The exact execution time naturally depended on the dataset and
-					hardware, but the overall trend was unmistakable: <span class="font-bold text-indigo-600">greater
-						flexibility demanded exponentially greater computational effort.</span></p>
+				<h2 class="text-4xl font-bold">Performance Considerations</h2>
+				<p class="mb-3 text-body">Among all search methods implemented within the system,
+					Levenshtein Distance imposed the greatest computational cost.</p>
+				<p class="mb-3 text-body">Although no formal performance study was conducted, several
+					informal benchmark experiments were performed during development to
+					understand the practical impact of increasing the permitted edit
+					distance. These experiments consistently demonstrated that execution
+					time increased dramatically as additional character modifications
+					were allowed.</p>
+				<p class="mb-3 text-body">Routine searches therefore limited the edit distance to <span
+						class="font-bold text-indigo-600">two
+						character modifications</span> when applied across the complete
+					employee dataset. This threshold provided a practical balance between
+					search accuracy and acceptable response time during normal operation.</p>
+				<p class="mb-3 text-body">Rather than representing a fixed limitation of the algorithm
+					itself, this threshold reflected an engineering decision based on the
+					size of the search space being evaluated.</p>
 				<hr class="h-px my-8 bg-gray-200 border-0" />
 
-				<h3 class="western">Practical Engineering Decision</h3>
-				<p class="mb-3 text-body">Rather than maximizing search tolerance, the implementation
-					deliberately limited the allowable edit distance.</p>
-				<p class="mb-3 text-body">In normal operation, the search was restricted to a <span
-						class="font-bold text-indigo-600">maximum
-						distance of two</span>.</p>
-				<p class="mb-3 text-body">This provided an effective balance between:</p>
-				<ul class="max-w-full space-y-1 text-body list-disc list-inside">
-					<li>Accuracy
-					</li>
-					<li>User responsiveness
-					</li>
-					<li>
-						Computational cost
-					</li>
-				</ul>
-				<p class="mb-3 text-body">Whenever larger distances were required, they were executed only
-					as exceptional searches rather than becoming the default behaviour.</p>
-				<p class="mb-3 text-body">This design decision illustrates an important engineering
-					principle:</p>
-
-				<div class="mt-12 pt-6 border-t border-gray-200">
-					<blockquote class="p-4 my-4 border-s-4 border-default bg-neutral-secondary-soft">
-						<p class="text-xl italic font-medium leading-relaxed text-heading">
-							A theoretically superior algorithm is not necessarily the best engineering solution.
-						</p>
-					</blockquote>
-				</div>
-
-				<p class="mb-3 text-body">The objective was not to find every mathematically possible match.</p>
-				<p class="mb-3 text-body">The objective was to produce useful results within a reasonable
-					amount of time for operational staff.</p>
+				<h2 class="text-4xl font-bold">Progressive Search-Space Reduction</h2>
+				<p class="mb-3 text-body">The two-character limit applied primarily when Levenshtein
+					Distance was evaluated against the entire dataset.</p>
+				<p class="mb-3 text-body">As the search engine evolved, it became apparent that
+					computationally expensive algorithms should not necessarily operate
+					on every record. Instead, inexpensive filters such as the <code class="western">LIKE</code>
+					operator were first used to eliminate obviously unrelated records.
+					Levenshtein Distance was then applied only to the much smaller subset
+					that remained.</p>
+				<p class="mb-3 text-body">Unlike the earlier approach of combining independent search
+					strategies through <code class="western">UNION</code>, this
+					optimization combined multiple conditions within the same query using
+					logical <code class="western">AND</code> operators. The inexpensive
+					filter naturally reduced the candidate records before the
+					edit-distance calculation was performed.</p>
+				<p class="mb-3 text-body">Reducing the search space in this manner significantly improved
+					performance while preserving the accuracy advantages of Levenshtein
+					Distance.</p>
 				<hr class="h-px my-8 bg-gray-200 border-0" />
 
-				<h3 class="western">Hybrid Optimization</h3>
-				<p class="mb-3 text-body">As development progressed, another observation emerged.</p>
-				<p class="mb-3 text-body">Not every search required Levenshtein to examine the entire
-					dataset.</p>
-				<p class="mb-3 text-body">Instead, inexpensive operators such as <span
-						class="font-bold text-indigo-600">LIKE</span> could
-					first eliminate the overwhelming majority of unrelated records.</p>
-				<p class="mb-3 text-body">Only the much smaller candidate set would then be evaluated using
-					Levenshtein.</p>
-				<p class="mb-3 text-body">Conceptually, instead of writing separate queries combined with
-					<code class="western">UNION</code>, both conditions could be
-					incorporated into a single SQL statement:
-				</p>
-				<div id="Section1" dir="ltr">
-					<pre class="western"><a name="code-block-viewer"></a><code class="western">WHERE Name LIKE '%Ali%'</code>
-<code class="western">AND LEVENSHTEIN(Name,'Ali') &lt;= 2</code></pre>
-				</div>
-				<p class="mb-3 text-body">This allowed the database optimizer to exploit the inexpensive
-					filter before invoking the computationally expensive comparison.</p>
-				<p class="mb-3 text-body">Although this hybrid approach was introduced later in development,
-					it demonstrated an important optimization strategy:</p>
+				<h2 class="text-4xl font-bold">Operational Flexibility</h2>
+				<p class="mb-3 text-body">Although routine searches restricted the edit distance to maintain
+					acceptable response times, operational requirements occasionally
+					justified more computationally expensive searches.</p>
+				<p class="mb-3 text-body">When all other search methods failed to locate a particular
+					employee, larger edit distances could still be used as a final
+					recovery mechanism. Such searches sometimes required a considerable
+					amount of time to complete, but these situations were relatively rare
+					and typically involved locating a single critical employee record
+					during data migration.</p>
+				<p class="mb-3 text-body">In these circumstances, spending additional processing time to
+					recover the correct record was considered an acceptable trade-off.</p>
+				<p class="mb-3 text-body">This illustrates an important engineering principle: performance
+					requirements depend upon operational context. A search performed
+					hundreds of times each day must prioritize responsiveness, whereas a
+					one-time recovery task may reasonably prioritize completeness over
+					execution speed.</p>
+				<hr class="h-px my-8 bg-gray-200 border-0" />
 
-				<div class="mt-12 pt-6 border-t border-gray-200">
-					<blockquote class="p-4 my-4 border-s-4 border-default bg-neutral-secondary-soft">
-						<p class="text-xl italic font-medium leading-relaxed text-heading">
-							Use inexpensive algorithms to prune the search space before applying expensive algorithms.
-						</p>
-					</blockquote>
-				</div>
-
-				<p class="mb-3 text-body">This principle extends far beyond employee search systems and
-					appears throughout computer science, from database optimization to
-					artificial intelligence.</p>
+				<h2 class="text-4xl font-bold">Engineering Observation</h2>
+				<p class="mb-3 text-body">Increasing the allowable edit distance undoubtedly discovers more
+					potential matches, but it also increases the computational effort
+					required to evaluate those possibilities. Beyond a certain point, the
+					additional processing time produces diminishing practical benefit.</p>
+				<p class="mb-3 text-body">Consequently, the implementation favored adaptive application
+					rather than unrestricted use. Routine searches emphasized efficiency,
+					while exceptional recovery scenarios permitted more exhaustive
+					evaluation when operationally justified.</p>
 				<hr class="h-px my-8 bg-gray-200 border-0" />
 
 				<div class="mt-12 pt-6 border-t border-gray-200">
@@ -985,18 +802,11 @@
 					</h3>
 					<blockquote class="p-4 my-4 border-s-4 border-default bg-neutral-secondary-soft">
 						<p class="text-xl italic font-medium leading-relaxed text-heading">
-							Approximate matching is always a balance between flexibility and computational cost.
+							Computationally expensive similarity algorithms
+							should be applied selectively. Restricting them to progressively
+							filtered candidate sets provides substantially better scalability
+							than applying them indiscriminately across the entire dataset.
 						</p>
-					</blockquote>
-				</div>
-
-				<div class="mt-12 pt-6 border-t border-gray-200">
-					<blockquote class="p-4 my-4 border-s-4 border-default bg-neutral-secondary-soft">
-						Allowing greater error tolerance improves the probability
-						of finding the desired record, but every additional degree of
-						flexibility consumes disproportionately more computational resources.
-						Effective engineering lies in identifying the point where additional
-						accuracy no longer justifies its cost.
 					</blockquote>
 				</div>
 
@@ -1112,7 +922,6 @@ Distance</code> compensate for uncertainty in the stored data,
 				</div>
 
 				<hr class="h-px my-8 bg-gray-200 border-0" />
-
 			</div>
 		</div>
 
