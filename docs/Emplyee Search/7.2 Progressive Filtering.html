@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+	<title></title>
+	<meta name="generator" content="LibreOffice 26.2.4.2 (Linux)"/>
+	<meta name="created" content="2026-08-01T21:38:45.267621075"/>
+	<meta name="changed" content="2026-08-01T21:39:37.172443644"/>
+	<style type="text/css">
+		@page { size: 8.27in 11.69in; margin: 0.79in }
+		p { margin-bottom: 0.1in; line-height: 115%; background: transparent }
+		h1 { margin-bottom: 0.08in; background: transparent; page-break-after: avoid }
+		h1.western { font-family: "Liberation Serif", serif; font-size: 24pt; font-weight: bold }
+		h1.cjk { font-family: "Noto Serif CJK SC"; font-size: 24pt; font-weight: bold }
+		h1.ctl { font-size: 24pt; font-family: "Noto Sans Devanagari"; font-weight: bold }
+		h2 { margin-top: 0.14in; margin-bottom: 0.08in; background: transparent; page-break-after: avoid }
+		h2.western { font-family: "Liberation Serif", serif; font-size: 18pt; font-weight: bold }
+		h2.cjk { font-family: "Noto Serif CJK SC"; font-size: 18pt; font-weight: bold }
+		h2.ctl { font-size: 18pt; font-family: "Noto Sans Devanagari"; font-weight: bold }
+		strong { font-weight: bold }
+	</style>
+</head>
+<body lang="en-US" link="#000080" vlink="#800000" dir="ltr">
+<hr/>
+
+<h1 class="western">7.2 Progressive Filtering</h1>
+<p>Searching a large dataset efficiently is rarely accomplished by
+applying a single sophisticated algorithm. In practice, the search
+process becomes significantly faster when records are eliminated
+progressively through a series of increasingly selective filters.</p>
+<p>During the development of the Employee Search System, I found it
+useful to think of the search process as a pipeline rather than a
+single operation. Each stage had one purpose: reduce the candidate
+set before passing the remaining records to the next stage.</p>
+<p>The first filters were intentionally inexpensive. Simple
+operations such as checking district, gender, registration status, or
+exact field matches could discard a large percentage of records with
+minimal computational cost. Although these filters were individually
+simple, together they dramatically reduced the amount of data that
+subsequent algorithms needed to process.</p>
+<p>Once the candidate set had been sufficiently reduced, more
+computationally expensive techniques such as partial matching,
+phonetic comparison, regular expressions, or edit-distance
+calculations could be applied. Since these algorithms operated on
+only a small subset of records, their execution time became much more
+manageable.</p>
+<p>This ordering was not accidental. It followed a general
+engineering principle: <strong>perform inexpensive operations first
+and reserve expensive computations for the smallest possible dataset.</strong>
+Reversing this sequence would have forced every advanced algorithm to
+process the entire database, resulting in unnecessary computation and
+noticeably slower searches.</p>
+<p>The search process therefore became less about finding the perfect
+algorithm and more about constructing an efficient sequence of
+elimination steps. Every filter removed records that no longer
+required further examination, allowing increasingly sophisticated
+algorithms to concentrate only on the most promising candidates.</p>
+<hr/>
+
+<h2 class="western">Engineering Perspective</h2>
+<p>This strategy closely resembles multi-stage filtration systems
+used in physical engineering. A water purification system does not
+begin with its finest membrane. Instead, coarse filters remove larger
+particles first, protecting the more delicate and expensive filters
+that follow.</p>
+<p>The same principle applies to software search systems. Simple
+filters remove the obvious mismatches, allowing advanced algorithms
+to focus their computational effort where it is most valuable. The
+objective is not merely to search faster, but to avoid unnecessary
+searching altogether.</p>
+<hr/>
+
+<p style="line-height: 100%; margin-bottom: 0in"><br/>
+
+</p>
+</body>
+</html>

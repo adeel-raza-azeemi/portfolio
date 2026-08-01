@@ -1,0 +1,101 @@
+<hr class="h-px my-8 bg-gray-200 border-0" />
+
+<h2 class="text-4xl font-bold">7.1 Searching Less Instead of Searching Faster</h2>
+<p class="mb-3 text-body">This may sound counterintuitive, but during the development of the
+Employee Search System I eventually realized that improving search
+performance rarely meant finding a faster algorithm.</p>
+<p class="mb-3 text-body">More often, it meant avoiding unnecessary work altogether.</p>
+<p class="mb-3 text-body">When a search became slow, my first instinct was initially to look
+for a better algorithm or a more efficient implementation. Over time,
+however, I noticed that the largest performance gains usually came
+from reducing the amount of data that needed to be examined.</p>
+<p class="mb-3 text-body">Searching one hundred records with an average algorithm is almost
+always faster than searching one hundred thousand records with an
+excellent algorithm.</p>
+<p class="mb-3 text-body">This shifted my way of thinking.</p>
+<p class="mb-3 text-body">Instead of asking,</p>
+<blockquote>&quot;How can I make this algorithm faster?&quot; 
+</blockquote>
+<p class="mb-3 text-body">I started asking,</p>
+<blockquote>&quot;How can I reduce the number of records that ever
+reach this algorithm?&quot; 
+</blockquote>
+<p class="mb-3 text-body">That small change in perspective influenced nearly every
+optimization that followed.</p>
+<p class="mb-3 text-body">For example, inexpensive filters such as exact field matches,
+district selection, gender, or record status could immediately
+eliminate large portions of the dataset. Only after these inexpensive
+operations reduced the candidate set would more computationally
+expensive techniques, such as regular expressions or Levenshtein
+distance, be applied.</p>
+<p class="mb-3 text-body">The goal was never to make every algorithm faster.</p>
+<p class="mb-3 text-body">The goal was to ensure that expensive algorithms were executed as
+rarely as possible.</p>
+<p class="mb-3 text-body">In many situations, removing ninety percent of the candidate
+records before applying a costly comparison produced a greater
+performance improvement than rewriting the comparison algorithm
+itself.</p>
+<p class="mb-3 text-body">Performance optimization therefore became less about writing
+clever code and more about designing an efficient sequence of
+decisions.</p>
+<hr class="h-px my-8 bg-gray-200 border-0" />
+
+<hr class="h-px my-8 bg-gray-200 border-0" />
+
+<h1 class="mb-4 text-4xl font-bold tracking-tight text-heading md:text-5xl lg:text-6xl">7.2 Progressive Filtering</h1>
+<p class="mb-3 text-body">Searching a large dataset efficiently is rarely accomplished by
+applying a single sophisticated algorithm. In practice, the search
+process becomes significantly faster when records are eliminated
+progressively through a series of increasingly selective filters.</p>
+<p class="mb-3 text-body">During the development of the Employee Search System, I found it
+useful to think of the search process as a pipeline rather than a
+single operation. Each stage had one purpose: reduce the candidate
+set before passing the remaining records to the next stage.</p>
+<p class="mb-3 text-body">The first filters were intentionally inexpensive. Simple
+operations such as checking district, gender, registration status, or
+exact field matches could discard a large percentage of records with
+minimal computational cost. Although these filters were individually
+simple, together they dramatically reduced the amount of data that
+subsequent algorithms needed to process.</p>
+<p class="mb-3 text-body">Once the candidate set had been sufficiently reduced, more
+computationally expensive techniques such as partial matching,
+phonetic comparison, regular expressions, or edit-distance
+calculations could be applied. Since these algorithms operated on
+only a small subset of records, their execution time became much more
+manageable.</p>
+<p class="mb-3 text-body">This ordering was not accidental. It followed a general
+engineering principle: <span class="font-bold text-indigo-600">perform inexpensive operations first
+and reserve expensive computations for the smallest possible dataset.</span>
+Reversing this sequence would have forced every advanced algorithm to
+process the entire database, resulting in unnecessary computation and
+noticeably slower searches.</p>
+<p class="mb-3 text-body">The search process therefore became less about finding the perfect
+algorithm and more about constructing an efficient sequence of
+elimination steps. Every filter removed records that no longer
+required further examination, allowing increasingly sophisticated
+algorithms to concentrate only on the most promising candidates.</p>
+<hr class="h-px my-8 bg-gray-200 border-0" />
+
+<div class="mt-12 pt-6 border-t border-gray-200">
+	<h3 class="text-xl font-bold text-gray-900 mb-3">
+		Engineering Principle
+	</h3>
+	<blockquote class="p-4 my-4 border-s-4 border-default bg-neutral-secondary-soft">
+		<p class="text-xl italic font-medium leading-relaxed text-heading">
+			This strategy closely resembles multi-stage filtration systems
+used in physical engineering. A water purification system does not
+begin with its finest membrane. Instead, coarse filters remove larger
+particles first, protecting the more delicate and expensive filters
+that follow.
+		</p>
+		<p class="text-xl italic font-medium leading-relaxed text-heading">
+			The same principle applies to software search systems. Simple
+filters remove the obvious mismatches, allowing advanced algorithms
+to focus their computational effort where it is most valuable. The
+objective is not merely to search faster, but to avoid unnecessary
+searching altogether.
+		</p>
+	</blockquote>
+</div>
+
+<hr class="h-px my-8 bg-gray-200 border-0" />
