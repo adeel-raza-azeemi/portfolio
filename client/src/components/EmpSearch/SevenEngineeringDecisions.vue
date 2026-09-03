@@ -86,17 +86,6 @@
 					of the environment.</p>
 				<hr class="h-px my-8 bg-gray-200 border-0" />
 
-				<h2 class="text-4xl font-bold">Engineering Principle</h2>
-				<blockquote>
-					<strong>
-						Successful search systems are not built by
-						selecting the most sophisticated algorithm. They are built by
-						understanding the strengths, limitations, and interactions of
-						multiple algorithms, then arranging them into a strategy that
-						balances accuracy, responsiveness, and operational practicality.
-					</strong>
-				</blockquote>
-
 				<div class="mt-12 pt-6 border-t border-gray-200">
 					<h3 class="text-xl font-bold text-gray-900 mb-3">
 						Engineering Principle
@@ -114,9 +103,7 @@
 
 				<hr class="h-px my-8 bg-gray-200 border-0" />
 
-				<hr class="h-px my-8 bg-gray-200 border-0" />
-
-				<h2 class="text-4xl font-bold">7.1 Progressive Search Space Reduction</h2>
+				<h2 class="text-4xl font-bold">Progressive Search Space Reduction</h2>
 				<p class="mb-3 text-body">One of the most significant engineering decisions made during
 					development was recognizing that not every search algorithm should
 					examine every record.</p>
@@ -268,7 +255,66 @@
 
 				<hr class="h-px my-8 bg-gray-200 border-0" />
 
-				<!-- Insert here -->
+				<h2 class="text-4xl font-bold">7.3 Measuring Before Optimizing</h2>
+				<p class="mb-3 text-body">Performance optimization should begin with observation rather than
+					assumption. During the development of the Employee Search System, I
+					occasionally measured the behaviour of different search strategies to
+					understand where the computational cost actually originated. Although
+					these measurements were not conducted as formal benchmarks, they
+					provided valuable insight into how the system behaved as the search
+					criteria became increasingly complex.</p>
+				<p class="mb-3 text-body">One observation became immediately apparent. Not all search
+					algorithms scaled in the same way. Simple operations, such as exact
+					matches or partial string comparisons, remained relatively
+					inexpensive even when executed against large datasets. In contrast,
+					algorithms that explored multiple alternative character combinations,
+					such as edit-distance calculations or recursive phonetic matching,
+					exhibited a much steeper increase in execution time as their search
+					space expanded.</p>
+				<p class="mb-3 text-body">Rather than relying on intuition alone, these small experiments
+					influenced subsequent design decisions. They confirmed which
+					algorithms could safely be applied to the complete dataset and which
+					should be reserved for a much smaller subset of candidate records.
+					This understanding reinforced an important engineering principle:
+					optimization decisions should be guided by observed behaviour rather
+					than assumptions about performance.</p>
+				<p class="mb-3 text-body">In many cases, a simple measurement proved more valuable than
+					extensive code modification. Once the primary performance bottleneck
+					had been identified, the solution often became straightforward.
+					Instead of attempting to optimise the algorithm itself, the search
+					pipeline was restructured so that fewer records ever reached the
+					computationally expensive stage.</p>
+				<p class="mb-3 text-body">The objective was therefore not to make every algorithm faster,
+					but to understand where computational effort was being spent and to
+					organise the search process accordingly.</p>
+				<hr class="h-px my-8 bg-gray-200 border-0" />
+
+				<div class="mt-12 pt-6 border-t border-gray-200">
+					<h3 class="text-xl font-bold text-gray-900 mb-3">
+						Engineering Perspective
+					</h3>
+					<blockquote class="p-4 my-4 border-s-4 border-default bg-neutral-secondary-soft">
+						<p class="text-xl italic font-medium leading-relaxed text-heading">
+							Software engineers often focus on improving algorithms, but
+							optimisation without measurement frequently addresses the wrong
+							problem. A system may spend only a small fraction of its execution
+							time inside the algorithm that appears most complex, while the actual
+							bottleneck lies elsewhere.
+						</p>
+						<p class="text-xl italic font-medium leading-relaxed text-heading">
+							For this reason, performance measurements—however simple—are
+							often more valuable than assumptions. Even informal timing
+							experiments can reveal which components deserve optimisation and
+							which are already sufficiently efficient. Measuring first, and
+							optimising second, leads to engineering decisions that are guided by
+							evidence rather than intuition.
+						</p>
+					</blockquote>
+				</div>
+
+				<hr class="h-px my-8 bg-gray-200 border-0" />
+
+				<!-- 7.4 and 7.5 will be added only when their content is complete. -->
 			</div>
 		</div>
 

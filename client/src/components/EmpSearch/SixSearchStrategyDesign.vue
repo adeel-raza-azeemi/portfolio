@@ -53,7 +53,7 @@
 					of overlooking duplicates.</p>
 				<hr class="mt-6 border-gray-200" />
 
-				<h2 class="mt-3 mb-3 text-4xl font-bold">6.1 Why One Search Algorithm Was Not Enough</h2>
+				<h2 class="mt-3 mb-3 text-4xl font-bold">Why One Search Algorithm Was Not Enough</h2>
 				<p class="mb-3 text-body">Human names rarely conform to strict rules.</p>
 				<p class="mb-3 text-body">An employee may appear under slightly different spellings across
 					independent databases.</p>
