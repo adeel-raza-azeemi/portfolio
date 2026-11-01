@@ -125,10 +125,10 @@
               <p class="text-foreground/70">Mission-Critical Systems Built</p>
             </div>
 
-            <div class="bg-gradient-to-br from-primary/5 to-accent/5 rounded-lg p-8 border border-border">
+            <!-- <div class="bg-gradient-to-br from-primary/5 to-accent/5 rounded-lg p-8 border border-border">
               <div class="text-4xl font-bold text-primary mb-2 mono">1000s</div>
               <p class="text-foreground/70">Concurrent Users Supported</p>
-            </div>
+            </div> -->
           </div>
         </div>
       </div>
