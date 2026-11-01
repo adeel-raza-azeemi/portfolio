@@ -76,7 +76,7 @@
             <div class="relative w-full max-w-sm">
               <div class="relative inset-0 bg-gradient-to-br from-primary/20 to-accent/20 rounded-xl blur-xl" />
               <img
-                src="/images/profile.jpeg"
+                src="/images/adeel_smart.jpg"
                 alt="Adeel Raza"
                 class="relative w-full rounded-xl shadow-lg border-2 border-accent/20"
               />
